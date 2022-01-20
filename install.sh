@@ -54,7 +54,7 @@ swapon /dev/sda2
 #  * ██ ██   ████ ███████    ██    ██   ██ ███████ ███████
 
 # * Install fundamental packages
-pacstrap /mnt base linux linux-firmware vim git sudo
+pacstrap /mnt base linux linux-firmware vim git sudo dhcpcd netctl dialog wpa_supplicant
 
 # * Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -116,4 +116,12 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 # * Finally, reboot, remove the install medium and create a new user on the system
 exit
+umount -R /mnt
 shutdown now
+
+
+# ! If, for some reason, you need to return to the iso environment (e.g. wifi tools were not installed correctly, and you have no wifi as a user) then boot from the iso and:
+ip link
+mount /dev/sda3 /mnt
+arch-chroot /mnt /bin/bash
+# ! Now you can pacman as you like
