@@ -2,7 +2,10 @@
 # ip link # ? Identify the network interface, probably the second one on the list
 # ip link set <interface> up # ? Set it to UP, by default it is DOWN
 
-## ! Then clone this repository with:
+## ! Then clone this repository (after setting up git) with:
+# git config --global credential.helper store
+# git config --global user.email  "brendanjohnharris@gmail.com"
+# git config --global user.name "brendanjohnharris"
 # git clone --bare https://github.com/brendanjohnharris/Arch.git $HOME/.dotfiles
 # git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout
 
@@ -13,3 +16,5 @@ source $HOME/.bashrc
 cd $HOME/.dotfiles
 git config --local status.showUntrackedFiles no
 cd $HOME
+
+
