@@ -23,7 +23,7 @@ cd $HOME
 pacman -Sy alacritty
 
 # * Window manager
-pacman -Sy xmonad xterm xmonad-contrib xorg-xinit xorg-server xmobar dmenu
+pacman -Sy xmonad xterm xmonad-contrib xorg-xinit xorg-server xmobar dmenu picom
 cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
 sed -i '$d' $HOME/.xinitrc
 echo "exec xmonad" >> $HOME/.xinitrc
