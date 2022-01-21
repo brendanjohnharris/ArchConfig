@@ -54,7 +54,7 @@ swapon /dev/sda2
 #  * ██ ██   ████ ███████    ██    ██   ██ ███████ ███████
 
 # * Install fundamental packages
-pacstrap /mnt base linux linux-firmware vim git sudo dhcpcd netctl dialog wpa_supplicant
+pacstrap /mnt base linux linux-firmware vim git sudo wpa_supplicant networkmanager
 
 # * Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -113,6 +113,9 @@ pacman -Sy amd-ucode
 pacman -Sy intel-ucode
 
 grub-mkconfig -o /boot/grub/grub.cfg
+
+# * Should now:
+# - Install graphics card drivers
 
 # * Finally, reboot, remove the install medium and create a new user on the system
 exit
