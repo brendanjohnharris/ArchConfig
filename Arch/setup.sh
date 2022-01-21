@@ -13,17 +13,22 @@
 
 # * Now we assume the bare git repo for our config is in place. We also assume the current shell is bash. 
 # ? `config` now takes the place of `git` for config stuff
+echo 'source $HOME/.bashrc' >> /etc/profile
 source $HOME/.bashrc
 cd $HOME/.dotfiles
 git config --local status.showUntrackedFiles no
 cd $HOME
 
+# * Terminal emulator
+pacman -Sy alacritty
+
 # * Window manager
 pacman -Sy xmonad xterm xmonad-contrib xorg-xinit xorg-server xmobar dmenu
-cp /etc/X11/xinit/xinitrc ~/.xinitrc
-sed -i '$d' ~/.xinitrc
-echo "exec xmonad" >> ~/.xinitrc
+cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
+sed -i '$d' $HOME/.xinitrc
+echo "exec xmonad" >> $HOME/.xinitrc
 <...xmonad setup... (and remember to push .xinitrc)>
+xmonad --recompile
 
 # * Misc. programs
 pacman -Sy firefox
