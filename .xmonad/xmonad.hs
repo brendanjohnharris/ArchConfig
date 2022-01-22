@@ -6,7 +6,7 @@ import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
 
 main = do   
-    xmproc <- spawnPipe "xmobar $HOME/.config/xmobarrc"
+    xmproc <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc"
     xmonad $ docks defaultConfig
         { layoutHook = avoidStruts  $  layoutHook defaultConfig
         , logHook = dynamicLogWithPP xmobarPP
