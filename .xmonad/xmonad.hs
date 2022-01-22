@@ -19,7 +19,7 @@ main = do
   xmproc <- spawnPipe "/usr/bin/xmobar $HOME/.config/xmobar/xmobarrc"
   xmonad defaultConfig {
     modMask = mod4Mask, 
-    terminal = "urxvt",
+    terminal = "alacritty",
 -- if you are using xmonad 0.9, you can avoid web flash videos getting cropped in fullscreen like so:
 -- manageHook = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> manageHook defaultConfig,
 -- (no longer needed in 0.10)
