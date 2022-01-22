@@ -16,7 +16,7 @@ import System.IO
 -- TODO: hook in TopicSpaces, start specific apps on specific workspaces
 
 main = do
-  xmproc <- spawnPipe "/usr/bin/xmobar /home/timo/.xmonad/xmobarrc"
+  xmproc <- spawnPipe "/usr/bin/xmobar $HOME/.config/xmobar/xmobarrc"
   xmonad defaultConfig {
     modMask = mod4Mask, 
     terminal = "urxvt",
@@ -30,4 +30,3 @@ main = do
                           ppTitle = xmobarColor "green" "" . shorten 50
                         }
   }
-  
