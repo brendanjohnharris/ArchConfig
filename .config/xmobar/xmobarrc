@@ -1,62 +1,20 @@
--- Thanks to krive001 to share the code of xmobar
--- https://github.com/krive001/xmonad-xmobar
-
 Config {
-    font = "xft:Noto Sans LGC:size=11:style=Regular",
-    additionalFonts = ["xft:Noto Sans:size=10:style=Bold","xft:FontAwesome:style=Regular:size=13"]
-   , bgColor          = "#2F343F"
-   , fgColor          = "white"
-   , position         = TopSize C 100 30
-   , textOffset       = -1
-   , iconOffset       = -8
-   , alpha            = 255
-   , border           = BottomB
-   , borderWidth      = 0
-   , borderColor      = "#c0c5ce"
-   , lowerOnStart     = True
-   , hideOnStart      = False
-   , allDesktops      = True
-   , overrideRedirect = True
-   , pickBroadest     = True
-   , persistent       = True
-   , sepChar          = "%"
-   , alignSep         = "}{"
-   , template         = "<fc=white><fn=2><action=button=4><action=button=5>%UnsafeStdinReader%</action></action></fn></fc>}<action=`gsimplecal` button=1>%date%</action>{<fc=white> %update% |<fn=2>  </fn></fc> %kbd% | %coretemp% | %multicpu% | %memory% | <action=`pavucontrol` button=3><action=`XMMute` button=1><action=button=4><action=button=5>%XVol% </action></action></action></action>"
-   , commands         =
-      [ Run MultiCpu                            [ "--template" , "<fc=white><fn=2>  </fn></fc><fc=white></fc><total> %"
-                                                , "--Low"      , "50"        -- units: %
-                                                , "--High"     , "85"        -- units: %
-                                                , "--low"      , "#ffffff"
-                                                , "--normal"   , "#ffffff"
-                                                , "--high"     , "#fd0537"
-                                                ] 10
-
-      , Run CoreTemp                            [ "--template" , "<fc=white><fn=2>  </fn></fc><fc=green></fc><core0> °C"
-                                                , "--Low"      , "2"         -- units: °C
-                                                , "--High"     , "80"        -- units: °C
-                                                , "--low"      , "#ffffff"
-                                                , "--normal"   , "#ffffff"
-                                                , "--high"     , "#fd0537"
-                                                ] 10
-
-      , Run Memory                              [ "--template" ,"<fc=white><fn=2> </fn></fc><fc=white></fc><usedratio> %"
-                                                ] 10
-
-
-
---      , Run Wireless           "wlp0s20u2u3"        ["-t", "<fc=green>Wifi:</fc> <quality>"
---                                                ] 10
-
-      , Run Com "/bin/bash" ["-c", "XMgetvolume"]  "XVol" 10
-
-
-      , Run Kbd                                [ ("be" , "<fc=#FFFFFF>BE</fc>")
-                                                , ("us" , "<fc=#FFFFFF>US</fc>")]
-
-      , Run UnsafeStdinReader
-
-	  , Run Com "/bin/bash" ["-c",  "XMKupdate"] "update" 600
-
-      , Run Date                                "%Y-%m-%d  %H:%M" "date" 60]
-
-}
+       font = "xft:Monospace:pixelsize=11",
+       -- used to make the bar appear correctly after Mod-q in older xmonad implementations (0.9.x)
+       -- doesn't seem to do anything anymore (0.10, darcs)
+--       lowerOnStart = False,
+       commands = [
+                -- Addison, TX
+                Run Weather "KADS" ["-t"," <tempF>F","-L","64","-H","77","--normal","green","--high","red","--low","lightblue"] 36000,
+                Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10,
+                Run Memory ["-t","Mem: <usedratio>%"] 10,
+                Run Swap [] 10,
+                Run Date "%a %b %_d %l:%M" "date" 10,
+                Run Network "ra0" [] 10,
+                Run StdinReader
+                ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ %ra0% | %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc> | %KADS%"
+       }
+       
