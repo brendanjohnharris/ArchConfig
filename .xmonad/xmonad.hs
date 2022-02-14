@@ -80,7 +80,6 @@ import XMonad.Util.SpawnOnce
       -- TomorrowNight
 import Colors.DoomOne
 
-
 myFont :: String
 myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
 
@@ -91,7 +90,7 @@ myTerminal :: String
 myTerminal = "alacritty"    -- Sets default terminal
 
 myBrowser :: String
-myBrowser = "firefox "  -- Sets qutebrowser as browser
+myBrowser = "firefox "  -- Sets firefox as browser
 
 myEmacs :: String
 myEmacs = "emacsclient -c -a 'emacs' "  -- Makes emacs keybindings easier to type
@@ -149,7 +148,6 @@ mygridConfig colorizer = (buildDefaultGSConfig myColorizer)
     , gs_originFractY = 0.5
     , gs_font         = myFont
     }
-
 
 spawnSelected' :: [(String, String)] -> X ()
 spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
@@ -382,7 +380,7 @@ myKeys =
         , ("M-p k", spawn "dm-kill")          -- kill processes
         , ("M-p m", spawn "dm-man")           -- manpages
         , ("M-p n", spawn "dm-note")          -- store one-line notes and copy them
-        , ("M-p o", spawn "dm-bookman")       -- qutebrowser bookmarks/history
+        , ("M-p o", spawn "dm-bookman")       -- firefox bookmarks/history
         , ("M-p p", spawn "passmenu")         -- passmenu
         , ("M-p q", spawn "dm-logout")        -- logout menu
         , ("M-p r", spawn "dm-reddit")        -- reddio (a reddit viewer)
@@ -492,7 +490,7 @@ myKeys =
         , ("<XF86AudioMute>", spawn "amixer set Master toggle")
         , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
         , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
-        , ("<XF86HomePage>", spawn "qutebrowser https://www.youtube.com/c/DistroTube")
+        , ("<XF86HomePage>", spawn "firefox https://www.youtube.com/c/DistroTube")
         , ("<XF86Search>", spawn "dm-websearch")
         , ("<XF86Mail>", runOrRaise "thunderbird" (resource =? "thunderbird"))
         , ("<XF86Calculator>", runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))
@@ -503,7 +501,6 @@ myKeys =
           where nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
 -- END_KEYS
-
 
 main :: IO ()
 main = do

@@ -28,7 +28,7 @@ chmod u+x $HOME/.config/grub2themes/install.sh
 $HOME/.config/grub2themes/install.sh -t tela -s 2k
 
 # * Display drivers
-pacman -Sy nvidia xf86-video-intel
+pacman -Sy nvidia xf86-video-intel mesa xorg-xinput
 
 # * Terminal emulator
 pacman -Sy alacritty
@@ -45,6 +45,9 @@ xmonad --recompile
 pacman -Sy nautilus
 
 # * Misc. programs
-pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky
+pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad thunderbird qalculate-gtk
+
+# * Change the scrolling direction
+xinput set-prop 14 350 1
 
 
