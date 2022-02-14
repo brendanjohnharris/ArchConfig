@@ -41,7 +41,10 @@ echo "exec xmonad" >> $HOME/.xinitrc
 <...xmonad setup... (and remember to push .xinitrc)>
 xmonad --recompile
 
+# * File manager
+pacman -Sy nautilus
+
 # * Misc. programs
-pacman -Sy firefox
+pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh
 
 
