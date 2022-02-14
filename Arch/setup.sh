@@ -1,8 +1,13 @@
 ## ! Make sure you are logged in as root, and have an internet connection. To do this:
 # ip link # ? Identify the network interface, probably the second one on the list
 # systemctl enable NetworkManager
-# systemctl start dhcpcd
+# systemctl start NetworkManager
+# ? For wifi
+# nmcli d wifi list
+# nmcli -a d wifi connect <WifiInterface>
+# ? For wired
 # ip link set <interface> up # ? Set it to UP, by default it is DOWN
+# * Also refer to the wifi setup from install.sh
 
 ## ! Then clone this repository (after setting up git) with:
 # git config --global credential.helper store
@@ -15,12 +20,15 @@
 # ? `config` now takes the place of `git` for config stuff
 echo 'source $HOME/.bashrc' >> /etc/profile
 source $HOME/.bashrc
-cd $HOME/.dotfiles
-git config --local status.showUntrackedFiles no
+git --git-dir=$HOME/.dotfiles/ config --local status.showUntrackedFiles no
 cd $HOME
 
 # * Grub theme
-git clone https://github.com/vinceliuice/grub2-themes.git 
+chmod u+x $HOME/.config/grub2themes/install.sh
+$HOME/.config/grub2themes/install.sh -t tela -s 2k
+
+# * Display drivers
+pacman -Sy nvidia xf86-video-intel
 
 # * Terminal emulator
 pacman -Sy alacritty
