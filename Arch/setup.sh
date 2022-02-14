@@ -45,6 +45,6 @@ xmonad --recompile
 pacman -Sy nautilus
 
 # * Misc. programs
-pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh
+pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky
 
 
