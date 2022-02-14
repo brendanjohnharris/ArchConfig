@@ -80,6 +80,76 @@ import XMonad.Util.SpawnOnce
       -- TomorrowNight
 import Colors.DoomOne
 
+
+myFont :: String
+myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
+
+myModMask :: KeyMask
+myModMask = mod4Mask        -- Sets modkey to super/windows key
+
+myTerminal :: String
+myTerminal = "alacritty"    -- Sets default terminal
+
+myBrowser :: String
+myBrowser = "firefox "  -- Sets qutebrowser as browser
+
+myEmacs :: String
+myEmacs = "emacsclient -c -a 'emacs' "  -- Makes emacs keybindings easier to type
+
+myEditor :: String
+myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor
+
+myBorderWidth :: Dimension
+myBorderWidth = 2           -- Sets border width for windows
+
+myNormColor :: String       -- Border color of normal windows
+myNormColor   = colorBack   -- This variable is imported from Colors.THEME
+
+myFocusColor :: String      -- Border color of focused windows
+myFocusColor  = color15     -- This variable is imported from Colors.THEME
+
+windowCount :: X (Maybe String)
+windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+
+myStartupHook :: X ()
+myStartupHook = do
+    spawn "killall conky"   -- kill current conky on each restart
+    spawn "killall trayer"  -- kill current trayer on each restart
+
+    spawnOnce "lxsession"
+    spawnOnce "picom"
+    spawnOnce "nm-applet"
+    spawnOnce "volumeicon"
+    spawnOnce "/usr/bin/emacs --daemon" -- emacs daemon for the emacsclient
+
+    spawn ("sleep 2 && conky -c $HOME/.config/conky/xmonad/" ++ colorScheme ++ "-01.conkyrc")
+    spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
+
+    spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
+    -- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
+    -- spawnOnce "feh --randomize --bg-fill ~/wallpapers/*"  -- feh set random wallpaper
+    -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
+    setWMName "LG3D"
+
+myColorizer :: Window -> Bool -> X (String, String)
+myColorizer = colorRangeFromClassName
+                  (0x28,0x2c,0x34) -- lowest inactive bg
+                  (0x28,0x2c,0x34) -- highest inactive bg
+                  (0xc7,0x92,0xea) -- active bg
+                  (0xc0,0xa7,0x9a) -- inactive fg
+                  (0x28,0x2c,0x34) -- active fg
+
+-- gridSelect menu layout
+mygridConfig :: p -> GSConfig Window
+mygridConfig colorizer = (buildDefaultGSConfig myColorizer)
+    { gs_cellheight   = 40
+    , gs_cellwidth    = 200
+    , gs_cellpadding  = 6
+    , gs_originFractX = 0.5
+    , gs_originFractY = 0.5
+    , gs_font         = myFont
+    }
+
 main = xmonad defaultConfig
         { modMask = mod4Mask -- Use Super instead of Alt
         , terminal = "urxvt"
