@@ -504,8 +504,54 @@ myKeys =
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
 -- END_KEYS
 
-main = xmonad defaultConfig
-        { modMask = mod4Mask -- Use Super instead of Alt
-        , terminal = "urxvt"
-        -- more changes
-        }
+
+main :: IO ()
+main = do
+    -- Launching three instances of xmobar on their monitors.
+    xmproc0 <- spawnPipe ("xmobar -x 0 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc")
+    xmproc1 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc")
+    xmproc2 <- spawnPipe ("xmobar -x 2 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc")
+    -- the xmonad, ya know...what the WM is named after!
+    xmonad $ ewmh def
+        { manageHook         = myManageHook <+> manageDocks
+        , handleEventHook    = docksEventHook
+                               -- Uncomment this line to enable fullscreen support on things like YouTube/Netflix.
+                               -- This works perfect on SINGLE monitor systems. On multi-monitor systems,
+                               -- it adds a border around the window if screen does not have focus. So, my solution
+                               -- is to use a keybinding to toggle fullscreen noborders instead.  (M-<Space>)
+                               -- <+> fullscreenEventHook
+        , modMask            = myModMask
+        , terminal           = myTerminal
+        , startupHook        = myStartupHook
+        , layoutHook         = showWName' myShowWNameTheme $ myLayoutHook
+        , workspaces         = myWorkspaces
+        , borderWidth        = myBorderWidth
+        , normalBorderColor  = myNormColor
+        , focusedBorderColor = myFocusColor
+        , logHook = dynamicLogWithPP $ namedScratchpadFilterOutWorkspacePP $ xmobarPP
+              -- XMOBAR SETTINGS
+              { ppOutput = \x -> hPutStrLn xmproc0 x   -- xmobar on monitor 1
+                              >> hPutStrLn xmproc1 x   -- xmobar on monitor 2
+                              >> hPutStrLn xmproc2 x   -- xmobar on monitor 3
+                -- Current workspace
+              , ppCurrent = xmobarColor color06 "" . wrap
+                            ("<box type=Bottom width=2 mb=2 color=" ++ color06 ++ ">") "</box>"
+                -- Visible but not current workspace
+              , ppVisible = xmobarColor color06 "" . clickable
+                -- Hidden workspace
+              , ppHidden = xmobarColor color05 "" . wrap
+                           ("<box type=Top width=2 mt=2 color=" ++ color05 ++ ">") "</box>" . clickable
+                -- Hidden workspaces (no windows)
+              , ppHiddenNoWindows = xmobarColor color05 ""  . clickable
+                -- Title of active window
+              , ppTitle = xmobarColor color16 "" . shorten 60
+                -- Separator character
+              , ppSep =  "<fc=" ++ color09 ++ "> <fn=1>|</fn> </fc>"
+                -- Urgent workspace
+              , ppUrgent = xmobarColor color02 "" . wrap "!" "!"
+                -- Adding # of windows on current workspace to the bar
+              , ppExtras  = [windowCount]
+                -- order of things in xmobar
+              , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+              }
+        } `additionalKeysP` myKeys
