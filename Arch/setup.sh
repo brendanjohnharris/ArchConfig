@@ -19,6 +19,9 @@ cd $HOME/.dotfiles
 git config --local status.showUntrackedFiles no
 cd $HOME
 
+# * Grub theme
+git clone https://github.com/vinceliuice/grub2-themes.git 
+
 # * Terminal emulator
 pacman -Sy alacritty
 

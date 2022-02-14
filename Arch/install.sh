@@ -6,6 +6,20 @@
 
 # ? These steps should all be done manually, since they will vary by system
 
+# * Setup wifi, if you are on a laptop
+rfkill list # Find the ID of the wireless LAN device, <phy0>
+rfkill unblock <phy0> # Unblock the wireless LAN device
+ip link set wlan0 up # wireless device is probably wlan0
+iwctl
+device list # Check the wlan0 device is powered on
+station wlan0 scan
+exit
+iwctl station wlan0 connect <wifiname> --passphrase <wifipassword>
+
+# * Check the internet is on
+ip link
+ping archlinux.org
+
 # * Check available keyboard layouts
 ls /usr/share/kbd/keymaps/**/*.map.gz
 
@@ -15,10 +29,6 @@ loadkeys de-latin1
 # * Verify the boot mode (EFI or BIOS; EFI if this file directory exists)
 ls /sys/firmware/efi/efivars
 
-# * Check the internet is on
-ip link
-ping archlinux.org
-
 # * Update the clock
 timedatectl set-ntp true
 
@@ -27,9 +37,9 @@ timedatectl set-ntp true
 fdisk -l
 
 # * Open fdisk
-fdisk /dev/sda
+fdisk /dev/sda # Or e.g. fdisk /dev/nvme0n1
 # ? In fdisk, create a new partition table (if neccessary; don't do this if dual booting). Then:
-# ? Then create partitions for EFI, swap and root (in that order) using fdisk: n (end exit with fdisk: w)
+# ? Then create partitions for EFI (if it doesnt exist), swap and root (in that order) using fdisk: n (and exit with fdisk: w)
 
 # * Now format the partitions with:
 mkfs.fat -F 32 /dev/sda1 # EFI
@@ -42,7 +52,7 @@ mount /dev/sda3 /mnt
 
 # * ... the EFI volume...
 mkdir -p /mnt/boot/efi
-mount /dev/sda1 /mnt/boot
+# mount /dev/sda1 /mnt/boot # Replaced below?
 
 # * ...and turn on the swap
 swapon /dev/sda2
@@ -90,7 +100,7 @@ exit
 arch-chroot /mnt /bin/bash
 
 # * Install a bootloader: grub
-# ? BIOS
+# ? BIOS only
 pacman -S grub
 grub-install --target=i386-pc /dev/sda
 # ? EFI: careful here. /boot/efi should already be made
