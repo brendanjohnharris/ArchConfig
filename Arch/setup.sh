@@ -17,7 +17,7 @@
 # git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout
 
 # * Now we assume the bare git repo for our config is in place. We also assume the current shell is bash. 
-# ? `config` now takes the place of `git` for config stuff
+# ? `config` now takes the place of `git` for config stuff. Should use config add -u ... to ignore new files
 echo 'source $HOME/.bashrc' >> /etc/profile
 source $HOME/.bashrc
 git --git-dir=$HOME/.dotfiles/ config --local status.showUntrackedFiles no
@@ -49,5 +49,8 @@ pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-
 
 # * Change the scrolling direction
 xinput set-prop 14 350 1
+
+# * Set the dpi
+xrandr --dpi 96
 
 
