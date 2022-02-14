@@ -34,7 +34,7 @@ pacman -Sy nvidia xf86-video-intel mesa xorg-xinput
 pacman -Sy alacritty
 
 # * Window manager
-pacman -Sy xmonad xterm xmonad-contrib xorg-xinit xorg-server xmobar dmenu picom
+pacman -Sy xmonad xterm xmonad-contrib xorg-xinit xorg-server xmobar dmenu picom xdotool
 cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
 sed -i '$d' $HOME/.xinitrc
 echo "exec xmonad" >> $HOME/.xinitrc

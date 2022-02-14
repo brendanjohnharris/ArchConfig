@@ -343,11 +343,11 @@ myManageHook = composeAll
      , className =? "toolbar"         --> doFloat
      , className =? "Yad"             --> doCenterFloat
      , title =? "Oracle VM VirtualBox Manager"  --> doFloat
-     , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 1 )
-     , className =? "Brave-browser"   --> doShift ( myWorkspaces !! 1 )
-     , className =? "mpv"             --> doShift ( myWorkspaces !! 7 )
-     , className =? "Gimp"            --> doShift ( myWorkspaces !! 8 )
-     , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
+     -- , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 1 )
+     -- , className =? "Brave-browser"   --> doShift ( myWorkspaces !! 1 )
+     --, className =? "mpv"             --> doShift ( myWorkspaces !! 7 )
+     -- , className =? "Gimp"            --> doShift ( myWorkspaces !! 8 )
+     --, className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      , isFullscreen -->  doFullFloat
      ] <+> namedScratchpadManageHook myScratchPads
