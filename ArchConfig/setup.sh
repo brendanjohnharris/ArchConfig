@@ -30,23 +30,26 @@ chmod u+x $HOME/.config/grub2themes/install.sh
 $HOME/.config/grub2themes/install.sh -t tela -s 2k
 
 # * Display drivers
-pacman -Sy nvidia xf86-video-intel mesa
+sudo pacman -Sy nvidia xf86-video-intel mesa
 
 # * Terminal emulator
-pacman -Sy alacritty
+sudo pacman -Sy alacritty
 
 # * Window manager
-pacman -Sy xorg-xinit xorg-server xorg-xinput xmonad xterm xmonad-contrib xmobar dmenu picom xdotool trayer
+sudo pacman -Sy xorg-xinit xorg-server xorg-xinput xmonad xterm xmonad-contrib xmobar dmenu picom xdotool trayer
 # cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
 # sed -i '$d' $HOME/.xinitrc
 # echo "exec xmonad" >> $HOME/.xinitrc
 xmonad --recompile
 
 # * File manager
-pacman -Sy nautilus
+sudo pacman -Sy nautilus
 
 # * Misc. programs
-pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad thunderbird qalculate-gtk
+sudo pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad thunderbird qalculate-gtk
+
+# * Fonts
+sudo pacman -Sy otf-font-awesome ttf-mononoki ttf-ubuntu-font-family
 
 
 # * Set the dpi
