@@ -174,7 +174,7 @@ myAppGrid = [ ("Nautilus", "nautilus")
 
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
-                , NS "mocp" spawnMocp findMocp manageMocp
+                , NS "music" spawnMusfindMus manageMus
                 , NS "calculator" spawnCalc findCalc manageCalc
                 ]
   where
@@ -186,9 +186,9 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.9
                  t = 0.95 -h
                  l = 0.95 -w
-    spawnMocp  = myTerminal ++ " -t mocp -e mocp"
-    findMocp   = title =? "mocp"
-    manageMocp = customFloating $ W.RationalRect l t w h
+    spawnMus  = quodlibet
+    findMus   = className =? "Quodlibet"
+    manageMUs = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
                  w = 0.9
@@ -362,7 +362,6 @@ myKeys =
 
     -- KB_GROUP Get Help
         , ("M-S-/", spawn "~/.xmonad/xmonad_keys.sh") -- Get list of keybindings
-        , ("M-/", spawn "dtos-help")                  -- DTOS help/tutorial videos
 
     -- KB_GROUP Run Prompt
         , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
@@ -370,22 +369,22 @@ myKeys =
     -- KB_GROUP Other Dmenu Prompts
     -- In Xmonad and many tiling window managers, M-p is the default keybinding to
     -- launch dmenu_run, so I've decided to use M-p plus KEY for these dmenu scripts.
-        , ("M-p h", spawn "dm-hub")           -- allows access to all dmscripts
-        , ("M-p a", spawn "dm-sounds")        -- choose an ambient background
-        , ("M-p b", spawn "dm-setbg")         -- set a background
-        , ("M-p c", spawn "dtos-colorscheme") -- choose a colorscheme
-        , ("M-p C", spawn "dm-colpick")       -- pick color from our scheme
-        , ("M-p e", spawn "dm-confedit")      -- edit config files
-        , ("M-p i", spawn "dm-maim")          -- screenshots (images)
-        , ("M-p k", spawn "dm-kill")          -- kill processes
-        , ("M-p m", spawn "dm-man")           -- manpages
-        , ("M-p n", spawn "dm-note")          -- store one-line notes and copy them
-        , ("M-p o", spawn "dm-bookman")       -- firefox bookmarks/history
-        , ("M-p p", spawn "passmenu")         -- passmenu
-        , ("M-p q", spawn "dm-logout")        -- logout menu
-        , ("M-p r", spawn "dm-reddit")        -- reddio (a reddit viewer)
-        , ("M-p s", spawn "dm-websearch")     -- search various search engines
-        , ("M-p t", spawn "dm-translate")     -- translate text (Google Translate)
+        -- , ("M-p h", spawn "dm-hub")           -- allows access to all dmscripts
+        -- , ("M-p a", spawn "dm-sounds")        -- choose an ambient background
+        -- , ("M-p b", spawn "dm-setbg")         -- set a background
+        -- , ("M-p c", spawn "dtos-colorscheme") -- choose a colorscheme
+        -- , ("M-p C", spawn "dm-colpick")       -- pick color from our scheme
+        -- , ("M-p e", spawn "dm-confedit")      -- edit config files
+        -- , ("M-p i", spawn "dm-maim")          -- screenshots (images)
+        -- , ("M-p k", spawn "dm-kill")          -- kill processes
+        -- , ("M-p m", spawn "dm-man")           -- manpages
+        -- , ("M-p n", spawn "dm-note")          -- store one-line notes and copy them
+        -- , ("M-p o", spawn "dm-bookman")       -- firefox bookmarks/history
+        -- , ("M-p p", spawn "passmenu")         -- passmenu
+        -- , ("M-p q", spawn "dm-logout")        -- logout menu
+        -- , ("M-p r", spawn "dm-reddit")        -- reddio (a reddit viewer)
+        -- , ("M-p s", spawn "dm-websearch")     -- search various search engines
+        -- , ("M-p t", spawn "dm-translate")     -- translate text (Google Translate)
 
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn (myTerminal))
@@ -462,26 +461,26 @@ myKeys =
     -- When you toggle them to show, it brings them to your current workspace.
     -- Toggle them to hide and it sends them back to hidden workspace (NSP).
         , ("M-s t", namedScratchpadAction myScratchPads "terminal")
-        , ("M-s m", namedScratchpadAction myScratchPads "mocp")
+        , ("M-s m", namedScratchpadAction myScratchPads "music")
         , ("M-s c", namedScratchpadAction myScratchPads "calculator")
 
-    -- KB_GROUP Controls for mocp music player (SUPER-u followed by a key)
-        , ("M-u p", spawn "mocp --play")
-        , ("M-u l", spawn "mocp --next")
-        , ("M-u h", spawn "mocp --previous")
-        , ("M-u <Space>", spawn "mocp --toggle-pause")
+    -- -- KB_GROUP Controls for mocp music player (SUPER-u followed by a key)
+    --     , ("M-u p", spawn "mocp --play")
+    --     , ("M-u l", spawn "mocp --next")
+    --     , ("M-u h", spawn "mocp --previous")
+    --     , ("M-u <Space>", spawn "mocp --toggle-pause")
 
-    -- KB_GROUP Emacs (SUPER-e followed by a key)
-        , ("M-e e", spawn (myEmacs ++ ("--eval '(dashboard-refresh-buffer)'")))   -- emacs dashboard
-        , ("M-e b", spawn (myEmacs ++ ("--eval '(ibuffer)'")))   -- list buffers
-        , ("M-e d", spawn (myEmacs ++ ("--eval '(dired nil)'"))) -- dired
-        , ("M-e i", spawn (myEmacs ++ ("--eval '(erc)'")))       -- erc irc client
-        , ("M-e n", spawn (myEmacs ++ ("--eval '(elfeed)'")))    -- elfeed rss
-        , ("M-e s", spawn (myEmacs ++ ("--eval '(eshell)'")))    -- eshell
-        , ("M-e t", spawn (myEmacs ++ ("--eval '(mastodon)'")))  -- mastodon.el
-        , ("M-e v", spawn (myEmacs ++ ("--eval '(+vterm/here nil)'"))) -- vterm if on Doom Emacs
-        , ("M-e w", spawn (myEmacs ++ ("--eval '(doom/window-maximize-buffer(eww \"distro.tube\"))'"))) -- eww browser if on Doom Emacs
-        , ("M-e a", spawn (myEmacs ++ ("--eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/\")'")))
+    -- -- KB_GROUP Emacs (SUPER-e followed by a key)
+    --     , ("M-e e", spawn (myEmacs ++ ("--eval '(dashboard-refresh-buffer)'")))   -- emacs dashboard
+    --     , ("M-e b", spawn (myEmacs ++ ("--eval '(ibuffer)'")))   -- list buffers
+    --     , ("M-e d", spawn (myEmacs ++ ("--eval '(dired nil)'"))) -- dired
+    --     , ("M-e i", spawn (myEmacs ++ ("--eval '(erc)'")))       -- erc irc client
+    --     , ("M-e n", spawn (myEmacs ++ ("--eval '(elfeed)'")))    -- elfeed rss
+    --     , ("M-e s", spawn (myEmacs ++ ("--eval '(eshell)'")))    -- eshell
+    --     , ("M-e t", spawn (myEmacs ++ ("--eval '(mastodon)'")))  -- mastodon.el
+    --     , ("M-e v", spawn (myEmacs ++ ("--eval '(+vterm/here nil)'"))) -- vterm if on Doom Emacs
+    --     , ("M-e w", spawn (myEmacs ++ ("--eval '(doom/window-maximize-buffer(eww \"distro.tube\"))'"))) -- eww browser if on Doom Emacs
+    --     , ("M-e a", spawn (myEmacs ++ ("--eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/\")'")))
 
     -- KB_GROUP Multimedia Keys
         , ("<XF86AudioPlay>", spawn "mocp --play")
