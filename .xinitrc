@@ -48,9 +48,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-twm &
-alacritty
-
 xinput set-prop 14 "libinput Natural Scrolling Enabled" 1 # Set the trackpad device, 14, to natural scrolling
 
 exec xmonad
