@@ -52,6 +52,10 @@ pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-
 # * Set the dpi
 .....
 ## TODO: Fix fractional scaling
-## TODO: Remove all applications from root, and move all config files to user. Root should only have vim.
+## TODO: Add alacritty config
+## TODO: Add nitrogen for wallpapers
+## TODO: Configure fish shell
+## TODO: Add a login manager
+## TODO: Configure conky panel
 
 
