@@ -52,6 +52,8 @@ sudo pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreof
 sudo pacman -Sy base-devel
 git clone https://aur.archlinux.org/ttf-juliamono.git $HOME/Downloads/ttf-juliamono/
 (cd $HOME/Downloads/ttf-juliamono && makepkg -si)
+git clone https://aur.archlinux.org/ttf-mononoki.git $HOME/Downloads/ttf-mononoki/
+(cd $HOME/Downloads/ttf-mononoki && makepkg -si)
 
 # * Set the dpi
 .....
