@@ -40,7 +40,6 @@ pacman -Sy xorg-xinit xorg-server xorg-xinput xmonad xterm xmonad-contrib xmobar
 # cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
 # sed -i '$d' $HOME/.xinitrc
 # echo "exec xmonad" >> $HOME/.xinitrc
-chmod u+x $HOME/.xmonad/xmonad_keys.sh
 xmonad --recompile
 
 # * File manager
