@@ -36,7 +36,7 @@ pacman -Sy nvidia xf86-video-intel mesa
 pacman -Sy alacritty
 
 # * Window manager
-pacman -Sy xorg-xinit xorg-server xorg-xinput xmonad xterm xmonad-contrib xmobar dmenu picom xdotool
+pacman -Sy xorg-xinit xorg-server xorg-xinput xmonad xterm xmonad-contrib xmobar dmenu picom xdotool trayer
 # cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
 # sed -i '$d' $HOME/.xinitrc
 # echo "exec xmonad" >> $HOME/.xinitrc
@@ -56,7 +56,8 @@ pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-
 ## TODO: Add nitrogen for wallpapers
 ## TODO: Configure fish shell
 ## TODO: Add a login manager
-## TODO: Configure conky panel
+## TODO: Setup dmenu shortcuts
+## TODO: Configure conky panel, add custom keybindings
 ## TODO: Configure trackpad gestures and tap to click
 ## TODO: Fix the 'updating' in status xmobar
 ## TODO: Fix the backlight and power saving modes with https://git.karaolidis.com/Nikas36/legion-7
