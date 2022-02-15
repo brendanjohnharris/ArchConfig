@@ -69,3 +69,13 @@ sudo pacman -Sy otf-font-awesome ttf-mononoki ttf-ubuntu-font-family
 ## TODO: Remove some window layouts, too many at the moment
 
 
+#  * ███    ██  ██████  ████████ ███████ ███████
+#  * ████   ██ ██    ██    ██    ██      ██
+#  * ██ ██  ██ ██    ██    ██    █████   ███████
+#  * ██  ██ ██ ██    ██    ██    ██           ██
+#  * ██   ████  ██████     ██    ███████ ███████
+
+# ? You can change the permissions on the .local/bin/ (i.e. important scripts) to executable with:
+# git update-index --chmod=+x .local/bin/* 
+
+
