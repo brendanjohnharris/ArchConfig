@@ -53,6 +53,6 @@ xclock -geometry 50x50-1+1 &
 xterm -geometry 80x50+494+51 &
 xterm -geometry 80x20+494-0 &
 
-xinput set-prop 14 350 1 # Set the trackpad device, 14, to natural scrolling
+xinput set-prop 14 "libinput Natural Scrolling Enabled" 1 # Set the trackpad device, 14, to natural scrolling
 
 exec xmonad
