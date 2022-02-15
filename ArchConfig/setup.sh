@@ -13,7 +13,7 @@
 # git config --global credential.helper store
 # git config --global user.email  "brendanjohnharris@gmail.com"
 # git config --global user.name "brendanjohnharris"
-# git clone --bare https://github.com/brendanjohnharris/Arch.git $HOME/.dotfiles
+# git clone --bare https://github.com/brendanjohnharris/ArchConfig.git $HOME/ArchConfig
 # git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout
 
 # * Now we assume the bare git repo for our config is in place. We also assume the current shell is bash. 
@@ -28,13 +28,13 @@ chmod u+x $HOME/.config/grub2themes/install.sh
 $HOME/.config/grub2themes/install.sh -t tela -s 2k
 
 # * Display drivers
-pacman -Sy nvidia xf86-video-intel mesa xorg-xinput
+pacman -Sy nvidia xf86-video-intel mesa
 
 # * Terminal emulator
 pacman -Sy alacritty
 
 # * Window manager
-pacman -Sy xmonad xterm xmonad-contrib xorg-xinit xorg-server xmobar dmenu picom xdotool
+pacman -Sy xorg-xinit xorg-server xorg-xinput xmonad xterm xmonad-contrib xmobar dmenu picom xdotool
 cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
 sed -i '$d' $HOME/.xinitrc
 echo "exec xmonad" >> $HOME/.xinitrc
