@@ -57,5 +57,11 @@ pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-
 ## TODO: Configure fish shell
 ## TODO: Add a login manager
 ## TODO: Configure conky panel
+## TODO: Configure trackpad gestures and tap to click
+## TODO: Fix the 'updating' in status xmobar
+## TODO: Fix the backlight and power saving modes with https://git.karaolidis.com/Nikas36/legion-7
+## TODO: Fix audio issues: https://blog.karaolidis.com/lenovo-legion-7/
+## TODO: Get bluetooth manager gui app
+## TODO: Remove some window layouts, too many at the moment
 
 

@@ -7,7 +7,7 @@ import qualified XMonad.StackSet as W
 
     -- Actions
 import XMonad.Actions.CopyWindow (kill1)
-import XMonad.Actions.CycleWS (Direction1D(..), moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
+import XMonad.Actions.CycleWS (Direction1D(..), moveTo, shiftTo, WSType(..), nextScreen, prevScreen, nextWS, prevWS)
 import XMonad.Actions.GridSelect
 import XMonad.Actions.MouseResize
 import XMonad.Actions.Promote
@@ -92,9 +92,6 @@ myTerminal = "alacritty"    -- Sets default terminal
 myBrowser :: String
 myBrowser = "firefox "  -- Sets firefox as browser
 
-myEmacs :: String
-myEmacs = "emacsclient -c -a 'emacs' "  -- Makes emacs keybindings easier to type
-
 myEditor :: String
 myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor
 
@@ -119,9 +116,8 @@ myStartupHook = do
     spawnOnce "picom"
     spawnOnce "nm-applet"
     spawnOnce "volumeicon"
-    spawnOnce "/usr/bin/emacs --daemon" -- emacs daemon for the emacsclient
 
-    spawn ("sleep 2 && conky -c $HOME/.config/conky/xmonad/" ++ colorScheme ++ "-01.conkyrc")
+    spawn ("sleep 2 && conky -c $HOME/.config/.conkyrc")
     spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
 
     spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
@@ -471,18 +467,6 @@ myKeys =
     --     , ("M-u l", spawn "mocp --next")
     --     , ("M-u h", spawn "mocp --previous")
     --     , ("M-u <Space>", spawn "mocp --toggle-pause")
-
-    -- -- KB_GROUP Emacs (SUPER-e followed by a key)
-    --     , ("M-e e", spawn (myEmacs ++ ("--eval '(dashboard-refresh-buffer)'")))   -- emacs dashboard
-    --     , ("M-e b", spawn (myEmacs ++ ("--eval '(ibuffer)'")))   -- list buffers
-    --     , ("M-e d", spawn (myEmacs ++ ("--eval '(dired nil)'"))) -- dired
-    --     , ("M-e i", spawn (myEmacs ++ ("--eval '(erc)'")))       -- erc irc client
-    --     , ("M-e n", spawn (myEmacs ++ ("--eval '(elfeed)'")))    -- elfeed rss
-    --     , ("M-e s", spawn (myEmacs ++ ("--eval '(eshell)'")))    -- eshell
-    --     , ("M-e t", spawn (myEmacs ++ ("--eval '(mastodon)'")))  -- mastodon.el
-    --     , ("M-e v", spawn (myEmacs ++ ("--eval '(+vterm/here nil)'"))) -- vterm if on Doom Emacs
-    --     , ("M-e w", spawn (myEmacs ++ ("--eval '(doom/window-maximize-buffer(eww \"distro.tube\"))'"))) -- eww browser if on Doom Emacs
-    --     , ("M-e a", spawn (myEmacs ++ ("--eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/\")'")))
 
     -- KB_GROUP Multimedia Keys
         , ("<XF86AudioPlay>", spawn "mocp --play")
