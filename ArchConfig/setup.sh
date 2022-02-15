@@ -46,7 +46,7 @@ xmonad --recompile
 sudo pacman -Sy nautilus
 
 # * Misc. programs
-sudo pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad thunderbird qalculate-gtk
+sudo pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad thunderbird qalculate-gtk network-manager-applet
 
 # * Fonts
 sudo pacman -Sy base-devel
@@ -57,7 +57,7 @@ git clone https://aur.archlinux.org/ttf-mononoki.git $HOME/Downloads/ttf-mononok
 
 # * Set the dpi
 .....
-## TODO: Fix fractional scaling
+## TODO: Increase the width of the xmobar
 ## TODO: Fix awesome icons not appearing in xmobar, see xmobarrc
 ## TODO: Add alacritty config
 ## TODO: Add nitrogen for wallpapers

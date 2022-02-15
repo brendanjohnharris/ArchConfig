@@ -118,7 +118,7 @@ myStartupHook = do
     spawnOnce "volumeicon"
 
     spawn ("sleep 2 && conky -c $HOME/.config/.conkyrc")
-    spawn ("sleep 2 && trayer --edge top --align center --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 127 " ++ colorTrayer ++ " --height 22")
+    spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
 
     spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
     -- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
