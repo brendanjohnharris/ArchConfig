@@ -188,7 +188,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  l = 0.95 -w
     spawnMus  = "quodlibet"
     findMus   = className =? "Quodlibet"
-    manageMUs = customFloating $ W.RationalRect l t w h
+    manageMus = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
                  w = 0.9
