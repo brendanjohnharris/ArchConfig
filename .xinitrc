@@ -49,8 +49,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 twm &
-alacritty -geometry 80x50+494+51 &
-alacritty -geometry 80x20+494-0 &
+alacritty
 
 xinput set-prop 14 "libinput Natural Scrolling Enabled" 1 # Set the trackpad device, 14, to natural scrolling
 
