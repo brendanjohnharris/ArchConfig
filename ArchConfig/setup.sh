@@ -49,8 +49,9 @@ sudo pacman -Sy nautilus
 sudo pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad thunderbird qalculate-gtk
 
 # * Fonts
-sudo pacman -Sy otf-font-awesome ttf-mononoki ttf-ubuntu-font-family
-
+sudo pacman -Sy base-devel
+git clone https://aur.archlinux.org/ttf-juliamono.git $HOME/Downloads/ttf-juliamono/
+(cd $HOME/Downloads/ttf-juliamono && makepkg -si)
 
 # * Set the dpi
 .....
@@ -77,5 +78,6 @@ sudo pacman -Sy otf-font-awesome ttf-mononoki ttf-ubuntu-font-family
 
 # ? You can change the permissions on the .local/bin/ (i.e. important scripts) to executable with:
 # git update-index --chmod=+x .local/bin/* 
+# ? Edit the dpi settings in ~/.Xresources to change the apparent size of programs and fonts. 
 
 

@@ -7,7 +7,7 @@ Xft.hintstyle: hintfull
 Xft.lcdfilter: lcdfilter
 
 XTerm*renderFont: true
-XTerm*faceName: xft:Mononoki Nerd Font, \
+XTerm*faceName: xft:JuliaMono, \
                 xft:JoyPixels:size=12, \
                 xft:Monospace:style=Medium:size=12   
 XTerm*faceSize: 11
