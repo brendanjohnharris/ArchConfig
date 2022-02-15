@@ -1,4 +1,4 @@
-## ! Make sure you are logged in as root, and have an internet connection. To do this:
+## ! Make sure you have an internet connection. To do this:
 # ip link # ? Identify the network interface, probably the second one on the list
 # systemctl enable NetworkManager
 # systemctl start NetworkManager
@@ -38,7 +38,6 @@ pacman -Sy xmonad xterm xmonad-contrib xorg-xinit xorg-server xmobar dmenu picom
 cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
 sed -i '$d' $HOME/.xinitrc
 echo "exec xmonad" >> $HOME/.xinitrc
-<...xmonad setup... (and remember to push .xinitrc)>
 xmonad --recompile
 
 # * File manager
@@ -51,6 +50,8 @@ pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-
 xinput set-prop 14 350 1
 
 # * Set the dpi
-xrandr --dpi 96
+.....
+## TODO: Fix fractional scaling
+## TODO: Remove all applications from root, and move all config files to user. Root should only have vim.
 
 
