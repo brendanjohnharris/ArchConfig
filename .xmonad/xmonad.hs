@@ -174,7 +174,7 @@ myAppGrid = [ ("Nautilus", "nautilus")
 
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
-                , NS "music" spawnMusfindMus manageMus
+                , NS "music" spawnMus findMus manageMus
                 , NS "calculator" spawnCalc findCalc manageCalc
                 ]
   where
