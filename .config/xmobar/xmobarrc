@@ -24,7 +24,7 @@ Config { font            = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:h
        , iconRoot     = ".xmonad/xpm/"  -- default: "."
        , commands = [
                         -- Echos a "penguin" icon in front of the kernel output.
-                      Run Com "echo" ["yoyoyo"] "penguin" 3600
+                      Run Com "echo" ["<fn=3>\xf17c</fn>"] "penguin" 3600
                         -- Get kernel version (script found in .local/bin)
                     , Run Com ".local/bin/kernel" [] "kernel" 36000
                         -- Cpu usage in percent

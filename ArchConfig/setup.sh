@@ -58,6 +58,7 @@ git clone https://aur.archlinux.org/ttf-mononoki.git $HOME/Downloads/ttf-mononok
 # * Set the dpi
 .....
 ## TODO: Fix fractional scaling
+## TODO: Fix awesome icons not appearing in xmobar, see xmobarrc
 ## TODO: Add alacritty config
 ## TODO: Add nitrogen for wallpapers
 ## TODO: Configure fish shell
