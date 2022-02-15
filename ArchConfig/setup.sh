@@ -14,14 +14,16 @@
 # git config --global user.email  "brendanjohnharris@gmail.com"
 # git config --global user.name "brendanjohnharris"
 # git clone --bare https://github.com/brendanjohnharris/ArchConfig.git $HOME/ArchConfig
-# git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout
+# git --git-dir=$HOME/ArchConfig/ --work-tree=$HOME checkout
 
 # * Now we assume the bare git repo for our config is in place. We also assume the current shell is bash. 
 # ? `config` now takes the place of `git` for config stuff. Should use config add -u ... to ignore new files
-echo 'source $HOME/.bashrc' >> /etc/profile
+echo 'source $HOME/.bashrc' | sudo tee -a /etc/profile
 source $HOME/.bashrc
-git --git-dir=$HOME/.dotfiles/ config --local status.showUntrackedFiles no
-cd $HOME
+git --git-dir=$HOME/ArchConfig/ config --local status.showUntrackedFiles no
+
+# * You can change the timeout of sudo by adding 'Defaults timestamp_timeout=<mins>' to:
+# sudo EDITOR=vim visudo
 
 # * Grub theme
 chmod u+x $HOME/.config/grub2themes/install.sh
@@ -35,9 +37,10 @@ pacman -Sy alacritty
 
 # * Window manager
 pacman -Sy xorg-xinit xorg-server xorg-xinput xmonad xterm xmonad-contrib xmobar dmenu picom xdotool
-cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
-sed -i '$d' $HOME/.xinitrc
-echo "exec xmonad" >> $HOME/.xinitrc
+# cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
+# sed -i '$d' $HOME/.xinitrc
+# echo "exec xmonad" >> $HOME/.xinitrc
+chmod u+x $HOME/.xmonad/xmonad_keys.sh
 xmonad --recompile
 
 # * File manager
@@ -46,8 +49,6 @@ pacman -Sy nautilus
 # * Misc. programs
 pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad thunderbird qalculate-gtk
 
-# * Change the scrolling direction
-xinput set-prop 14 350 1
 
 # * Set the dpi
 .....
