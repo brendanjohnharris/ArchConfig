@@ -30,33 +30,41 @@ chmod u+x $HOME/.config/grub2themes/install.sh
 $HOME/.config/grub2themes/install.sh -t tela -s 2k
 
 # * Display drivers
-sudo pacman -Sy nvidia xf86-video-intel mesa
+sudo pacman -Syu nvidia xf86-video-intel mesa
 
 # * Terminal emulator
-sudo pacman -Sy alacritty
+sudo pacman -Syu alacritty
+
+# * Time synchronisation via network
+sudo timedatectl set-ntp true
 
 # * Window manager
-sudo pacman -Sy xorg-xinit xorg-server xorg-xinput xmonad xterm xmonad-contrib xmobar dmenu picom xdotool trayer
+sudo pacman -Syu xorg-xinit xorg-server xorg-xinput xmonad xterm xmonad-contrib xmobar dmenu picom xdotool trayer
 # cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
 # sed -i '$d' $HOME/.xinitrc
 # echo "exec xmonad" >> $HOME/.xinitrc
 xmonad --recompile
 
 # * File manager
-sudo pacman -Sy nautilus
+sudo pacman -Syu nautilus
 
 # * Misc. programs
-sudo pacman -Sy firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad thunderbird qalculate-gtk network-manager-applet
+sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad thunderbird qalculate-gtk network-manager-applet caprine ffmpeg
+
+# * AUR helper
+sudo pacman -Syu base-devel
+git clone https://aur.archlinux.org/yay.git $HOME/Downloads/yay/
+(cd $HOME/Downloads/yay && makepkg -si)
 
 # * Fonts
-sudo pacman -Sy base-devel
-git clone https://aur.archlinux.org/ttf-juliamono.git $HOME/Downloads/ttf-juliamono/
-(cd $HOME/Downloads/ttf-juliamono && makepkg -si)
-git clone https://aur.archlinux.org/ttf-mononoki.git $HOME/Downloads/ttf-mononoki/
-(cd $HOME/Downloads/ttf-mononoki && makepkg -si)
+paru -Sy ttf-juliamono
+paru -Sy ttf-mononoki
 
-# * Set the dpi
-.....
+# * Enable bluetooth device auto-detect by editing sudo vim /etc/bluetooth/main.conf and setting AutoEnable=true
+sudo pacman -Syu bluez bluez-utils blueman pulseaudio pulseaudio-alsa pulseaudio-bluetooth pavucontrol
+sudo systemctl --enable bluetooth
+
+## TODO: Set bluetooth to autostart
 ## TODO: Increase the width of the xmobar
 ## TODO: Fix awesome icons not appearing in xmobar, see xmobarrc
 ## TODO: Add alacritty config
@@ -71,6 +79,12 @@ git clone https://aur.archlinux.org/ttf-mononoki.git $HOME/Downloads/ttf-mononok
 ## TODO: Fix audio issues: https://blog.karaolidis.com/lenovo-legion-7/
 ## TODO: Get bluetooth manager gui app
 ## TODO: Remove some window layouts, too many at the moment
+## TODO: Set the GTK and QT themes to match onedark pro
+## TODO: Enable and set trackpad gestures
+## TODO: Setup HDR display
+## TODO: Setup notifications via dunst
+## TODO: Set alt-tab to cycle through windows in both floating and tiled mode
+## TODO: Make a browser scratchpad
 
 
 #  * ███    ██  ██████  ████████ ███████ ███████
@@ -82,5 +96,5 @@ git clone https://aur.archlinux.org/ttf-mononoki.git $HOME/Downloads/ttf-mononok
 # ? You can change the permissions on the .local/bin/ (i.e. important scripts) to executable with:
 # git update-index --chmod=+x .local/bin/* 
 # ? Edit the dpi settings in ~/.Xresources to change the apparent size of programs and fonts. 
-
+# ? Enable services at login with systemctl --user enable <service>, which will add that service to ....
 
