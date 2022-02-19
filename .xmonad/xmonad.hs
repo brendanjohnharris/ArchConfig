@@ -228,15 +228,19 @@ tall     = renamed [Replace "tall"]
            $ limitWindows 12
            $ mySpacing 8
            $ ResizableTall 1 (3/100) (1/2) []
-magnify  = renamed [Replace "magnify"]
-           $ smartBorders
-           $ windowNavigation
-           $ addTabs shrinkText myTabTheme
-           $ subLayout [] (smartBorders Simplest)
-           $ magnifier
-           $ limitWindows 12
-           $ mySpacing 8
-           $ ResizableTall 1 (3/100) (1/2) []
+tabs     = renamed [Replace "tabs"]
+           -- I cannot add spacing to this layout because it will
+           -- add spacing between window and tabs which looks bad.
+           $ tabbed shrinkText myTabTheme
+-- magnify  = renamed [Replace "magnify"]
+--            $ smartBorders
+--            $ windowNavigation
+--            $ addTabs shrinkText myTabTheme
+--            $ subLayout [] (smartBorders Simplest)
+--            $ magnifier
+--            $ limitWindows 12
+--            $ mySpacing 8
+--            $ ResizableTall 1 (3/100) (1/2) []
 monocle  = renamed [Replace "monocle"]
            $ smartBorders
            $ windowNavigation
@@ -255,13 +259,13 @@ grid     = renamed [Replace "grid"]
            $ mySpacing 8
            $ mkToggle (single MIRROR)
            $ Grid (16/10)
-spirals  = renamed [Replace "spirals"]
-           $ smartBorders
-           $ windowNavigation
-           $ addTabs shrinkText myTabTheme
-           $ subLayout [] (smartBorders Simplest)
-           $ mySpacing' 8
-           $ spiral (6/7)
+-- spirals  = renamed [Replace "spirals"]
+--            $ smartBorders
+--            $ windowNavigation
+--            $ addTabs shrinkText myTabTheme
+--            $ subLayout [] (smartBorders Simplest)
+--            $ mySpacing' 8
+--            $ spiral (6/7)
 threeCol = renamed [Replace "threeCol"]
            $ smartBorders
            $ windowNavigation
@@ -279,14 +283,10 @@ threeRow = renamed [Replace "threeRow"]
            -- So we are applying Mirror to the ThreeCol layout.
            $ Mirror
            $ ThreeCol 1 (3/100) (1/2)
-tabs     = renamed [Replace "tabs"]
-           -- I cannot add spacing to this layout because it will
-           -- add spacing between window and tabs which looks bad.
-           $ tabbed shrinkText myTabTheme
-tallAccordion  = renamed [Replace "tallAccordion"]
-           $ Accordion
-wideAccordion  = renamed [Replace "wideAccordion"]
-           $ Mirror Accordion
+-- tallAccordion  = renamed [Replace "tallAccordion"]
+--            $ Accordion
+-- wideAccordion  = renamed [Replace "wideAccordion"]
+--            $ Mirror Accordion
 
 -- setting colors for tabs layout and tabs sublayout.
 myTabTheme = def { fontName            = myFont
@@ -324,7 +324,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                                  ||| wideAccordion
 
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
-myWorkspaces = [" dev ", " www ", " chat ", " sys ", " doc ", " mail ", " vid ", " gfx "]
+myWorkspaces = [" sys ", " dev", " mat", " jul ", " www ", " chat ", " mail ", " vid ", " gfx ", " misc "]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
@@ -426,8 +426,8 @@ myKeys =
 
     -- KB_GROUP Windows navigation
         , ("M-m", windows W.focusMaster)  -- Move focus to the master window
-        , ("M-j", windows W.focusDown)    -- Move focus to the next window
-        , ("M-k", windows W.focusUp)      -- Move focus to the prev window
+        , ("M-k", windows W.focusDown)    -- Move focus to the next window
+        , ("M-j", windows W.focusUp)      -- Move focus to the prev window
         , ("M-S-m", windows W.swapMaster) -- Swap the focused window and the master window
         , ("M-S-j", windows W.swapDown)   -- Swap focused window with next window
         , ("M-S-k", windows W.swapUp)     -- Swap focused window with prev window

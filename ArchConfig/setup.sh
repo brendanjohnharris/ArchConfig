@@ -49,20 +49,26 @@ xmonad --recompile
 sudo pacman -Syu nautilus
 
 # * Misc. programs
-sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad thunderbird qalculate-gtk network-manager-applet caprine ffmpeg
+sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet caprine ffmpeg gnome-keyring seahorse asp pacman-contrib
 
 # * AUR helper
 sudo pacman -Syu base-devel
-git clone https://aur.archlinux.org/yay.git $HOME/Downloads/yay/
-(cd $HOME/Downloads/yay && makepkg -si)
+git clone https://aur.archlinux.org/paru.git $HOME/Downloads/paru/
+(cd $HOME/Downloads/paru && makepkg -si)
 
-# * Fonts
-paru -Sy ttf-juliamono
+# * Fontsctrl
+paru -Sy ttf-juliamonothunderbird
 paru -Sy ttf-mononoki
+
+# * Email client
+paru -Sy betterbird
 
 # * Enable bluetooth device auto-detect by editing sudo vim /etc/bluetooth/main.conf and setting AutoEnable=true
 sudo pacman -Syu bluez bluez-utils blueman pulseaudio pulseaudio-alsa pulseaudio-bluetooth pavucontrol
-sudo systemctl --enable bluetooth
+sudo systemctl enable bluetooth
+
+# * Brightness control
+sudo pacman -Sy acpilight
 
 ## TODO: Set bluetooth to autostart
 ## TODO: Increase the width of the xmobar
@@ -78,13 +84,14 @@ sudo systemctl --enable bluetooth
 ## TODO: Fix the backlight and power saving modes with https://git.karaolidis.com/Nikas36/legion-7
 ## TODO: Fix audio issues: https://blog.karaolidis.com/lenovo-legion-7/
 ## TODO: Get bluetooth manager gui app
-## TODO: Remove some window layouts, too many at the moment
 ## TODO: Set the GTK and QT themes to match onedark pro
 ## TODO: Enable and set trackpad gestures
 ## TODO: Setup HDR display
 ## TODO: Setup notifications via dunst
 ## TODO: Set alt-tab to cycle through windows in both floating and tiled mode
 ## TODO: Make a browser scratchpad
+## TODO: Add gpu to conky and xmobar
+## TODO: Bind function keys to brightness
 
 
 #  * ███    ██  ██████  ████████ ███████ ███████
@@ -97,4 +104,14 @@ sudo systemctl --enable bluetooth
 # git update-index --chmod=+x .local/bin/* 
 # ? Edit the dpi settings in ~/.Xresources to change the apparent size of programs and fonts. 
 # ? Enable services at login with systemctl --user enable <service>, which will add that service to ....
+# ? Gnome keyring lets apps like vscode automatically login to accounts. If you want gnome keyring to automatically unlock the default account, rather than always prompting for a password, simply set the keyring password to the login password
+
+
+# ! Also need to patch the kernel to fix audio issues on the legion 7i. The relevant diff is here:
+# ? https://lkml.org/lkml/diff/2022/1/21/656/1
+# ? And some simple instructions to apply the patch are here:
+# ? https://www.youtube.com/watch?v=fPyEolslSTM&ab_channel=pantheist46n2
+# ! ACTUALLY you need to build a linux kernel with a new version that 5.17-rc2. How to do that here: https://www.youtube.com/watch?v=APQY0wUbBow&ab_channel=DenshiVideo
+
+# ! Can get rid of grey overlay when sharing zoom screen with: https://bugs.archlinux.org/task/66469. Copy picom conf to ~/.congig/picom/picom.conf
 
