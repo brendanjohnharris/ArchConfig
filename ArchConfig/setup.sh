@@ -48,17 +48,19 @@ xmonad --recompile
 # * File manager
 sudo pacman -Syu nautilus
 
+# * Allow the user to chang ethe power conservation mode
+sudo chmod a+w /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode 
+
 # * Misc. programs
-sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet caprine ffmpeg gnome-keyring seahorse asp pacman-contrib
+sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet caprine ffmpeg gnome-keyring seahorse asp pacman-contrib htop
 
 # * AUR helper
 sudo pacman -Syu base-devel
 git clone https://aur.archlinux.org/paru.git $HOME/Downloads/paru/
 (cd $HOME/Downloads/paru && makepkg -si)
 
-# * Fontsctrl
-paru -Sy ttf-juliamonothunderbird
-paru -Sy ttf-mononoki
+# * Fonts
+paru -Sy ttf-juliamono ttf-mononoki nerd-fonts-source-code-pro ttf-font-awesome
 
 # * Email client
 paru -Sy betterbird
@@ -92,6 +94,11 @@ sudo pacman -Sy acpilight
 ## TODO: Make a browser scratchpad
 ## TODO: Add gpu to conky and xmobar
 ## TODO: Bind function keys to brightness
+## TODO: Add Colors.doomone
+## TODO: Fix tabs label font
+## TODO: Find a way to change the battery icon when charging
+## TODO: Spawn lightning when clicking on the calendar icon
+## TODO: Find a way to have super+0 bound to a workspace
 
 
 #  * ███    ██  ██████  ████████ ███████ ███████
@@ -101,7 +108,7 @@ sudo pacman -Sy acpilight
 #  * ██   ████  ██████     ██    ███████ ███████
 
 # ? You can change the permissions on the .local/bin/ (i.e. important scripts) to executable with:
-# git update-index --chmod=+x .local/bin/* 
+# config update-index --chmod=+x .local/bin/* 
 # ? Edit the dpi settings in ~/.Xresources to change the apparent size of programs and fonts. 
 # ? Enable services at login with systemctl --user enable <service>, which will add that service to ....
 # ? Gnome keyring lets apps like vscode automatically login to accounts. If you want gnome keyring to automatically unlock the default account, rather than always prompting for a password, simply set the keyring password to the login password

@@ -1,0 +1,9 @@
+#! /bin/bash 
+
+read -r charging < /sys/class/power_supply/BAT0/status
+if [ "$charging" = "Discharging" ]
+then
+    echo "<fn=2>\xf0f3</fn>"
+else
+    echo "Off"
+fi

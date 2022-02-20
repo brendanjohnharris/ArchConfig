@@ -81,7 +81,7 @@ import XMonad.Util.SpawnOnce
 import Colors.DoomOne
 
 myFont :: String
-myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
+myFont = "xft:SauceCodePro Nerd Font:regular:size=9:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask        -- Sets modkey to super/windows key
@@ -118,7 +118,7 @@ myStartupHook = do
     spawnOnce "volumeicon"
 
     spawn ("sleep 2 && conky -c $HOME/.config/.conkyrc")
-    spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
+    spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 32")
 
     spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
     -- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
@@ -226,7 +226,7 @@ tall     = renamed [Replace "tall"]
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
-           $ mySpacing 8
+           $ mySpacing 4
            $ ResizableTall 1 (3/100) (1/2) []
 tabs     = renamed [Replace "tabs"]
            -- I cannot add spacing to this layout because it will
@@ -241,12 +241,12 @@ tabs     = renamed [Replace "tabs"]
 --            $ limitWindows 12
 --            $ mySpacing 8
 --            $ ResizableTall 1 (3/100) (1/2) []
-monocle  = renamed [Replace "monocle"]
-           $ smartBorders
-           $ windowNavigation
-           $ addTabs shrinkText myTabTheme
-           $ subLayout [] (smartBorders Simplest)
-           $ limitWindows 20 Full
+-- monocle  = renamed [Replace "monocle"]
+--            $ smartBorders
+--            $ windowNavigation
+--            $ addTabs shrinkText myTabTheme
+--            $ subLayout [] (smartBorders Simplest)
+--            $ limitWindows 20 Full
 floats   = renamed [Replace "floats"]
            $ smartBorders
            $ limitWindows 20 simplestFloat
@@ -256,7 +256,7 @@ grid     = renamed [Replace "grid"]
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
-           $ mySpacing 8
+           $ mySpacing 4
            $ mkToggle (single MIRROR)
            $ Grid (16/10)
 -- spirals  = renamed [Replace "spirals"]
@@ -312,19 +312,19 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
              where
                myDefaultLayout =     withBorder myBorderWidth tall
-                                 ||| magnify
-                                 ||| noBorders monocle
-                                 ||| floats
                                  ||| noBorders tabs
+                                --  ||| magnify
+                                --  ||| noBorders monocle
+                                 ||| floats
                                  ||| grid
-                                 ||| spirals
+                                --  ||| spirals
                                  ||| threeCol
                                  ||| threeRow
-                                 ||| tallAccordion
-                                 ||| wideAccordion
+                                --  ||| tallAccordion
+                                --  ||| wideAccordion
 
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
-myWorkspaces = [" sys ", " dev", " mat", " jul ", " www ", " chat ", " mail ", " vid ", " gfx ", " misc "]
+myWorkspaces = [" sys ", " www ", " chat ", " mail ", " dev", " jul ", " mat ", " vid ", " misc "]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
@@ -414,10 +414,10 @@ myKeys =
         , ("M-S-t", sinkAll)                       -- Push ALL floating windows to tile
 
     -- KB_GROUP Increase/decrease spacing (gaps)
-        , ("C-M1-j", decWindowSpacing 4)         -- Decrease window spacing
-        , ("C-M1-k", incWindowSpacing 4)         -- Increase window spacing
-        , ("C-M1-h", decScreenSpacing 4)         -- Decrease screen spacing
-        , ("C-M1-l", incScreenSpacing 4)         -- Increase screen spacing
+        , ("C-M1-j", decWindowSpacing 2)         -- Decrease window spacing
+        , ("C-M1-k", incWindowSpacing 2)         -- Increase window spacing
+        , ("C-M1-h", decScreenSpacing 2)         -- Decrease screen spacing
+        , ("C-M1-l", incScreenSpacing 2)         -- Increase screen spacing
 
     -- KB_GROUP Grid Select (CTR-g followed by a key)
         , ("C-g g", spawnSelected' myAppGrid)                 -- grid select favorite apps
@@ -500,9 +500,9 @@ myKeys =
 main :: IO ()
 main = do
     -- Launching three instances of xmobar on their monitors.
-    xmproc0 <- spawnPipe ("xmobar -x 0 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc")
-    xmproc1 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc")
-    xmproc2 <- spawnPipe ("xmobar -x 2 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc")
+    xmproc0 <- spawnPipe ("xmobar -x 0 $HOME/.config/xmobar/" ++ "xmobarrc")
+    xmproc1 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ "xmobarrc")
+    xmproc2 <- spawnPipe ("xmobar -x 2 $HOME/.config/xmobar/" ++ "xmobarrc")
     -- the xmonad, ya know...what the WM is named after!
     xmonad $ ewmh def
         { manageHook         = myManageHook <+> manageDocks
