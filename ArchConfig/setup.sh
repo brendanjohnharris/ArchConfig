@@ -48,11 +48,8 @@ xmonad --recompile
 # * File manager
 sudo pacman -Syu nautilus
 
-# * Allow the user to chang ethe power conservation mode
-sudo chmod a+w /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode 
-
 # * Misc. programs
-sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet caprine ffmpeg gnome-keyring seahorse asp pacman-contrib htop
+sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet caprine ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot screenfetch bc qutebrowser
 
 # * AUR helper
 sudo pacman -Syu base-devel
@@ -60,6 +57,7 @@ git clone https://aur.archlinux.org/paru.git $HOME/Downloads/paru/
 (cd $HOME/Downloads/paru && makepkg -si)
 
 # * Fonts
+sudo pacman -Syu fontconfig
 paru -Sy ttf-juliamono ttf-mononoki nerd-fonts-source-code-pro ttf-font-awesome
 
 # * Email client
@@ -70,12 +68,15 @@ sudo pacman -Syu bluez bluez-utils blueman pulseaudio pulseaudio-alsa pulseaudio
 sudo systemctl enable bluetooth
 
 # * Brightness control
-sudo pacman -Sy acpilight
+sudo pacman -Syu acpilight
+
+# # * Turn off discrete gpu
+# sudo pacman -Syu acpi_call
+# modprobe acpi_call
+# tr < /usr/share/acpi_call/examples/turn_off_gpu.sh -d '\000' > $HOME/.local/bin/turn_off_gpu.sh
 
 ## TODO: Set bluetooth to autostart
-## TODO: Increase the width of the xmobar
 ## TODO: Fix awesome icons not appearing in xmobar, see xmobarrc
-## TODO: Add alacritty config
 ## TODO: Add nitrogen for wallpapers
 ## TODO: Configure fish shell
 ## TODO: Add a login manager
@@ -99,6 +100,10 @@ sudo pacman -Sy acpilight
 ## TODO: Find a way to change the battery icon when charging
 ## TODO: Spawn lightning when clicking on the calendar icon
 ## TODO: Find a way to have super+0 bound to a workspace
+## TODO: Find a way to execute the action script for the battery icon as root/sudo automatically
+## TODO: Use piper for interfacing with gaming mouse
+## TODO: Fix switchable graphics using acpi and turn_off-gpu.sh, then add gpus tatus to xmobar and clickable action to switch
+## TODO: Change the SubtleDoom colors in alacritty.yml to have the Julia/vscode color scheme for red, green, blue, magenta, etc.
 
 
 #  * ███    ██  ██████  ████████ ███████ ███████
@@ -118,7 +123,12 @@ sudo pacman -Sy acpilight
 # ? https://lkml.org/lkml/diff/2022/1/21/656/1
 # ? And some simple instructions to apply the patch are here:
 # ? https://www.youtube.com/watch?v=fPyEolslSTM&ab_channel=pantheist46n2
-# ! ACTUALLY you need to build a linux kernel with a new version that 5.17-rc2. How to do that here: https://www.youtube.com/watch?v=APQY0wUbBow&ab_channel=DenshiVideo
+# ! ACTUALLY you need to build a linux kernel with a new version that 5.17-rc2. How to do that here: https://www.youtube.com/watch?v=APQY0wUbBow&ab_channel=DenshiVideo.
+# ! Or a method that actually works: https://wiki.archlinux.org/title/Kernel/Traditional_compilation#Install_the_core_packages
+# !! OR just wait for the stable release of 5.17... :(
 
 # ! Can get rid of grey overlay when sharing zoom screen with: https://bugs.archlinux.org/task/66469. Copy picom conf to ~/.congig/picom/picom.conf
 
+# ! To prevent entering a sudo password everytime you want to change the power saving mode, use `sudo -E=vim visudo` to add:
+# ALL ALL = (ALL) NOPASSWD: /usr/bin/tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
+# ! To the sudoers file, just after the `root ALL=(ALL:ALL) ALL` line

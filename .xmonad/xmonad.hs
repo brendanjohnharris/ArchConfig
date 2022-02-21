@@ -199,8 +199,8 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.4
                  t = 0.75 -h
                  l = 0.70 -w
-    spawnBrowser  = "firefox"
-    findBrowser   = className =? "Firefox"
+    spawnBrowser  = "qutebrowser"
+    findBrowser   = className =? "qutebrowser"
     manageBrowser = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
@@ -324,7 +324,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                                 --  ||| wideAccordion
 
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
-myWorkspaces = [" sys ", " www ", " chat ", " mail ", " dev", " jul ", " mat ", " vid ", " misc "]
+myWorkspaces = [" chat ", " mail ", " www ", " dev", " note ", " sys ", " jul ", " vid ", " misc "]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
@@ -369,7 +369,7 @@ myKeys =
         , ("M-S-/", spawn "~/.xmonad/xmonad_keys.sh") -- Get list of keybindings
 
     -- KB_GROUP Run Prompt
-        , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
+        , ("M-S-<Return>", spawn "dmenu_run -i -fn 'Ubuntu:weight=bold:pixelsize=26:antialias=true:hinting=true' -p \"Run: \"") -- Dmenu
 
     -- KB_GROUP Other Dmenu Prompts
     -- In Xmonad and many tiling window managers, M-p is the default keybinding to
@@ -395,12 +395,14 @@ myKeys =
         , ("M-<Return>", spawn (myTerminal))
         , ("M-b", spawn (myBrowser))
         , ("M-M1-h", spawn (myTerminal ++ " -e htop"))
+        , ("M-<Print>", spawn "flameshot gui")
 
     -- KB_GROUP Kill windows
-        , ("M-S-c", kill1)     -- Kill the currently focused client
+        , (
+            "M-S-c", kill1)     -- Kill the currently focused client
         , ("M-S-a", killAll)   -- Kill all windows on current workspace
 
-    -- KB_GROUP Workspaces
+    -- KB_GROUP Workspaces<Return>
         , ("M-<Left>", prevWS)
         , ("M-<Right>", nextWS)
         , ("M-.", nextScreen)  -- Switch focus to next monitor
@@ -467,7 +469,7 @@ myKeys =
     -- Toggle show/hide these programs.  They run on a hidden workspace.
     -- When you toggle them to show, it brings them to your current workspace.
     -- Toggle them to hide and it sends them back to hidden workspace (NSP).
-        , ("M-s t", namedScratchpadAction myScratchPads "terminal")
+        , ("M-s <Return>", namedScratchpadAction myScratchPads "terminal")
         , ("M-s m", namedScratchpadAction myScratchPads "music")
         , ("M-s c", namedScratchpadAction myScratchPads "calculator")
         , ("M-s b", namedScratchpadAction myScratchPads "browser")
@@ -487,7 +489,7 @@ myKeys =
         , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
         , ("<XF86HomePage>", spawn "firefox https://www.youtube.com/c/DistroTube")
         , ("<XF86Search>", spawn "dm-websearch")
-        , ("<XF86Mail>", runOrRaise "thunderbird" (resource =? "thunderbird"))
+        , ("<XF86Mail>", runOrRaise "betterbird" (resource =? "betterbird"))
         , ("<XF86Calculator>", runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))
         , ("<XF86Eject>", spawn "toggleeject")
         , ("<Print>", spawn "dm-maim")
