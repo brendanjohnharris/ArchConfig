@@ -493,6 +493,10 @@ myKeys =
         , ("<XF86Calculator>", runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))
         , ("<XF86Eject>", spawn "toggleeject")
         , ("<Print>", spawn "dm-maim")
+
+    -- Function keys
+        , ("<XF86MonBrightnessDown>", spawn "xbacklight -ctrl intel_backlight -dec 10") -- Backlight down for intel integrated graphics
+        , ("<XF86MonBrightnessUp>", spawn "xbacklight -ctrl intel_backlight -inc 10") -- Backlight up for intel integrated graphics
         ]
     -- The following lines are needed for named scratchpads.
           where nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))

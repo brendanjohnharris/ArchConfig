@@ -49,7 +49,7 @@ xmonad --recompile
 sudo pacman -Syu nautilus
 
 # * Misc. programs
-sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet caprine ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot screenfetch bc qutebrowser
+sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet caprine ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot screenfetch bc qutebrowser dunst
 
 # * AUR helper
 sudo pacman -Syu base-devel
@@ -59,6 +59,9 @@ git clone https://aur.archlinux.org/paru.git $HOME/Downloads/paru/
 # * Fonts
 sudo pacman -Syu fontconfig
 paru -Sy ttf-juliamono ttf-mononoki nerd-fonts-source-code-pro ttf-font-awesome
+
+# * Icon theme
+sudo pacman -Syu hicolor-icon-theme papirus-icon-theme
 
 # * Email client
 paru -Sy betterbird
@@ -83,10 +86,7 @@ sudo pacman -Syu acpilight
 ## TODO: Setup dmenu shortcuts
 ## TODO: Configure conky panel, add custom keybindings
 ## TODO: Configure trackpad gestures and tap to click
-## TODO: Fix the 'updating' in status xmobar
-## TODO: Fix the backlight and power saving modes with https://git.karaolidis.com/Nikas36/legion-7
 ## TODO: Fix audio issues: https://blog.karaolidis.com/lenovo-legion-7/
-## TODO: Get bluetooth manager gui app
 ## TODO: Set the GTK and QT themes to match onedark pro
 ## TODO: Enable and set trackpad gestures
 ## TODO: Setup HDR display
