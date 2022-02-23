@@ -49,7 +49,7 @@ xmonad --recompile
 sudo pacman -Syu nautilus
 
 # * Misc. programs
-sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet caprine ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot screenfetch bc qutebrowser dunst
+sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet caprine ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot screenfetch bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh
 
 # * AUR helper
 sudo pacman -Syu base-devel
@@ -72,6 +72,9 @@ sudo systemctl enable bluetooth
 
 # * Brightness control
 sudo pacman -Syu acpilight
+
+# * Downgrade packages
+paru -Syu downgrade
 
 # # * Turn off discrete gpu
 # sudo pacman -Syu acpi_call
@@ -104,6 +107,7 @@ sudo pacman -Syu acpilight
 ## TODO: Use piper for interfacing with gaming mouse
 ## TODO: Fix switchable graphics using acpi and turn_off-gpu.sh, then add gpus tatus to xmobar and clickable action to switch
 ## TODO: Change the SubtleDoom colors in alacritty.yml to have the Julia/vscode color scheme for red, green, blue, magenta, etc.
+## TODO: Change the background colours of the Arc theme to be consistent with One Dark Pro
 
 
 #  * ███    ██  ██████  ████████ ███████ ███████
@@ -132,3 +136,9 @@ sudo pacman -Syu acpilight
 # ! To prevent entering a sudo password everytime you want to change the power saving mode, use `sudo -E=vim visudo` to add:
 # ALL ALL = (ALL) NOPASSWD: /usr/bin/tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
 # ! To the sudoers file, just after the `root ALL=(ALL:ALL) ALL` line
+
+# ! A good tool for easily customising the arc GTK theme
+# https://github.com/geokapp/arc-variants
+
+# ! If nautilus is opening file pickers in full screen, try:
+# dconf write /org/gnome/nautilus/window-state/maximized false

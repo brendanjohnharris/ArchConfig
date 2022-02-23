@@ -52,5 +52,3 @@ xinput set-prop "MSFT0001:01 06CB:CE44 Touchpad" "libinput Natural Scrolling Ena
 
 exec xmonad
 
-dunst
-nm-applet

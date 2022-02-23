@@ -65,7 +65,7 @@ conky.config = {
 
 	--Windows
 	own_window = true,							-- create your own window to draw
-	own_window_argb_value = 255,			    -- real transparency - composite manager required 0-255
+	own_window_argb_value = 150,			    -- real transparency - composite manager required 0-255
 	own_window_argb_visual = true,				-- use ARGB - composite manager required
 	own_window_class = 'Conky',					-- manually set the WM_CLASS name for use with xprop
 	own_window_colour = '#282c34',				-- set colour if own_window_transparent no
@@ -96,6 +96,7 @@ ${goto 12}${color1}${top_mem name 2}$alignr$color${top_mem mem_res 2}
 ${goto 12}${color1}${top_mem name 3}$alignr$color${top_mem mem_res 3}
 ${voffset 18}${color1}${alignc}${font4}XMONAD KEYBINDINGS${font}${color}
 ${color1}${hr}${color}
+${color1}[S]+[SHIFT]+/${alignr}${color2}view shortcuts${color}
 ${color1}[S]+[RET]${alignr}${color2}open terminal${color}
 ${color1}[S]+b${alignr}${color2}open browser${color}
 ${color1}[S]+[SHIFT]+[RET]${alignr}${color2}run prompt${color}

@@ -102,7 +102,7 @@ myNormColor :: String       -- Border color of normal windows
 myNormColor   = colorBack   -- This variable is imported from Colors.THEME
 
 myFocusColor :: String      -- Border color of focused windows
-myFocusColor  = color15     -- This variable is imported from Colors.THEME
+myFocusColor  = colorFore -- color15     -- This variable is imported from Colors.THEME
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
@@ -114,13 +114,16 @@ myStartupHook = do
 
     spawnOnce "lxsession"
     spawnOnce "picom"
+    spawnOnce "dunst"
     spawnOnce "nm-applet"
+    spawnOnce "blueman-applet"
     spawnOnce "volumeicon"
 
     spawn ("sleep 2 && conky -c $HOME/.config/.conkyrc")
-    spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 32")
+    spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 30 --distance 1") -- Effective height is height + 2*distance
 
-    spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
+    -- spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
+    spawnOnce "$(watch -n 600 'feh --recursive --randomize --bg-fill $HOME/.wallpapers/')"
     -- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
     -- spawnOnce "feh --randomize --bg-fill ~/wallpapers/*"  -- feh set random wallpaper
     -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
@@ -324,7 +327,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                                 --  ||| wideAccordion
 
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
-myWorkspaces = [" chat ", " mail ", " www ", " dev", " note ", " sys ", " jul ", " vid ", " misc "]
+myWorkspaces = [" chat ", " mail ", " www ", " dev", " note ", " sys ", " read ", " vid ", " misc "]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
@@ -487,7 +490,7 @@ myKeys =
         , ("<XF86AudioMute>", spawn "amixer set Master toggle")
         , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
         , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
-        , ("<XF86HomePage>", spawn "firefox https://www.youtube.com/c/DistroTube")
+        , ("<XF86HomePage>", spawn "firefox https://www.youtube.com/")
         , ("<XF86Search>", spawn "dm-websearch")
         , ("<XF86Mail>", runOrRaise "betterbird" (resource =? "betterbird"))
         , ("<XF86Calculator>", runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))
@@ -552,4 +555,5 @@ main = do
                 -- order of things in xmobar
               , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
               }
+
         } `additionalKeysP` myKeys
