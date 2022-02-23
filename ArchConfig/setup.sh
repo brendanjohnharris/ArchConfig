@@ -67,7 +67,7 @@ sudo pacman -Syu hicolor-icon-theme papirus-icon-theme
 paru -Sy betterbird
 
 # * Enable bluetooth device auto-detect by editing sudo vim /etc/bluetooth/main.conf and setting AutoEnable=true
-sudo pacman -Syu bluez bluez-utils blueman pulseaudio pulseaudio-alsa pulseaudio-bluetooth pavucontrol
+sudo pacman -Syu bluez bluez-utils blueman pulseaudio pulseaudio-alsa pulseaudio-bluetooth pavucontrol volumeicon alsa-utils
 sudo systemctl enable bluetooth
 
 # * Brightness control
@@ -108,6 +108,7 @@ paru -Syu downgrade
 ## TODO: Fix switchable graphics using acpi and turn_off-gpu.sh, then add gpus tatus to xmobar and clickable action to switch
 ## TODO: Change the SubtleDoom colors in alacritty.yml to have the Julia/vscode color scheme for red, green, blue, magenta, etc.
 ## TODO: Change the background colours of the Arc theme to be consistent with One Dark Pro
+## TODO: Set up lxsession (remembers windows, basically)
 
 
 #  * ███    ██  ██████  ████████ ███████ ███████
