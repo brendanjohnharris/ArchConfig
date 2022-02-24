@@ -48,7 +48,11 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-xinput set-prop "MSFT0001:01 06CB:CE44 Touchpad" "libinput Natural Scrolling Enabled" 1 # Set the trackpad device, "MSFT0001:01 06CB:CE44 Touchpad", to natural scrolling
+# ! This can be done here, but easier to do it with libinput
+# xinput set-prop "MSFT0001:01 06CB:CE44 Touchpad" "libinput Natural Scrolling Enabled" 1 # Set the trackpad device, "MSFT0001:01 06CB:CE44 Touchpad", to natural scrolling
+
+eval $(gnome-keyring-daemon --start)
+export SSH_AUTH_SOCK
 
 exec xmonad
 

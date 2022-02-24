@@ -1,0 +1,18 @@
+#!/bin/bash
+
+while [ 1 ]
+do
+  # Check whether or not socket exists
+  if [ -S /tmp/.X11-unix/X0 ]
+  then
+    exit 0
+  fi
+
+  # Adjust timeout according to your needs
+  if [ $SECONDS -gt 9999 ]
+  then
+    exit 1
+  fi
+
+  sleep 0.5
+done

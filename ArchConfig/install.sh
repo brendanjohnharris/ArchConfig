@@ -92,7 +92,7 @@ passwd
 # * Make a user or two
 useradd -m brendan
 passwd brendan
-usermod -aG wheel,audio,video,optical,storage brendan
+usermod -aG wheel,audio,video,optical,storage,input brendan
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
 
 # * Chroot for bootloader setup

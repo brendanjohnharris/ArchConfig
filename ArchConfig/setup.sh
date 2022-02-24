@@ -49,12 +49,17 @@ xmonad --recompile
 sudo pacman -Syu nautilus
 
 # * Misc. programs
-sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet caprine ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot screenfetch bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh
+sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet caprine ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh vlc lxsession
 
 # * AUR helper
 sudo pacman -Syu base-devel
 git clone https://aur.archlinux.org/paru.git $HOME/Downloads/paru/
 (cd $HOME/Downloads/paru && makepkg -si)
+
+# * Pretty terminal
+paru -Syu fastfetch
+sudo rm /usr/share/themes/Arc-Dark/gtk-2.0/gtkrc 
+sudo ln -s ~/.config/.gtkcolorscheme /usr/share/themes/Arc-Dark/gtk-2.0/gtkrc 
 
 # * Fonts
 sudo pacman -Syu fontconfig
@@ -67,11 +72,22 @@ sudo pacman -Syu hicolor-icon-theme papirus-icon-theme
 paru -Sy betterbird
 
 # * Enable bluetooth device auto-detect by editing sudo vim /etc/bluetooth/main.conf and setting AutoEnable=true
-sudo pacman -Syu bluez bluez-utils blueman pulseaudio pulseaudio-alsa pulseaudio-bluetooth pavucontrol volumeicon alsa-utils
+sudo pacman -Syu bluez bluez-utils blueman pulseaudio pulseaudio-alsa pulseaudio-bluetooth pavucontrol volumeicon alsa-utils gstreamer gst-plugins-good gst-libav
 sudo systemctl enable bluetooth
 
 # * Brightness control
 sudo pacman -Syu acpilight
+
+# * Trackpad gestures
+sudo pacman -Syu xf86-input-libinput wmctrl
+paru -Syu libinput-gestures
+libinput-gestures-setup desktop
+libinput-gestures-setup autostart
+# sudo ln -s $HOME/ArchConfig/30-touchpad.conf /etc/X11/xorg.conf.d/30-touchpad.conf
+# sudo ln -s $HOME/ArchConfig/libinput-gestures.service /etc/systemd/system/libinput-gestures.service
+# sudo systemctl enable libinput-gestures.service
+# ! To actually have this work, edit sudoers to include: ALL ALL = NOPASSWD: /usr/bin/libinput-gestures
+
 
 # * Downgrade packages
 paru -Syu downgrade
@@ -88,7 +104,6 @@ paru -Syu downgrade
 ## TODO: Add a login manager
 ## TODO: Setup dmenu shortcuts
 ## TODO: Configure conky panel, add custom keybindings
-## TODO: Configure trackpad gestures and tap to click
 ## TODO: Fix audio issues: https://blog.karaolidis.com/lenovo-legion-7/
 ## TODO: Set the GTK and QT themes to match onedark pro
 ## TODO: Enable and set trackpad gestures
@@ -109,6 +124,8 @@ paru -Syu downgrade
 ## TODO: Change the SubtleDoom colors in alacritty.yml to have the Julia/vscode color scheme for red, green, blue, magenta, etc.
 ## TODO: Change the background colours of the Arc theme to be consistent with One Dark Pro
 ## TODO: Set up lxsession (remembers windows, basically)
+## TODO: Get conky to ALWAYS be below EVERY window, even on restarting xmonad
+## TODO: Get libinput-gestures working. Need to find a way to run the exe with sudo AFTER xmonad has started, but AS USER. Dont want to have to install a desktop manager...
 
 
 #  * ███    ██  ██████  ████████ ███████ ███████
@@ -143,3 +160,9 @@ paru -Syu downgrade
 
 # ! If nautilus is opening file pickers in full screen, try:
 # dconf write /org/gnome/nautilus/window-state/maximized false
+
+# ! To enabel hibernate, add the kernel parameter: resume=/dev/archVolumeGroup/archLogicalVolume
+# ! via GRUB as descirbed here: https://wiki.archlinux.org/title/kernel_parameters#GRUB 
+# e.g. GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet resume=/dev/nvme0n1p5"
+
+# ! To automatically authenticate with the gnome keyring at login (and when not using a display manager), follow: https://wiki.archlinux.org/title/GNOME/Keyring#PAM_step

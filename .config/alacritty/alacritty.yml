@@ -683,12 +683,12 @@ colors: *SubtleDoom
 #  args:
 #    - --login
 
-# * Show neofetch in alacritty without having to invoke it in every bash instance via .bashrc
+# * Show fastfetch in alacritty without having to invoke it in every bash instance via .bashrc
 shell:
   program: /bin/bash
   args:
     - -c
-    - "(neofetch); exec bash"
+    - "sleep 0.05; (fastfetch); exec bash"
 
 # Startup directory
 #

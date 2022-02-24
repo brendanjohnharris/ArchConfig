@@ -115,12 +115,13 @@ myStartupHook = do
     spawnOnce "lxsession"
     spawnOnce "picom"
     spawnOnce "dunst"
-    spawnOnce "nm-applet"
-    spawnOnce "blueman-applet"
-    spawnOnce "volumeicon"
 
     spawn ("sleep 2 && conky -c $HOME/.config/.conkyrc")
     spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 30 --distance 1") -- Effective height is height + 2*distance
+
+    spawnOnce "nm-applet"
+    spawnOnce "blueman-applet"
+    spawnOnce "volumeicon"
 
     -- spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
     spawnOnce "$(watch -n 600 'feh --recursive --randomize --bg-fill $HOME/.wallpapers/')"
@@ -128,6 +129,8 @@ myStartupHook = do
     -- spawnOnce "feh --randomize --bg-fill ~/wallpapers/*"  -- feh set random wallpaper
     -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
     setWMName "LG3D"
+
+    spawnOnce "onedrive --monitor"
 
 myColorizer :: Window -> Bool -> X (String, String)
 myColorizer = colorRangeFromClassName
@@ -374,26 +377,6 @@ myKeys =
     -- KB_GROUP Run Prompt
         , ("M-S-<Return>", spawn "dmenu_run -i -fn 'Ubuntu:weight=bold:pixelsize=26:antialias=true:hinting=true' -p \"Run: \"") -- Dmenu
 
-    -- KB_GROUP Other Dmenu Prompts
-    -- In Xmonad and many tiling window managers, M-p is the default keybinding to
-    -- launch dmenu_run, so I've decided to use M-p plus KEY for these dmenu scripts.
-        -- , ("M-p h", spawn "dm-hub")           -- allows access to all dmscripts
-        -- , ("M-p a", spawn "dm-sounds")        -- choose an ambient background
-        -- , ("M-p b", spawn "dm-setbg")         -- set a background
-        -- , ("M-p c", spawn "dtos-colorscheme") -- choose a colorscheme
-        -- , ("M-p C", spawn "dm-colpick")       -- pick color from our scheme
-        -- , ("M-p e", spawn "dm-confedit")      -- edit config files
-        -- , ("M-p i", spawn "dm-maim")          -- screenshots (images)
-        -- , ("M-p k", spawn "dm-kill")          -- kill processes
-        -- , ("M-p m", spawn "dm-man")           -- manpages
-        -- , ("M-p n", spawn "dm-note")          -- store one-line notes and copy them
-        -- , ("M-p o", spawn "dm-bookman")       -- firefox bookmarks/history
-        -- , ("M-p p", spawn "passmenu")         -- passmenu
-        -- , ("M-p q", spawn "dm-logout")        -- logout menu
-        -- , ("M-p r", spawn "dm-reddit")        -- reddio (a reddit viewer)
-        -- , ("M-p s", spawn "dm-websearch")     -- search various search engines
-        -- , ("M-p t", spawn "dm-translate")     -- translate text (Google Translate)
-
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn (myTerminal))
         , ("M-b", spawn (myBrowser))
@@ -401,8 +384,7 @@ myKeys =
         , ("M-<Print>", spawn "flameshot gui")
 
     -- KB_GROUP Kill windows
-        , (
-            "M-S-c", kill1)     -- Kill the currently focused client
+        , ("M-S-c", kill1)     -- Kill the currently focused client
         , ("M-S-a", killAll)   -- Kill all windows on current workspace
 
     -- KB_GROUP Workspaces<Return>
@@ -411,7 +393,7 @@ myKeys =
         , ("M-.", nextScreen)  -- Switch focus to next monitor
         , ("M-,", prevScreen)  -- Switch focus to prev monitor
         , ("M-S-<Left>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
-        , ("M-S-<Right>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next ws
+        , ("M-S-<Right>", shiftTo Next nonNSP >> moveTo Next nonNSP) -- Shifts focused window to next ws
 
     -- KB_GROUP Floating windows
         , ("M-f", sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
@@ -430,7 +412,7 @@ myKeys =
         , ("C-g b", bringSelected $ mygridConfig myColorizer) -- bring selected window
 
     -- KB_GROUP Windows navigation
-        , ("M-m", windows W.focusMaster)  -- Move focus to the master window
+        , ("M-i", windows W.focusMaster)  -- Move focus to the master window
         , ("M-k", windows W.focusDown)    -- Move focus to the next window
         , ("M-j", windows W.focusUp)      -- Move focus to the prev window
         , ("M-S-m", windows W.swapMaster) -- Swap the focused window and the master window
@@ -473,6 +455,7 @@ myKeys =
     -- When you toggle them to show, it brings them to your current workspace.
     -- Toggle them to hide and it sends them back to hidden workspace (NSP).
         , ("M-s <Return>", namedScratchpadAction myScratchPads "terminal")
+        , ("M-M1-t", namedScratchpadAction myScratchPads "terminal")
         , ("M-s m", namedScratchpadAction myScratchPads "music")
         , ("M-s c", namedScratchpadAction myScratchPads "calculator")
         , ("M-s b", namedScratchpadAction myScratchPads "browser")
@@ -488,14 +471,20 @@ myKeys =
         , ("<XF86AudioPrev>", spawn "mocp --previous")
         , ("<XF86AudioNext>", spawn "mocp --next")
         , ("<XF86AudioMute>", spawn "amixer set Master toggle")
+        , ("<XF86AudioMicMute>", spawn "amixer set Capture toggle")
         , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
         , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
-        , ("<XF86HomePage>", spawn "firefox https://www.youtube.com/")
-        , ("<XF86Search>", spawn "dm-websearch")
+        , ("<XF86HomePage>", spawn "firefox https://www.google.com/")
+        , ("<XF86Search>", spawn "qutebrowser")
         , ("<XF86Mail>", runOrRaise "betterbird" (resource =? "betterbird"))
         , ("<XF86Calculator>", runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))
         , ("<XF86Eject>", spawn "toggleeject")
-        , ("<Print>", spawn "dm-maim")
+        , ("M-m k", spawn "quodlibet --next")
+        , ("M-m j", spawn "quodlibet --previous")
+        , ("M-m <Space>", spawn "quodlibet --play-pause")
+        , ("<XF86AudioStop>", spawn "quodlibet --play-pause")
+
+
 
     -- Function keys
         , ("<XF86MonBrightnessDown>", spawn "xbacklight -ctrl intel_backlight -dec 10") -- Backlight down for intel integrated graphics
