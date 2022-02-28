@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Name=Messenger
+GenericName=Messenger-Firefox
+Comment=Open Facebook Messenger in the web browser
+Keywords=Chat;Facebook;Social;Messages
+Exec=firefox --kiosk --new-window https://www.messenger.com/
+Icon=fbmessenger
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
+StartupNotify=true
+StartupWMClass=messenger-firefox
+Categories=Chat

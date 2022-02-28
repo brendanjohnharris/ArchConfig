@@ -1,6 +1,7 @@
 configuration {
  modi: "window,drun,ssh,combi,run";
  combi-modi: "window,drun,ssh";
+ show-icons:                true;
  icon-theme: "Papirus-Dark";
  }
 @theme "~/.config/rofi/themes/dt-dmenu.rasi"

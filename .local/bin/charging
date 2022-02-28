@@ -5,5 +5,5 @@ if [ "$charging" = "Discharging" ]
 then
     echo "<fn=2>\xf0f3</fn>"
 else
-    echo "Off"
+    echo "On"
 fi

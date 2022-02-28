@@ -39,7 +39,7 @@ sudo pacman -Syu alacritty
 sudo timedatectl set-ntp true
 
 # * Window manager
-sudo pacman -Syu xorg-xinit xorg-server xorg-xinput xmonad xterm xmonad-contrib xmobar dmenu picom xdotool trayer
+sudo pacman -Syu xorg-xinit xorg-server xorg-xinput xmonad xterm xmonad-contrib xmobar rofi picom xdotool trayer
 # cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
 # sed -i '$d' $HOME/.xinitrc
 # echo "exec xmonad" >> $HOME/.xinitrc
@@ -49,7 +49,11 @@ xmonad --recompile
 sudo pacman -Syu nautilus
 
 # * Misc. programs
-sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet caprine ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh vlc lxsession
+sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet caprine ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh vlc lxsession rofi onedrive-abraunegg onedrive_tray-git qt5-base
+
+# * Onedrive tray service
+sudo cp /usr/lib/systemd/user/onedrive_tray.service $HOME/.config/systemd/user/
+systemctl --user enable onedrive_tray.service
 
 # * AUR helper
 sudo pacman -Syu base-devel
@@ -63,7 +67,13 @@ sudo ln -s ~/.config/.gtkcolorscheme /usr/share/themes/Arc-Dark/gtk-2.0/gtkrc
 
 # * Fonts
 sudo pacman -Syu fontconfig
-paru -Sy ttf-juliamono ttf-mononoki nerd-fonts-source-code-pro ttf-font-awesome
+paru -Sy ttf-juliamono ttf-mononoki nerd-fonts-source-code-pro ttf-font-awesome ttf-ms-win10-auto
+
+# * Printing
+sudo pacman -Syu cups cups-pdf avahi nss-mdns samba
+paru -Syu samsung-unified-driver epson-inkjet-printer-workforce-635-nx625-series gutenprint foomatic-db-gutenprint-ppds
+sudo systemctl enable cups.socket
+# Then set up avahi local hostnames: https://wiki.archlinux.org/title/Avahi#Hostname_resolution. Also see https://wiki.archlinux.org/title/CUPS#Network
 
 # * Icon theme
 sudo pacman -Syu hicolor-icon-theme papirus-icon-theme
@@ -88,11 +98,19 @@ libinput-gestures-setup autostart
 # sudo systemctl enable libinput-gestures.service
 # ! To actually have this work, edit sudoers to include: ALL ALL = NOPASSWD: /usr/bin/libinput-gestures
 
+# * Low battery warning
+systemctl --user enable batterymonitor.service
 
 # * Downgrade packages
 paru -Syu downgrade
 
 # # * Turn off discrete gpu
+# ! See https://github.com/Askannz/optimus-manager
+# sudo pacman -Syu bumblebee bbswitch
+# echo 'blacklist nvidia' | sudo tee -a /etc/modprobe.d/BLACKLIST-video.conf
+# sudo modprobe bbswitch
+# sudo gpasswd -a brendan bumblebee
+
 # sudo pacman -Syu acpi_call
 # modprobe acpi_call
 # tr < /usr/share/acpi_call/examples/turn_off_gpu.sh -d '\000' > $HOME/.local/bin/turn_off_gpu.sh
@@ -102,7 +120,6 @@ paru -Syu downgrade
 ## TODO: Add nitrogen for wallpapers
 ## TODO: Configure fish shell
 ## TODO: Add a login manager
-## TODO: Setup dmenu shortcuts
 ## TODO: Configure conky panel, add custom keybindings
 ## TODO: Fix audio issues: https://blog.karaolidis.com/lenovo-legion-7/
 ## TODO: Set the GTK and QT themes to match onedark pro
@@ -166,3 +183,7 @@ paru -Syu downgrade
 # e.g. GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet resume=/dev/nvme0n1p5"
 
 # ! To automatically authenticate with the gnome keyring at login (and when not using a display manager), follow: https://wiki.archlinux.org/title/GNOME/Keyring#PAM_step
+
+# ! Can build onedrive_tray manually, and replace the blue icon with a better white one
+
+# !  lspci -v | grep -E 'VGA|3D' to detect if descrete gpu is powered on

@@ -5,3 +5,6 @@ config () {
 
 # * Permissions for OS scripts
 chmod u+x $HOME/.xmonad/xmonad_keys.sh
+
+# * Set qt theme:
+QT_STYLE_OVERRIDE="kvantum"

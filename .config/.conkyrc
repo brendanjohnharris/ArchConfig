@@ -65,7 +65,7 @@ conky.config = {
 
 	--Windows
 	own_window = true,							-- create your own window to draw
-	own_window_argb_value = 150,			    -- real transparency - composite manager required 0-255
+	own_window_argb_value = 175,			    -- real transparency - composite manager required 0-255
 	own_window_argb_visual = true,				-- use ARGB - composite manager required
 	own_window_class = 'Conky',					-- manually set the WM_CLASS name for use with xprop
 	own_window_colour = '#282c34',				-- set colour if own_window_transparent no
@@ -101,13 +101,13 @@ ${alignc}${font4}${color1}${exec quodlibet --print-playing "<title~album>"}${col
 ${endif}
 ${color1}${hr}${color}
 ${color1}[S]+[SHIFT]+/${alignr}${color2}view shortcuts${color}
-${color1}[S]+[RET]${alignr}${color2}open terminal${color}
+${color1}[S]+[SHIFT]+[RET]${alignr}${color2}open terminal${color}
 ${color1}[S]+b${alignr}${color2}open browser${color}
 ${color1}[S]+m jk${alignr}${color2}next/prev track${color}
 ${color1}[S]+m [SPACE]${alignr}${color2}toggle play/pause${color}
 ${color1}[S]+s+bcm[RET]${alignr}${color2}open scratchpads${color}
 ${color1}[S]+[PRTSC]${alignr}${color2}take screenshot${color}
-${color1}[S]+[SHIFT]+[RET]${alignr}${color2}run prompt${color}
+${color1}[S]+[RET]${alignr}${color2}run prompt${color}
 ${color1}${hr}${color}
 ${color1}[S]+[SHIFT]+c${alignr}${color2}close window${color}
 ${color1}[S]+[SHIFT]+a${alignr}${color2}close all windows${color}

@@ -109,6 +109,7 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 myStartupHook :: X ()
 myStartupHook = do
+    -- spawn "/usr/bin/prime-offload"
     spawn "killall conky"   -- kill current conky on each restart
     spawn "killall trayer"  -- kill current trayer on each restart
 
@@ -122,6 +123,7 @@ myStartupHook = do
     spawnOnce "nm-applet"
     spawnOnce "blueman-applet"
     spawnOnce "volumeicon"
+    spawnOnce "xsettingsd"
 
     -- spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
     spawnOnce "$(watch -n 600 'feh --recursive --randomize --bg-fill $HOME/.wallpapers/')"
@@ -129,8 +131,7 @@ myStartupHook = do
     -- spawnOnce "feh --randomize --bg-fill ~/wallpapers/*"  -- feh set random wallpaper
     -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
     setWMName "LG3D"
-
-    spawnOnce "onedrive --monitor"
+    --spawnOnce "optimus-manager-qt"
 
 myColorizer :: Window -> Bool -> X (String, String)
 myColorizer = colorRangeFromClassName
@@ -309,8 +310,8 @@ myShowWNameTheme :: SWNConfig
 myShowWNameTheme = def
     { swn_font              = "xft:Ubuntu:bold:size=60"
     , swn_fade              = 1.0
-    , swn_bgcolor           = "#1c1f24"
-    , swn_color             = "#ffffff"
+    , swn_bgcolor           = colorBack
+    , swn_color             = colorFore
     }
 
 -- The layout hook
@@ -375,10 +376,11 @@ myKeys =
         , ("M-S-/", spawn "~/.xmonad/xmonad_keys.sh") -- Get list of keybindings
 
     -- KB_GROUP Run Prompt
-        , ("M-S-<Return>", spawn "dmenu_run -i -fn 'Ubuntu:weight=bold:pixelsize=26:antialias=true:hinting=true' -p \"Run: \"") -- Dmenu
+        --, ("M-S-<Return>", spawn "dmenu_run -i -fn 'Ubuntu:weight=bold:pixelsize=26:antialias=true:hinting=true' -p \"Run: \"") -- Dmenu
+        , ("M-<Return>", spawn "rofi -show drun") -- Dmenu
 
     -- KB_GROUP Useful programs to have a keybinding for launch
-        , ("M-<Return>", spawn (myTerminal))
+        , ("M-S-<Return>", spawn (myTerminal))
         , ("M-b", spawn (myBrowser))
         , ("M-M1-h", spawn (myTerminal ++ " -e htop"))
         , ("M-<Print>", spawn "flameshot gui")
@@ -419,11 +421,12 @@ myKeys =
         , ("M-S-j", windows W.swapDown)   -- Swap focused window with next window
         , ("M-S-k", windows W.swapUp)     -- Swap focused window with prev window
         , ("M-<Backspace>", promote)      -- Moves focused window to master, others maintain order
-        , ("M-S-<Tab>", rotSlavesDown)    -- Rotate all windows except master and keep focus in place
+        , ("M-M1-<Tab>", rotSlavesDown)    -- Rotate all windows except master and keep focus in place
         , ("M-C-<Tab>", rotAllDown)       -- Rotate all the windows in the current stack
 
     -- KB_GROUP Layouts
-        , ("M-<Tab>", sendMessage NextLayout)           -- Switch to next layout
+        , ("M-<Tab>", sendMessage NextLayout)     -- Switch to next layout
+        , ("M-S-<Tab>", sendMessage FirstLayout)        -- Switch to the first layout (Tall)
         , ("M-<Space>", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
 
     -- KB_GROUP Increase/decrease windows in the master pane or the stack
@@ -460,11 +463,11 @@ myKeys =
         , ("M-s c", namedScratchpadAction myScratchPads "calculator")
         , ("M-s b", namedScratchpadAction myScratchPads "browser")
 
-    -- -- KB_GROUP Controls for mocp music player (SUPER-u followed by a key)
-    --     , ("M-u p", spawn "mocp --play")
-    --     , ("M-u l", spawn "mocp --next")
-    --     , ("M-u h", spawn "mocp --previous")
-    --     , ("M-u <Space>", spawn "mocp --toggle-pause")
+    -- -- KB_GROUP Controls for music player (SUPER-m followed by a key)
+        , ("M-m k", spawn "quodlibet --next")
+        , ("M-m j", spawn "quodlibet --previous")
+        , ("M-m <Space>", spawn "quodlibet --play-pause")
+        , ("<XF86AudioStop>", spawn "quodlibet --play-pause")
 
     -- KB_GROUP Multimedia Keys
         , ("<XF86AudioPlay>", spawn "mocp --play")
@@ -479,10 +482,6 @@ myKeys =
         , ("<XF86Mail>", runOrRaise "betterbird" (resource =? "betterbird"))
         , ("<XF86Calculator>", runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))
         , ("<XF86Eject>", spawn "toggleeject")
-        , ("M-m k", spawn "quodlibet --next")
-        , ("M-m j", spawn "quodlibet --previous")
-        , ("M-m <Space>", spawn "quodlibet --play-pause")
-        , ("<XF86AudioStop>", spawn "quodlibet --play-pause")
 
 
 

@@ -688,7 +688,7 @@ shell:
   program: /bin/bash
   args:
     - -c
-    - "sleep 0.05; (fastfetch); exec bash"
+    - "sleep 0.05; (fastfetch --load-config paleofetch); exec bash"
 
 # Startup directory
 #

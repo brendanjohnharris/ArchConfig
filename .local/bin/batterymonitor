@@ -1,0 +1,13 @@
+#! /bin/bash 
+
+read -r battery < /sys/class/power_supply/BAT0/capacity
+read -r charging < /sys/class/power_supply/BAT0/status
+if [ $battery -lt 15 ] && [ "$charging" = "Discharging" ]
+then
+    notify-send -u critical -i battery-level-10-symbolic "Low battery" "Hibernating at 5%"
+fi
+if [ $battery -lt 5 ] && [ "$charging" = "Discharging" ]
+then
+    notify-send -u critical -i battery-level-0-symbolic "Extremely low battery" "Hibernating now"
+    systemctl hibernate
+fi
