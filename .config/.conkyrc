@@ -71,7 +71,7 @@ conky.config = {
 	own_window_colour = '#282c34',				-- set colour if own_window_transparent no
 	own_window_transparent = false,				-- if own_window_argb_visual is true sets background opacity 0%
 	own_window_title = 'xmonad_conky',			-- set the name manually
-	own_window_type = 'desktop',				-- if own_window true options are: normal/override/dock/desktop/panel
+	own_window_type = 'override',				-- if own_window true options are: normal/override/dock/desktop/panel
 	own_window_hints = 'undecorated,below,above,sticky,skip_taskbar,skip_pager',  -- if own_window true - just hints - own_window_type sets it
 
 	--Colors (Doom One)
@@ -108,10 +108,13 @@ ${color1}[S]+m [SPACE]${alignr}${color2}toggle play/pause${color}
 ${color1}[S]+s+bcm[RET]${alignr}${color2}open scratchpads${color}
 ${color1}[S]+[PRTSC]${alignr}${color2}take screenshot${color}
 ${color1}[S]+[RET]${alignr}${color2}run prompt${color}
+${color1}[S]+n${alignr}${color2}close alert${color}
+${color1}[S]+[SHIFT]+n${alignr}${color2}close all alerts${color}
+${color1}[S]+[ALT]+n${alignr}${color2}reopen alert${color}
 ${color1}${hr}${color}
 ${color1}[S]+[SHIFT]+c${alignr}${color2}close window${color}
 ${color1}[S]+[SHIFT]+a${alignr}${color2}close all windows${color}
-${color1}[S]+hjkl${alignr}${color2}move win focus${color}
+${color1}[S]+hjkl${alignr}${color2}move win. focus${color}
 ${color1}[S]+[1-9]${alignr}${color2}switch workspace${color}
 ${color1}[S]+←→${alignr}${color2}cycle workspace${color}
 ${color1}[S]+[SHIFT]+[1-9]${alignr}${color2}send window${color}
@@ -121,4 +124,5 @@ ${color1}[S]+[ALT]+h/l${alignr}${color2}adjust size vert.${color}
 ${color1}[C]+[ALT]+hjkl${alignr}${color2}adjust spacing${color}
 ${color1}[S]+[SHIFT]+r${alignr}${color2}restart xmonad${color}
 ${color1}[S]+[SHIFT]+q${alignr}${color2}quit xmonad${color}
+${color1}[C]+[ALT]+[BKSP]${alignr}${color2}quit X${color}
 ]];

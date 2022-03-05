@@ -49,7 +49,7 @@ xmonad --recompile
 sudo pacman -Syu nautilus
 
 # * Misc. programs
-sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet caprine ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh vlc lxsession rofi onedrive-abraunegg onedrive_tray-git qt5-base
+sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh vlc lxsession rofi onedrive-abraunegg onedrive_tray-git qt5-base
 
 # * Onedrive tray service
 sudo cp /usr/lib/systemd/user/onedrive_tray.service $HOME/.config/systemd/user/
@@ -104,6 +104,10 @@ systemctl --user enable batterymonitor.service
 # * Downgrade packages
 paru -Syu downgrade
 
+# * Fish shell
+sudo pacman -Syu fish starship fisher
+
+
 # # * Turn off discrete gpu
 # ! See https://github.com/Askannz/optimus-manager
 # sudo pacman -Syu bumblebee bbswitch
@@ -115,34 +119,17 @@ paru -Syu downgrade
 # modprobe acpi_call
 # tr < /usr/share/acpi_call/examples/turn_off_gpu.sh -d '\000' > $HOME/.local/bin/turn_off_gpu.sh
 
-## TODO: Set bluetooth to autostart
-## TODO: Fix awesome icons not appearing in xmobar, see xmobarrc
-## TODO: Add nitrogen for wallpapers
 ## TODO: Configure fish shell
-## TODO: Add a login manager
-## TODO: Configure conky panel, add custom keybindings
-## TODO: Fix audio issues: https://blog.karaolidis.com/lenovo-legion-7/
-## TODO: Set the GTK and QT themes to match onedark pro
-## TODO: Enable and set trackpad gestures
+## TODO: Set the GTK and QT themes to match onedark pro (PLUS OKULAR!)
 ## TODO: Setup HDR display
-## TODO: Setup notifications via dunst
-## TODO: Set alt-tab to cycle through windows in both floating and tiled mode
-## TODO: Make a browser scratchpad
 ## TODO: Add gpu to conky and xmobar
-## TODO: Bind function keys to brightness
-## TODO: Add Colors.doomone
-## TODO: Fix tabs label font
 ## TODO: Find a way to change the battery icon when charging
-## TODO: Spawn lightning when clicking on the calendar icon
 ## TODO: Find a way to have super+0 bound to a workspace
 ## TODO: Find a way to execute the action script for the battery icon as root/sudo automatically
 ## TODO: Use piper for interfacing with gaming mouse
-## TODO: Fix switchable graphics using acpi and turn_off-gpu.sh, then add gpus tatus to xmobar and clickable action to switch
-## TODO: Change the SubtleDoom colors in alacritty.yml to have the Julia/vscode color scheme for red, green, blue, magenta, etc.
+## TODO: Fix switchable graphics using acpi and turn_off-gpu.sh, then add gpus status to xmobar and clickable action to switch
 ## TODO: Change the background colours of the Arc theme to be consistent with One Dark Pro
-## TODO: Set up lxsession (remembers windows, basically)
-## TODO: Get conky to ALWAYS be below EVERY window, even on restarting xmonad
-## TODO: Get libinput-gestures working. Need to find a way to run the exe with sudo AFTER xmonad has started, but AS USER. Dont want to have to install a desktop manager...
+## TODO: Add dynamic icons (XMonad.Hooks.DynamicIcons) to tab names
 
 
 #  * ███    ██  ██████  ████████ ███████ ███████

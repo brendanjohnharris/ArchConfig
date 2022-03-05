@@ -1,8 +1,0 @@
-#! /bin/bash 
-read -r powersaveron < /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode # Read the current state of the powersaver mode
-if [[ $powersaveron -gt 0 ]]
-then
-    echo 0 | sudo /usr/bin/tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
-else
-    echo 1 | sudo /usr/bin/tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
-fi

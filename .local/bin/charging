@@ -3,7 +3,8 @@
 read -r charging < /sys/class/power_supply/BAT0/status
 if [ "$charging" = "Discharging" ]
 then
-    echo "<fn=2>\xf0f3</fn>"
+    echo "<fn=4>󰁿</fn>"
 else
-    echo "On"
+    echo "<fn=4>󰂉</fn>"
 fi
+

@@ -688,7 +688,8 @@ shell:
   program: /bin/bash
   args:
     - -c
-    - "sleep 0.05; (fastfetch --load-config paleofetch); exec bash"
+    - "sleep 0.05; (neofetch --disable gpu); exec fish" # It's a Sicilian message
+    #  "sleep 0.05; (fastfetch --load-config paleofetch); exec fish"
 
 # Startup directory
 #

@@ -8,3 +8,6 @@ chmod u+x $HOME/.xmonad/xmonad_keys.sh
 
 # * Set qt theme:
 QT_STYLE_OVERRIDE="kvantum"
+
+# Stop matlab from shouting
+export MATLAB_LOG_DIR="$HOME/.matlab/logs"

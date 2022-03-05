@@ -107,6 +107,25 @@ myFocusColor  = colorFore -- color15     -- This variable is imported from Color
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
+-- setting colors for tabs layout and tabs sublayout.
+myTabTheme = def { XMonad.Layout.Tabbed.fontName            = "xft:Ubuntu:bold:size=9:antialias=true:hinting=true"
+                 , XMonad.Layout.Tabbed.activeColor         = colorFore
+                 , XMonad.Layout.Tabbed.inactiveColor       = colorBack
+                 , XMonad.Layout.Tabbed.activeBorderColor   = colorFore
+                 , XMonad.Layout.Tabbed.inactiveBorderColor = colorBack
+                 , XMonad.Layout.Tabbed.activeTextColor     = colorBack
+                 , XMonad.Layout.Tabbed.inactiveTextColor   = color16
+                 }
+
+-- Theme for showWName which prints current workspace when you change workspaces.
+myShowWNameTheme :: SWNConfig
+myShowWNameTheme = def
+    { swn_font              = "xft:Ubuntu:bold:size=60"
+    , swn_fade              = 1.0
+    , swn_bgcolor           = colorBack
+    , swn_color             = colorFore
+    }
+
 myStartupHook :: X ()
 myStartupHook = do
     -- spawn "/usr/bin/prime-offload"
@@ -295,25 +314,6 @@ threeRow = renamed [Replace "threeRow"]
 -- wideAccordion  = renamed [Replace "wideAccordion"]
 --            $ Mirror Accordion
 
--- setting colors for tabs layout and tabs sublayout.
-myTabTheme = def { fontName            = myFont
-                 , activeColor         = color15
-                 , inactiveColor       = color08
-                 , activeBorderColor   = color15
-                 , inactiveBorderColor = colorBack
-                 , activeTextColor     = colorBack
-                 , inactiveTextColor   = color16
-                 }
-
--- Theme for showWName which prints current workspace when you change workspaces.
-myShowWNameTheme :: SWNConfig
-myShowWNameTheme = def
-    { swn_font              = "xft:Ubuntu:bold:size=60"
-    , swn_fade              = 1.0
-    , swn_bgcolor           = colorBack
-    , swn_color             = colorFore
-    }
-
 -- The layout hook
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
@@ -331,7 +331,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                                 --  ||| wideAccordion
 
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
-myWorkspaces = [" chat ", " mail ", " www ", " dev", " note ", " sys ", " read ", " vid ", " misc "]
+myWorkspaces = [" chat ", " mail ", " www ", " dev", " note ", " read ", " sys ", " gfx ", " misc "]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
@@ -416,7 +416,9 @@ myKeys =
     -- KB_GROUP Windows navigation
         , ("M-i", windows W.focusMaster)  -- Move focus to the master window
         , ("M-k", windows W.focusDown)    -- Move focus to the next window
+        , ("M1-<Tab>", windows W.focusDown)    -- Move focus to the next window
         , ("M-j", windows W.focusUp)      -- Move focus to the prev window
+        , ("M1-S-<Tab>", windows W.focusDown)    -- Move focus to the prev window
         , ("M-S-m", windows W.swapMaster) -- Swap the focused window and the master window
         , ("M-S-j", windows W.swapDown)   -- Swap focused window with next window
         , ("M-S-k", windows W.swapUp)     -- Swap focused window with prev window
@@ -462,6 +464,11 @@ myKeys =
         , ("M-s m", namedScratchpadAction myScratchPads "music")
         , ("M-s c", namedScratchpadAction myScratchPads "calculator")
         , ("M-s b", namedScratchpadAction myScratchPads "browser")
+
+    -- Dunst (notification) controls
+        , ("M-M1-n", spawn "dunstctl history-pop") -- Return the most recent notification
+        , ("M-n", spawn "dunstctl close") -- Close the oldest notification
+        , ("M-S-n", spawn "dunstctl close-all") -- Close all notifications
 
     -- -- KB_GROUP Controls for music player (SUPER-m followed by a key)
         , ("M-m k", spawn "quodlibet --next")
