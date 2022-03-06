@@ -1,0 +1,5 @@
+#! /bin/bash 
+
+killall picom
+picom --inactive-opacity 1.0
+xmonad --restart

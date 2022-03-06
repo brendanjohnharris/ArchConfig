@@ -397,10 +397,11 @@
 #    summary = "*script*"
 #    script = dunst_test.sh
 
-#[ignore]
-#    # This notification will not be displayed
-#    summary = "foobar"
-#    skip_display = true
+[ignore]
+   # This notification will not be displayed
+   summary = "Facebook"
+   skip_display = true
+   history_ignore = yes
 
 #[history-ignore]
 #    # This notification will not be saved in history
@@ -427,10 +428,10 @@
 #    summary = *says*
 #    urgency = critical
 #
-#[twitter]
-#    appname = Pidgin
-#    summary = *twitter.com*
-#    urgency = normal
+[mail]
+   appname = Betterbird
+   icon = /usr/share/icons/Papirus/16x16/apps/betterbird.svg
+
 #
 #[stack-volumes]
 #    appname = "some_volume_notifiers"

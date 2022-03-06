@@ -252,7 +252,7 @@ tall     = renamed [Replace "tall"]
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
-           $ mySpacing 4
+           $ mySpacing 2
            $ ResizableTall 1 (3/100) (1/2) []
 tabs     = renamed [Replace "tabs"]
            -- I cannot add spacing to this layout because it will
@@ -370,6 +370,8 @@ myKeys =
     -- KB_GROUP Xmonad
         [ ("M-C-r", spawn "xmonad --recompile")       -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart")         -- Restarts xmonad
+        , ("M-S-p t", spawn "~/.local/bin/transparenton") -- Set picom to transparent
+        , ("M-S-p o", spawn "~/.local/bin/transparentoff") -- Set picom to opaque
         , ("M-S-q", io exitSuccess)                   -- Quits xmonad
 
     -- KB_GROUP Get Help

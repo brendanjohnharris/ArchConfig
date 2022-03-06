@@ -688,8 +688,8 @@ shell:
   program: /bin/bash
   args:
     - -c
-    - "sleep 0.05; (neofetch --disable gpu); exec fish" # It's a Sicilian message
-    #  "sleep 0.05; (fastfetch --load-config paleofetch); exec fish"
+    - "(neofetch --disable gpu); exec fish" # It's a Sicilian message. GPU takes a while.
+    #- "sleep 0.05; (fastfetch --load-config paleofetch); exec fish" # It's a Sicilian message
 
 # Startup directory
 #

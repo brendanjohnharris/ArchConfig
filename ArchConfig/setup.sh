@@ -119,6 +119,9 @@ sudo pacman -Syu fish starship fisher
 # modprobe acpi_call
 # tr < /usr/share/acpi_call/examples/turn_off_gpu.sh -d '\000' > $HOME/.local/bin/turn_off_gpu.sh
 
+# * Piper for multi-button mice
+sudo pacman -Syu piper
+
 ## TODO: Configure fish shell
 ## TODO: Set the GTK and QT themes to match onedark pro (PLUS OKULAR!)
 ## TODO: Setup HDR display

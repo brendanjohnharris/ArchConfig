@@ -11,3 +11,10 @@ QT_STYLE_OVERRIDE="kvantum"
 
 # Stop matlab from shouting
 export MATLAB_LOG_DIR="$HOME/.matlab/logs"
+
+# The default browser for xdg-open doesn't seem to be applied everywhere, so:
+export BROWSER=firefox
+
+export GDK_SCALE=1
+export GDK_DPI_SCALE=1.0
+
