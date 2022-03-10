@@ -49,7 +49,7 @@ xmonad --recompile
 sudo pacman -Syu nautilus
 
 # * Misc. programs
-sudo pacman -Syu firefox quodlibet gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh vlc lxsession rofi onedrive-abraunegg onedrive_tray-git qt5-base
+sudo pacman -Syu firefox mpd cantata mpc gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh vlc lxsession rofi onedrive-abraunegg onedrive_tray-git qt5-base piper
 
 # * Onedrive tray service
 sudo cp /usr/lib/systemd/user/onedrive_tray.service $HOME/.config/systemd/user/
@@ -177,3 +177,13 @@ sudo pacman -Syu piper
 # ! Can build onedrive_tray manually, and replace the blue icon with a better white one
 
 # !  lspci -v | grep -E 'VGA|3D' to detect if descrete gpu is powered on
+
+
+# ? To temporarily disable sleep timeout:
+# https://askubuntu.com/questions/47311/how-do-i-disable-my-system-from-going-to-sleep
+
+# ! See here for installing new matlab toolboxes
+# https://au.mathworks.com/matlabcentral/answers/334889-can-t-install-any-toolboxes-because-can-t-write-to-usr-local-matlab-r2017
+
+# ! See here for how to enable USyd printing: https://www.maths.usyd.edu.au/u/psz/smri.html
+# To start, run `sudo /etc/papercut/client/pc-client-launcher`.

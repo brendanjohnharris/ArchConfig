@@ -11,10 +11,15 @@ QT_STYLE_OVERRIDE="kvantum"
 
 # Stop matlab from shouting
 export MATLAB_LOG_DIR="$HOME/.matlab/logs"
+export LD_PRELOAD=/usr/lib/libstdc++.so
+export LD_LIBRARY_PATH=/usr/lib/xorg/modules/dri/
 
 # The default browser for xdg-open doesn't seem to be applied everywhere, so:
 export BROWSER=firefox
 
-export GDK_SCALE=1
-export GDK_DPI_SCALE=1.0
+#export GDK_SCALE=1
+#export GDK_DPI_SCALE=1.0
+#export DISPLAY=:0.0
+#alias matlab='export GTK_PATH=/usr/lib/x86_64-linux-gnu/gtk-2.0; export MESA_LOADER_DRIVER_OVERRIDE=i965; /usr/local/MATLAB/R2021a/bin/matlab'
+export DISPLAY=:0.0
 

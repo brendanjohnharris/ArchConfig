@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Name=Overleaf
+GenericName=Overleaf-client
+Comment=Open Overleaf in the web browser
+Keywords=Editor;LaTeX;Writing
+Exec=chromium --app="https://www.overleaf.com/"
+Icon=kwrite
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
+StartupNotify=true
+StartupWMClass=Overleaf-chromium
+Categories=TextEditor

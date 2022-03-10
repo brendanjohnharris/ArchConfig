@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Name=Onedrive-online
+GenericName=Onedrive-online-client
+Comment=Open Onedrive-online in the web browser
+Keywords=Editor;LaTeX;Writing
+Exec=chromium --app="https://unisydneyedu-my.sharepoint.com/"
+Icon=ms-onedrive
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
+StartupNotify=true
+StartupWMClass=Onedrive-online-chromium
+Categories=FileManager

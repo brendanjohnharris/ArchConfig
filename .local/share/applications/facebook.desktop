@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Name=Facebook
+GenericName=IM-client
+Comment=Open Facebook Messenger in the web browser
+Keywords=Chat;Facebook;Social;Messages
+Exec=chromium --app="https://www.facebook.com/"
+Icon=fbmessenger
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
+StartupNotify=true
+StartupWMClass=messenger-chromium
+Categories=Chat

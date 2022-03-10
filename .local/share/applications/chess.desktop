@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Name=Chess
+GenericName=Chess-client
+Comment=Open Chess in the web browser
+Keywords=Game;Chess;Social
+Exec=chromium --app="https://www.chess.com/"
+Icon=3dchess
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
+StartupNotify=true
+StartupWMClass=Chess-chromium
+Categories=Game

@@ -65,6 +65,7 @@ import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
+-- import XMonad.Actions.SpawnOn
 
    -- ColorScheme module (SET ONLY ONE!)
       -- Possible choice are:
@@ -152,6 +153,9 @@ myStartupHook = do
     setWMName "LG3D"
     --spawnOnce "optimus-manager-qt"
 
+    -- Spawn workspace-specific apps
+    -- spawnOn "mail" "betterbird"
+
 myColorizer :: Window -> Bool -> X (String, String)
 myColorizer = colorRangeFromClassName
                   (0x28,0x2c,0x34) -- lowest inactive bg
@@ -185,7 +189,7 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
 myAppGrid = [ ("Nautilus", "nautilus")
                  , ("Firefox", "firefox")
                  , ("Okular", "okular")
-                 , ("Quodlibet", "Quodlibet")
+                 , ("Cantata", "cantata")
                  , ("Inkscape", "inkscape")
                  , ("Gimp", "gimp")
                  , ("Audacity", "audacity")
@@ -209,8 +213,8 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.9
                  t = 0.95 -h
                  l = 0.95 -w
-    spawnMus  = "quodlibet"
-    findMus   = className =? "Quodlibet"
+    spawnMus  = "cantata"
+    findMus   = className =? "cantata"
     manageMus = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
@@ -282,7 +286,7 @@ grid     = renamed [Replace "grid"]
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
-           $ mySpacing 4
+           $ mySpacing 2
            $ mkToggle (single MIRROR)
            $ Grid (16/10)
 -- spirals  = renamed [Replace "spirals"]
@@ -422,8 +426,8 @@ myKeys =
         , ("M-j", windows W.focusUp)      -- Move focus to the prev window
         , ("M1-S-<Tab>", windows W.focusDown)    -- Move focus to the prev window
         , ("M-S-m", windows W.swapMaster) -- Swap the focused window and the master window
-        , ("M-S-j", windows W.swapDown)   -- Swap focused window with next window
-        , ("M-S-k", windows W.swapUp)     -- Swap focused window with prev window
+        , ("M-S-j", windows W.swapUp)   -- Swap focused window with next window
+        , ("M-S-k", windows W.swapDown)     -- Swap focused window with prev window
         , ("M-<Backspace>", promote)      -- Moves focused window to master, others maintain order
         , ("M-M1-<Tab>", rotSlavesDown)    -- Rotate all windows except master and keep focus in place
         , ("M-C-<Tab>", rotAllDown)       -- Rotate all the windows in the current stack
@@ -473,15 +477,17 @@ myKeys =
         , ("M-S-n", spawn "dunstctl close-all") -- Close all notifications
 
     -- -- KB_GROUP Controls for music player (SUPER-m followed by a key)
-        , ("M-m k", spawn "quodlibet --next")
-        , ("M-m j", spawn "quodlibet --previous")
-        , ("M-m <Space>", spawn "quodlibet --play-pause")
-        , ("<XF86AudioStop>", spawn "quodlibet --play-pause")
+        , ("M-m k", spawn "mpc next")
+        , ("M-m j", spawn "mpc prev")
+        , ("M-m <Space>", spawn "mpc toggle")
+        , ("<XF86AudioStop>", spawn "mpc toggle")
+        , ("<XF86AudioPause>", spawn "mpc toggle")
+        --, ("<XF86AudioPlay>", spawn "mpc toggle")
 
     -- KB_GROUP Multimedia Keys
-        , ("<XF86AudioPlay>", spawn "mocp --play")
-        , ("<XF86AudioPrev>", spawn "mocp --previous")
-        , ("<XF86AudioNext>", spawn "mocp --next")
+        , ("<XF86AudioPlay>", spawn "mpc play")
+        , ("<XF86AudioPrev>", spawn "mpc prev")
+        , ("<XF86AudioNext>", spawn "mpc next")
         , ("<XF86AudioMute>", spawn "amixer set Master toggle")
         , ("<XF86AudioMicMute>", spawn "amixer set Capture toggle")
         , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
@@ -540,7 +546,7 @@ main = do
               , ppHidden = xmobarColor color05 "" . wrap
                            ("<box type=Top width=2 mt=2 color=" ++ color05 ++ ">") "</box>" . clickable
                 -- Hidden workspaces (no windows)
-              , ppHiddenNoWindows = xmobarColor color05 ""  . clickable
+              , ppHiddenNoWindows = xmobarColor color05 "" . clickable
                 -- Title of active window
               , ppTitle = xmobarColor color16 "" . shorten 60
                 -- Separator character
