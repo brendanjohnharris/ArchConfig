@@ -49,7 +49,7 @@ xmonad --recompile
 sudo pacman -Syu nautilus
 
 # * Misc. programs
-sudo pacman -Syu firefox mpd cantata mpc gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh vlc lxsession rofi onedrive-abraunegg onedrive_tray-git qt5-base piper
+sudo pacman -Syu firefox mpd cantata mpc gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh vlc lxsession rofi onedrive-abraunegg onedrive_tray-git qt5-base piper gnome-characters peek ranger xclip nvidia-settings
 
 # * Onedrive tray service
 sudo cp /usr/lib/systemd/user/onedrive_tray.service $HOME/.config/systemd/user/
@@ -88,6 +88,9 @@ sudo systemctl enable bluetooth
 # * Brightness control
 sudo pacman -Syu acpilight
 
+# * Screengrab gifs
+paru -Syu peek
+
 # * Trackpad gestures
 sudo pacman -Syu xf86-input-libinput wmctrl
 paru -Syu libinput-gestures
@@ -125,14 +128,11 @@ sudo pacman -Syu piper
 ## TODO: Configure fish shell
 ## TODO: Set the GTK and QT themes to match onedark pro (PLUS OKULAR!)
 ## TODO: Setup HDR display
-## TODO: Add gpu to conky and xmobar
-## TODO: Find a way to change the battery icon when charging
 ## TODO: Find a way to have super+0 bound to a workspace
 ## TODO: Find a way to execute the action script for the battery icon as root/sudo automatically
-## TODO: Use piper for interfacing with gaming mouse
-## TODO: Fix switchable graphics using acpi and turn_off-gpu.sh, then add gpus status to xmobar and clickable action to switch
 ## TODO: Change the background colours of the Arc theme to be consistent with One Dark Pro
 ## TODO: Add dynamic icons (XMonad.Hooks.DynamicIcons) to tab names
+## TODO: Install PipeWire for better audio
 
 
 #  * ███    ██  ██████  ████████ ███████ ███████

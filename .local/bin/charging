@@ -1,10 +1,13 @@
 #! /bin/bash 
 
+#read -r battery < /sys/class/power_supply/BAT0/capacity
 read -r charging < /sys/class/power_supply/BAT0/status
 if [ "$charging" = "Discharging" ]
 then
-    echo "<fn=4>󰁿</fn>"
+    #echo "<fn=4>󰁿</fn>"
+    echo "<fn=2></fn>"
 else
-    echo "<fn=4>󰂉</fn>"
+    #echo "<fn=4>󰂉</fn>"
+    echo "<fn=2></fn>"
 fi
 

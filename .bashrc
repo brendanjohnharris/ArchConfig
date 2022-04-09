@@ -14,8 +14,12 @@ export MATLAB_LOG_DIR="$HOME/.matlab/logs"
 export LD_PRELOAD=/usr/lib/libstdc++.so
 export LD_LIBRARY_PATH=/usr/lib/xorg/modules/dri/
 
-# The default browser for xdg-open doesn't seem to be applied everywhere, so:
+# The default browser for xdg-open doesn't seem to be applied everywhere, and keeps getting overwritten, so:
+xdg-mime default okularApplication_pdf.desktop application/pdf
+xdg-mime default firefox.desktop x-scheme-handler/https
+xdg-mime default firefox.desktop x-scheme-handler/http
 export BROWSER=firefox
+export READER=okular
 
 #export GDK_SCALE=1
 #export GDK_DPI_SCALE=1.0

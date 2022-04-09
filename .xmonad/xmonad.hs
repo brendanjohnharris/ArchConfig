@@ -15,6 +15,7 @@ import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
 import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Actions.WithAll (sinkAll, killAll)
 import qualified XMonad.Actions.Search as S
+import XMonad.Actions.CopyWindow (copyToAll)
 
     -- Data
 import Data.Char (isSpace, toUpper)
@@ -65,6 +66,7 @@ import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
+
 -- import XMonad.Actions.SpawnOn
 
    -- ColorScheme module (SET ONLY ONE!)
@@ -203,6 +205,9 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "music" spawnMus findMus manageMus
                 , NS "calculator" spawnCalc findCalc manageCalc
                 , NS "browser" spawnBrowser findBrowser manageBrowser
+                , NS "emoji" spawnEmoji findEmoji manageEmoji
+                , NS "peek" spawnPeek findPeek managePeek
+                , NS "files" spawnFiles findFiles manageFiles
                 ]
   where
     spawnTerm  = myTerminal ++ " -t scratchpad"
@@ -237,6 +242,30 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.9
                  t = 0.95 -h
                  l = 0.95 -w
+    spawnEmoji  = "gnome-characters"
+    findEmoji   = className =? "Org.gnome.Characters" -- xprop | grep WM_CLASS to find the class name
+    manageEmoji = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.35
+                 t = 0.95 -h
+                 l = 0.99 -w
+    spawnPeek   = "peek"
+    findPeek    = className =? "Peek"
+    managePeek  = customFloating $ W.RationalRect l t w h
+               where
+                 h = 1
+                 w = 1
+                 t = 1 -h
+                 l = 1 -w
+    spawnFiles   = myTerminal ++ " -t filescratchpad" ++ " -e ranger"
+    findFiles    = title =? "filescratchpad"
+    manageFiles  = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 -h
+                 l = 0.95 -w
 
 --Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
@@ -256,12 +285,12 @@ tall     = renamed [Replace "tall"]
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
-           $ mySpacing 2
+           $ mySpacing 4
            $ ResizableTall 1 (3/100) (1/2) []
 tabs     = renamed [Replace "tabs"]
            -- I cannot add spacing to this layout because it will
            -- add spacing between window and tabs which looks bad.
-           $ tabbed shrinkText myTabTheme
+           $ tabbedBottom shrinkText myTabTheme
 -- magnify  = renamed [Replace "magnify"]
 --            $ smartBorders
 --            $ windowNavigation
@@ -286,7 +315,7 @@ grid     = renamed [Replace "grid"]
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
-           $ mySpacing 2
+           $ mySpacing 4
            $ mkToggle (single MIRROR)
            $ Grid (16/10)
 -- spirals  = renamed [Replace "spirals"]
@@ -357,6 +386,7 @@ myManageHook = composeAll
      , className =? "pinentry-gtk-2"  --> doFloat
      , className =? "splash"          --> doFloat
      , className =? "toolbar"         --> doFloat
+     , className =? "Makie"           --> doFloat
      , className =? "Yad"             --> doCenterFloat
      , title =? "Oracle VM VirtualBox Manager"  --> doFloat
      -- , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 1 )
@@ -366,6 +396,8 @@ myManageHook = composeAll
      --, className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      , isFullscreen -->  doFullFloat
+     , title =? "Picture-in-Picture" --> doFloat
+     , title=? "Picture-in-Picture" --> doF copyToAll
      ] <+> namedScratchpadManageHook myScratchPads
 
 -- START_KEYS
@@ -388,6 +420,7 @@ myKeys =
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-S-<Return>", spawn (myTerminal))
         , ("M-b", spawn (myBrowser))
+        , ("M-S-f", spawn "nautilus")
         , ("M-M1-h", spawn (myTerminal ++ " -e htop"))
         , ("M-<Print>", spawn "flameshot gui")
 
@@ -470,6 +503,9 @@ myKeys =
         , ("M-s m", namedScratchpadAction myScratchPads "music")
         , ("M-s c", namedScratchpadAction myScratchPads "calculator")
         , ("M-s b", namedScratchpadAction myScratchPads "browser")
+        , ("M-s e", namedScratchpadAction myScratchPads "emoji")
+        , ("M-s p", namedScratchpadAction myScratchPads "peek")
+        , ("M-s f", namedScratchpadAction myScratchPads "files")
 
     -- Dunst (notification) controls
         , ("M-M1-n", spawn "dunstctl history-pop") -- Return the most recent notification
@@ -482,6 +518,7 @@ myKeys =
         , ("M-m <Space>", spawn "mpc toggle")
         , ("<XF86AudioStop>", spawn "mpc toggle")
         , ("<XF86AudioPause>", spawn "mpc toggle")
+        , ("<XF86AudioToggle>", spawn "mpc toggle")
         --, ("<XF86AudioPlay>", spawn "mpc toggle")
 
     -- KB_GROUP Multimedia Keys
@@ -501,8 +538,8 @@ myKeys =
 
 
     -- Function keys
-        , ("<XF86MonBrightnessDown>", spawn "xbacklight -ctrl intel_backlight -dec 10") -- Backlight down for intel integrated graphics
-        , ("<XF86MonBrightnessUp>", spawn "xbacklight -ctrl intel_backlight -inc 10") -- Backlight up for intel integrated graphics
+        , ("<XF86MonBrightnessDown>", spawn "xbacklight -ctrl intel_backlight -dec 10 & xbacklight -ctrl nvidia_0 -dec 10") -- Backlight down for intel integrated graphics
+        , ("<XF86MonBrightnessUp>", spawn "xbacklight -ctrl intel_backlight -inc 10 & xbacklight -ctrl nvidia_0 -inc 10") -- Backlight up for intel integrated graphics
         ]
     -- The following lines are needed for named scratchpads.
           where nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
