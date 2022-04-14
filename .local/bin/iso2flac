@@ -1,0 +1,16 @@
+#! /bin/fish
+set dir $(pwd)
+# Loop over iso files in sub-folders
+for f in ./**.iso
+      cd (dirname $f)
+      set ff (basename $f)
+      sacd_extract -s -2 --export-cue -i"$ff"
+      cd $dir
+      pwd
+end
+
+# Loop over the resulting dsf files
+for f in ./**.dsf
+      dsf2flac -i $f
+      rm $f
+end

@@ -12,7 +12,7 @@ set fish_color_redirection 46d9ff
 set fish_color_end da8548
 set fish_color_error ff6c6b
 set fish_color_param c678dd
-set fish_color_comment 5b6268
+set fish_color_comment 6d757d
 set fish_color_match normal
 set fish_color_selection dfdfdf
 set fish_color_search_match ecbe7b
