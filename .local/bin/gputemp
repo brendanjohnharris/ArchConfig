@@ -1,0 +1,3 @@
+#! /bin/bash
+
+ nvidia-settings -tq GPUCoreTemp | awk '{print int($1  + 0.5) "°C"}'
