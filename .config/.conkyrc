@@ -95,7 +95,7 @@ ${goto 12}${voffset 5}${color1}${top_mem name 1}$alignr$color${top_mem mem_res 1
 ${goto 12}${color1}${top_mem name 2}$alignr$color${top_mem mem_res 2}
 ${goto 12}${color1}${top_mem name 3}$alignr$color${top_mem mem_res 3}
 ${voffset 14}${goto 12}${color3}GPU${goto 50}${exec nvidia-settings -tq GPUUtilization | awk -F '[,= ]' '{ print $2 }'}%
-${color2}${goto 12}${execbar nvidia-settings -tq GPUUtilization}${color}
+${color2}${goto 12}${execbar echo 12}${color}
 ${color1}${hr}${color}
 ${color2}${exec mpc current -f "[%artist%]"}${color}
 ${font4}${color1}${exec mpc current -f "[%title%]|[%file%]"|fold -w38}${color}${font}
