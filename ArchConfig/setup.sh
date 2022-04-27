@@ -46,10 +46,10 @@ sudo pacman -Syu xorg-xinit xorg-server xorg-xinput xmonad xterm xmonad-contrib 
 xmonad --recompile
 
 # * File manager
-sudo pacman -Syu nautilus
+sudo pacman -Syu nemo nemo-preview
 
 # * Misc. programs
-sudo pacman -Syu firefox mpd cantata mpc gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh vlc lxsession rofi onedrive-abraunegg onedrive_tray-git qt5-base piper gnome-characters peek ranger xclip nvidia-settings lm_sensors
+sudo pacman -Syu firefox mpd cantata mpc gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh vlc lxsession rofi onedrive-abraunegg onedrive_tray-git qt5-base piper gnome-characters peek ranger xclip nvidia-settings lm_sensors pipewire
 
 # * Onedrive tray service
 sudo cp /usr/lib/systemd/user/onedrive_tray.service $HOME/.config/systemd/user/
@@ -82,7 +82,8 @@ sudo pacman -Syu hicolor-icon-theme papirus-icon-theme
 paru -Sy betterbird
 
 # * Enable bluetooth device auto-detect by editing sudo vim /etc/bluetooth/main.conf and setting AutoEnable=true
-sudo pacman -Syu bluez bluez-utils blueman pulseaudio pulseaudio-alsa pulseaudio-bluetooth pavucontrol volumeicon alsa-utils gstreamer gst-plugins-good gst-libav
+sudo pacman -Syu bluez bluez-utils blueman pavucontrol volumeicon alsa-utils gstreamer gst-plugins-good gst-libav pipewire pipewire-also pipewire-pulse easyeffects
+systemctl --user enable pipewire-pulse.service
 sudo systemctl enable bluetooth
 
 # * Brightness control
@@ -125,14 +126,12 @@ sudo pacman -Syu fish starship fisher
 # * Piper for multi-button mice
 sudo pacman -Syu piper
 
-## TODO: Configure fish shell
 ## TODO: Set the GTK and QT themes to match onedark pro (PLUS OKULAR!)
 ## TODO: Setup HDR display
 ## TODO: Find a way to have super+0 bound to a workspace
 ## TODO: Find a way to execute the action script for the battery icon as root/sudo automatically
 ## TODO: Change the background colours of the Arc theme to be consistent with One Dark Pro
 ## TODO: Add dynamic icons (XMonad.Hooks.DynamicIcons) to tab names
-## TODO: Install PipeWire for better audio
 
 
 #  * ███    ██  ██████  ████████ ███████ ███████
@@ -165,7 +164,7 @@ sudo pacman -Syu piper
 # ! A good tool for easily customising the arc GTK theme
 # https://github.com/geokapp/arc-variants
 
-# ! If nautilus is opening file pickers in full screen, try:
+# ! If nautilus/nemo is opening file pickers in full screen, try:
 # dconf write /org/gnome/nautilus/window-state/maximized false
 
 # ! To enabel hibernate, add the kernel parameter: resume=/dev/archVolumeGroup/archLogicalVolume
@@ -187,3 +186,5 @@ sudo pacman -Syu piper
 
 # ! See here for how to enable USyd printing: https://www.maths.usyd.edu.au/u/psz/smri.html
 # To start, run `sudo /etc/papercut/client/pc-client-launcher`.
+
+# ! See here for a guide on how to pair the same bluetooth device to BOTH the linux and windows os: https://github.com/spxak1/weywot/blob/main/guides/bt_dualboot.md

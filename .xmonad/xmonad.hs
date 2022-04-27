@@ -66,6 +66,7 @@ import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
+import XMonad.Util.Cursor
 
 -- import XMonad.Actions.SpawnOn
 
@@ -153,6 +154,7 @@ myStartupHook = do
     -- spawnOnce "feh --randomize --bg-fill ~/wallpapers/*"  -- feh set random wallpaper
     -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
     setWMName "LG3D"
+    setDefaultCursor xC_left_ptr
     --spawnOnce "optimus-manager-qt"
 
     -- Spawn workspace-specific apps
@@ -188,7 +190,7 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
                    , gs_font         = myFont
                    }
 
-myAppGrid = [ ("Nautilus", "nautilus")
+myAppGrid = [ ("Nemo", "nemo")
                  , ("Firefox", "firefox")
                  , ("Okular", "okular")
                  , ("Cantata", "cantata")
@@ -420,7 +422,7 @@ myKeys =
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-S-<Return>", spawn (myTerminal))
         , ("M-b", spawn (myBrowser))
-        , ("M-S-f", spawn "nautilus")
+        , ("M-S-f", spawn "nemo")
         , ("M-M1-h", spawn (myTerminal ++ " -e htop"))
         , ("M-<Print>", spawn "flameshot gui")
 
@@ -527,8 +529,8 @@ myKeys =
         , ("<XF86AudioNext>", spawn "mpc next")
         , ("<XF86AudioMute>", spawn "amixer set Master toggle")
         , ("<XF86AudioMicMute>", spawn "amixer set Capture toggle")
-        , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
-        , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
+        , ("<XF86AudioLowerVolume>", spawn "amixer -M set Master 2%- unmute")
+        , ("<XF86AudioRaiseVolume>", spawn "amixer -M set Master 2%+ unmute")
         , ("<XF86HomePage>", spawn "firefox https://www.google.com/")
         , ("<XF86Search>", spawn "qutebrowser")
         , ("<XF86Mail>", runOrRaise "betterbird" (resource =? "betterbird"))
