@@ -423,7 +423,6 @@ myKeys =
         , ("M-S-<Return>", spawn (myTerminal))
         , ("M-b", spawn (myBrowser))
         , ("M-S-f", spawn "nemo")
-        , ("M-M1-h", spawn (myTerminal ++ " -e htop"))
         , ("M-<Print>", spawn "flameshot gui")
 
     -- KB_GROUP Kill windows
@@ -481,8 +480,8 @@ myKeys =
     -- KB_GROUP Window resizing
         , ("M-h", sendMessage Shrink)                   -- Shrink horiz window width
         , ("M-l", sendMessage Expand)                   -- Expand horiz window width
-        , ("M-M1-j", sendMessage MirrorShrink)          -- Shrink vert window width
-        , ("M-M1-k", sendMessage MirrorExpand)          -- Expand vert window width
+        , ("M-M1-l", sendMessage MirrorShrink)          -- Shrink vert window width
+        , ("M-M1-h", sendMessage MirrorExpand)          -- Expand vert window width
 
     -- KB_GROUP Sublayouts
     -- This is used to push windows to tabbed sublayouts, or pull them out of it.
@@ -492,7 +491,7 @@ myKeys =
         , ("M-C-j", sendMessage $ pullGroup D)
         , ("M-C-m", withFocused (sendMessage . MergeAll))
         -- , ("M-C-u", withFocused (sendMessage . UnMerge))
-        , ("M-C-/", withFocused (sendMessage . UnMergeAll))
+        , ("M-C-t", withFocused (sendMessage . UnMergeAll))
         , ("M-C-.", onGroup W.focusUp')    -- Switch focus to next tab
         , ("M-C-,", onGroup W.focusDown')  -- Switch focus to prev tab
 
