@@ -107,7 +107,7 @@ ${color1}[S]+b${alignr}${color2}open browser${color}
 ${color1}[S]+[SHIFT]+f${alignr}${color2}open file browser${color}
 ${color1}[S]+m jk${alignr}${color2}next/prev track${color}
 ${color1}[S]+m [SPACE]${alignr}${color2}toggle play/pause${color}
-${color1}[S]+s+bcmepf[RET]${alignr}${color2}toggle scratchpads${color}
+${color1}[S]+s+bcmepf[RET]${alignr}${color2}toggle scratch${color}
 ${color1}[S]+[PRTSC]${alignr}${color2}take screenshot${color}
 ${color1}[S]+[RET]${alignr}${color2}run prompt${color}
 ${color1}[S]+n${alignr}${color2}close alert${color}

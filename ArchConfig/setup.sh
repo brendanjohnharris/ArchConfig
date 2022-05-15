@@ -49,7 +49,7 @@ xmonad --recompile
 sudo pacman -Syu nemo nemo-preview
 
 # * Misc. programs
-sudo pacman -Syu firefox mpd cantata mpc gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh vlc lxsession rofi onedrive-abraunegg onedrive_tray-git qt5-base piper gnome-characters peek ranger xclip nvidia-settings lm_sensors pipewire
+sudo pacman -Syu firefox mpd cantata mpc gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh mpv lxsession rofi onedrive-abraunegg onedrive_tray-git qt5-base piper gnome-characters peek ranger xclip nvidia-settings lm_sensors pipewire
 
 # * Onedrive tray service
 sudo cp /usr/lib/systemd/user/onedrive_tray.service $HOME/.config/systemd/user/
@@ -188,3 +188,5 @@ sudo pacman -Syu piper
 # To start, run `sudo /etc/papercut/client/pc-client-launcher`.
 
 # ! See here for a guide on how to pair the same bluetooth device to BOTH the linux and windows os: https://github.com/spxak1/weywot/blob/main/guides/bt_dualboot.md
+
+# ! To configure the okular theme, install qt5ct and set QT_QPA_PLATFORMTHEME=qt5ct

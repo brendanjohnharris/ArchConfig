@@ -284,7 +284,7 @@ mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 tall     = renamed [Replace "tall"]
            $ smartBorders
            $ windowNavigation
-           $ addTabs shrinkText myTabTheme
+           $ addTabsBottom shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
            $ mySpacing 4
@@ -296,7 +296,7 @@ tabs     = renamed [Replace "tabs"]
 -- magnify  = renamed [Replace "magnify"]
 --            $ smartBorders
 --            $ windowNavigation
---            $ addTabs shrinkText myTabTheme
+--            $ addTabsBottom shrinkText myTabTheme
 --            $ subLayout [] (smartBorders Simplest)
 --            $ magnifier
 --            $ limitWindows 12
@@ -305,7 +305,7 @@ tabs     = renamed [Replace "tabs"]
 -- monocle  = renamed [Replace "monocle"]
 --            $ smartBorders
 --            $ windowNavigation
---            $ addTabs shrinkText myTabTheme
+--            $ addTabsBottom shrinkText myTabTheme
 --            $ subLayout [] (smartBorders Simplest)
 --            $ limitWindows 20 Full
 floats   = renamed [Replace "floats"]
@@ -314,7 +314,7 @@ floats   = renamed [Replace "floats"]
 grid     = renamed [Replace "grid"]
            $ smartBorders
            $ windowNavigation
-           $ addTabs shrinkText myTabTheme
+           $ addTabsBottom shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
            $ mySpacing 4
@@ -323,21 +323,21 @@ grid     = renamed [Replace "grid"]
 -- spirals  = renamed [Replace "spirals"]
 --            $ smartBorders
 --            $ windowNavigation
---            $ addTabs shrinkText myTabTheme
+--            $ addTabsBottom shrinkText myTabTheme
 --            $ subLayout [] (smartBorders Simplest)
 --            $ mySpacing' 8
 --            $ spiral (6/7)
 threeCol = renamed [Replace "threeCol"]
            $ smartBorders
            $ windowNavigation
-           $ addTabs shrinkText myTabTheme
+           $ addTabsBottom shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 7
            $ ThreeCol 1 (3/100) (1/2)
 threeRow = renamed [Replace "threeRow"]
            $ smartBorders
            $ windowNavigation
-           $ addTabs shrinkText myTabTheme
+           $ addTabsBottom shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 7
            -- Mirror takes a layout and rotates it by 90 degrees.
@@ -480,8 +480,12 @@ myKeys =
     -- KB_GROUP Window resizing
         , ("M-h", sendMessage Shrink)                   -- Shrink horiz window width
         , ("M-l", sendMessage Expand)                   -- Expand horiz window width
-        , ("M-M1-l", sendMessage MirrorShrink)          -- Shrink vert window width
-        , ("M-M1-h", sendMessage MirrorExpand)          -- Expand vert window width
+        , ("M-M1-l", sendMessage MirrorShrink)          -- Expand vert window width
+        , ("M-M1-h", sendMessage MirrorExpand)          -- Shrink vert window width
+        , ("M-M1-<Left>", sendMessage Shrink)         -- Shrink horiz window width
+        , ("M-M1-<Right>", sendMessage Expand)         -- Expand horiz window width
+        , ("M-M1-<Down>", sendMessage MirrorShrink)    -- Expand vert window width
+        , ("M-M1-<Up>", sendMessage MirrorExpand)     -- Shrink vert window width
 
     -- KB_GROUP Sublayouts
     -- This is used to push windows to tabbed sublayouts, or pull them out of it.
@@ -489,6 +493,10 @@ myKeys =
         , ("M-C-l", sendMessage $ pullGroup R)
         , ("M-C-k", sendMessage $ pullGroup U)
         , ("M-C-j", sendMessage $ pullGroup D)
+        , ("M-C-<Left>", sendMessage $ pullGroup L)
+        , ("M-C-<Right>", sendMessage $ pullGroup R)
+        , ("M-C-<Up>", sendMessage $ pullGroup U)
+        , ("M-C-<Down>", sendMessage $ pullGroup D)
         , ("M-C-m", withFocused (sendMessage . MergeAll))
         -- , ("M-C-u", withFocused (sendMessage . UnMerge))
         , ("M-C-t", withFocused (sendMessage . UnMergeAll))
