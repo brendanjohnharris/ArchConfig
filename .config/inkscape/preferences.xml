@@ -125,8 +125,8 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="763.64"
-         height="53.4432" />
+         width="842.646522822343"
+         height="446.636511134356" />
       <eventcontext
          id="3dbox"
          style="stroke:none;stroke-linejoin:round;"
@@ -211,8 +211,8 @@
        usepressure="1"
        usetilt="0"
        keep_selected="1"
-       abs_width="0"
-       unit="px">
+       abs_width="1"
+       unit="mm">
       <group
          id="preset">
         <group
@@ -317,7 +317,7 @@
        id="lpetool"
        mode="drag"
        style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;"
-       unit="px"
+       unit="mm"
        show_bbox="1" />
     <eventcontext
        id="text"
@@ -344,8 +344,8 @@
        live_outline="1"
        live_objects="1"
        show_helperpath="0"
-       x="174.255"
-       y="198.659"
+       x="2657.08481154922"
+       y="53.9336246191323"
        edit_clipping_paths="0"
        edit_masks="0" />
     <eventcontext
@@ -404,6 +404,13 @@
        id="paintbucket"
        style="fill:#a0a0a0;stroke:none;"
        usecurrent="1" />
+    <eventcontext
+       id="marker"
+       selcue="1"
+       gradientdrag="1" />
+    <group
+       id="geometric"
+       mode="drag" />
   </group>
   <group
      id="palette">
@@ -524,7 +531,8 @@
   </group>
   <group
      id="colorselector"
-     page="0" />
+     page="0"
+     switcher="1" />
   <group
      id="embedded">
     <group
@@ -534,10 +542,16 @@
        panel_ratio="100"
        panel_wrap="0"
        palette="fourseas.gpl"
-       panel_border="0" />
+       panel_border="0"
+       tile_size="22"
+       tile_aspect="0"
+       tile_border="5"
+       rows="1"
+       tile_stretch="1" />
   </group>
   <group
-     id="dialogs">
+     id="dialogs"
+     traceliveUpdate="1">
     <group
        id="toolbox" />
     <group
@@ -549,14 +563,16 @@
        id="textandfont" />
     <group
        id="transformation"
-       applyseparately="0" />
+       applyseparately="0"
+       rotateCounterClockwise="1" />
     <group
        id="align"
        align-to="1" />
     <group
        id="xml"
        h="500"
-       w="300" />
+       w="300"
+       panedpos="349" />
     <group
        id="find" />
     <group
@@ -570,7 +586,7 @@
     <group
        id="preferences"
        state="1"
-       page="45" />
+       page="7" />
     <group
        id="gradienteditor" />
     <group
@@ -579,13 +595,20 @@
        id="export"
        default=""
        append_extension="1"
-       path="">
+       path=""
+       defaultopts="1">
       <group
          id="exportarea"
          value="custom" />
       <group
          id="defaultxdpi"
          value="400" />
+      <group
+         id="batchexportarea"
+         value="layer" />
+      <group
+         id="defaultdpi"
+         value="1200" />
     </group>
     <group
        id="save_as"
@@ -596,10 +619,10 @@
        use_current_dir="1" />
     <group
        id="save_copy"
-       default=""
+       default="org.inkscape.output.pdf.cairorenderer"
        append_extension="1"
        enable_preview="1"
-       path="" />
+       path="/home/brendan/OneDrive/Masters/OHBM/Poster" />
     <group
        id="open"
        enable_preview="1"
@@ -624,9 +647,9 @@
        id="gridtiler"
        SpacingType="20"
        VertAlign="1"
-       HorizAlign="1"
+       HorizAlign="2"
        XPad="256"
-       YPad="5" />
+       YPad="29" />
     <group
        id="extension-error"
        show-on-startup="0" />
@@ -658,6 +681,9 @@
        id="colorpickerwindow" />
     <group
        id="undo-history" />
+    <group
+       id="objects"
+       layers_only="1" />
   </group>
   <group
      id="printing">
@@ -669,6 +695,7 @@
   </group>
   <group
      id="options"
+     rotationlock="1"
      onimport="0">
     <group
        id="renderingcache"
@@ -849,7 +876,8 @@
     <group
        id="maskobject"
        topmost="1"
-       remove="1" />
+       remove="1"
+       grouping="0" />
     <group
        id="blurquality"
        value="0" />
@@ -940,10 +968,11 @@
        id="rendering" />
     <group
        id="boot"
-       theme="colorful">
+       theme="custom">
       <group
          id="shown"
-         ver1.1.2="1" />
+         ver1.1.2="1"
+         ver1.2="1" />
     </group>
     <group
        id="font"
@@ -956,11 +985,21 @@
   </group>
   <group
      id="extensions"
+     org.inkscape.output.png.inkscape.png_bitdepth="99"
+     org.inkscape.output.png.inkscape.png_compression="6"
+     org.inkscape.output.png.inkscape.png_antialias="2"
      org.inkscape.output.pdf.cairorenderer.PDFversion="PDF-1.5"
-     org.inkscape.input.svg.scale="auto" />
+     org.inkscape.input.svg.scale="auto"
+     org.inkscape.output.pdf.cairorenderer.blurToBitmap="1"
+     org.inkscape.output.pdf.cairorenderer.textToPath="embed"
+     org.inkscape.output.pdf.cairorenderer.resolution="260"
+     org.inkscape.color.replace_color.ignore_opacity="0"
+     org.inkscape.color.replace_color.from_color="4294967295"
+     org.inkscape.color.replace_color.tab="to"
+     org.inkscape.color.replace_color.to_color="0" />
   <group
      id="desktop"
-     style="stroke-opacity:0;fill:#000000;stroke:#000000;-inkscape-font-specification:'Nimbus Sans, Normal';font-family:'Nimbus Sans';font-size:13.33333333px">
+     style="fill:#000000;-inkscape-font-specification:'Open Sans, Normal';font-family:'Open Sans';font-size:13.33333333px;stroke-width:1.99937008;stroke-opacity:0.99990565">
     <group
        width="640"
        height="480"
@@ -988,11 +1027,20 @@
      id="toolbox"
      icononly="1"
      secondary="2"
+     simplesnap="1"
      small="2">
     <group
        id="tools"
        icononly="1"
-       small="2" />
+       small="0"
+       iconsize="32"
+       width="40">
+      <group
+         id="buttons" />
+    </group>
+    <group
+       id="controlbars"
+       iconsize="32" />
   </group>
   <group
      id="iconpreview"
@@ -1068,25 +1116,36 @@
   <group
      id="theme"
      defaultPreferDarkTheme="0"
-     defaultGtkTheme="Arc-Dark"
      defaultIconTheme="Papirus-Dark"
-     symbolicIcons="0"
+     defaultGtkTheme="Arc-Dark"
+     narrowSpinButton="1"
+     preferDarkTheme="1"
+     darkTheme="1"
+     symbolicIcons="1"
+     symbolicDefaultBaseColors="1"
+     symbolicDefaultHighColors="1"
      menuIcons_canvas="0"
      menuIcons_layers="0"
-     menuIcons_objects="0"
-     darkTheme="1"
-     preferDarkTheme="1"
-     iconTheme="multicolor"
-     symbolicDefaultBaseColors="0"
-     symbolicDefaultHighColors="0">
+     menuIcons_objects="0">
     <group
        id="multicolor"
        symbolicBaseColor="3958107135"
        symbolicSuccessColor="10029823"
        symbolicWarningColor="4279865599"
        symbolicErrorColor="10086143" />
+    <group
+       id="Papirus-Dark"
+       symbolicBaseColor="3554337791"
+       symbolicSuccessColor="1943148287"
+       symbolicWarningColor="4067964415"
+       symbolicErrorColor="4232132863" />
   </group>
   <group
      id="live_effects"
      flattening="0" />
+  <group
+     id="statusbar">
+    <group
+       id="visibility" />
+  </group>
 </inkscape>

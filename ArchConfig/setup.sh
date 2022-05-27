@@ -27,7 +27,7 @@ git --git-dir=$HOME/ArchConfig/ config --local status.showUntrackedFiles no
 
 # * Grub theme
 chmod u+x $HOME/.config/grub2themes/install.sh
-$HOME/.config/grub2themes/install.sh -t tela -s 2k
+$HOME/.config/grub2themes/install.sh -t vimix -s 2k
 
 # * Display drivers
 sudo pacman -Syu nvidia xf86-video-intel mesa
