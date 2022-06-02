@@ -54,4 +54,6 @@ fi
 eval $(gnome-keyring-daemon --start)
 export SSH_AUTH_SOCK
 
+xset r rate 300 50 # adjust the repeat rate
+
 exec xmonad

@@ -59,6 +59,7 @@ import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import XMonad.Layout.WindowNavigation
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
+import XMonad.Layout.IndependentScreens (countScreens)
 
    -- Utilities
 import XMonad.Util.Dmenu
@@ -67,6 +68,7 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Cursor
+
 
 -- import XMonad.Actions.SpawnOn
 
@@ -557,10 +559,11 @@ myKeys =
 
 main :: IO ()
 main = do
+    nScreens <- countScreens
     -- Launching three instances of xmobar on their monitors.
     xmproc0 <- spawnPipe ("xmobar -x 0 $HOME/.config/xmobar/" ++ "xmobarrc")
-    xmproc1 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ "dual_xmobarrc")
-    xmproc2 <- spawnPipe ("xmobar -x 2 $HOME/.config/xmobar/" ++ "xmobarrc")
+    xmproc1 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ (if nScreens == 2 then "dual_xmobarrc" else "xmobarrc"))
+    xmproc2 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ (if nScreens == 3 then "dual_xmobarrc" else "xmobarrc"))
     -- the xmonad, ya know...what the WM is named after!
     xmonad $ ewmh def
         { manageHook         = myManageHook <+> manageDocks
