@@ -12,7 +12,7 @@ function template()
                                 Git(;ignore=["*.code-workspace"]),
                                 CompatHelper(),
                                 TagBot(),
-                                GitHubActions(),
+                                GitHubActions(; linux=true, osx=true, windows=true, x86=true, extra_versions=["1.6", "1.7", "nightly"]),
                                 Codecov()])
     end
 end
