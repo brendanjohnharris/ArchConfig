@@ -5,7 +5,7 @@ set showbreak=+++
 set textwidth=92
 set showmatch
 set visualbell
-set spell
+" set spell
  
 set hlsearch
 set smartcase
@@ -26,4 +26,8 @@ set mouse=a
 
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
+
+highlight clear SpellBad
+highlight SpellBad cterm=underline
+highlight LineNr ctermfg=blue
 
