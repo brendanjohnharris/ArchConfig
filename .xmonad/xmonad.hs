@@ -206,6 +206,7 @@ myAppGrid = [ ("Nemo", "nemo")
 
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
+                , NS "notepad" spawnNote findNote manageNote
                 , NS "music" spawnMus findMus manageMus
                 , NS "calculator" spawnCalc findCalc manageCalc
                 , NS "browser" spawnBrowser findBrowser manageBrowser
@@ -217,6 +218,14 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
     spawnTerm  = myTerminal ++ " -t scratchpad"
     findTerm   = title =? "scratchpad"
     manageTerm = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 -h
+                 l = 0.95 -w
+    spawnNote  = myTerminal ++ " -t notepad -e tnote -a"
+    findNote   = title =? "notepad"
+    manageNote = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
                  w = 0.9
@@ -247,7 +256,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  t = 0.95 -h
                  l = 0.95 -w
     spawnEmoji  = "gnome-characters"
-    findEmoji   = className =? "Org.gnome.Characters" -- xprop | grep WM_CLASS to find the class name
+    findEmoji   = className =? "org.gnome.Characters" -- xprop | grep WM_CLASS to find the class name
     manageEmoji = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
@@ -511,6 +520,7 @@ myKeys =
     -- Toggle them to hide and it sends them back to hidden workspace (NSP).
         , ("M-s <Return>", namedScratchpadAction myScratchPads "terminal")
         , ("M-M1-t", namedScratchpadAction myScratchPads "terminal")
+        , ("M-s n", namedScratchpadAction myScratchPads "notepad")
         , ("M-s m", namedScratchpadAction myScratchPads "music")
         , ("M-s c", namedScratchpadAction myScratchPads "calculator")
         , ("M-s b", namedScratchpadAction myScratchPads "browser")

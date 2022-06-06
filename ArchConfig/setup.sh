@@ -92,6 +92,9 @@ sudo pacman -Syu acpilight
 # * Screengrab gifs
 paru -Syu peek
 
+# * Command line notes
+paru -Syu tnote
+
 # * Trackpad gestures
 sudo pacman -Syu xf86-input-libinput wmctrl
 paru -Syu libinput-gestures
