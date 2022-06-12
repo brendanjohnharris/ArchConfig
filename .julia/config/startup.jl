@@ -3,7 +3,7 @@ function template()
         using PkgTemplates
         Template(;  user="brendanjohnharris",
                     dir="./",
-                    julia=v"1.5.0",
+                    julia=v"1.6.0",
                     plugins=[   ProjectFile(),
                                 SrcDir(),
                                 Tests(; project=true),
@@ -13,6 +13,7 @@ function template()
                                 CompatHelper(),
                                 TagBot(),
                                 GitHubActions(; linux=true, osx=true, windows=true, x86=true, extra_versions=["1.6", "1.7", "nightly"]),
-                                Codecov()])
+                                Codecov(),
+                                Documenter{NoDeploy}()])
     end
 end
