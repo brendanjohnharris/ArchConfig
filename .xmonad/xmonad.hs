@@ -271,8 +271,8 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 1
                  t = 1 -h
                  l = 1 -w
-    spawnFiles   = myTerminal ++ " -t filescratchpad" ++ " -e ranger"
-    findFiles    = title =? "filescratchpad"
+    spawnFiles   = "nemo --name=filescratchpad --class=filescratchpad"
+    findFiles    = className =? "filescratchpad"
     manageFiles  = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
