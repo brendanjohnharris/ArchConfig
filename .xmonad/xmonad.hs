@@ -96,7 +96,7 @@ myTerminal :: String
 myTerminal = "alacritty"    -- Sets default terminal
 
 myBrowser :: String
-myBrowser = "firefox "  -- Sets firefox as browser
+myBrowser = "firefox -P default-release"  -- Sets firefox as browser
 
 myEditor :: String
 myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor
@@ -193,7 +193,7 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
                    }
 
 myAppGrid = [ ("Nemo", "nemo")
-                 , ("Firefox", "firefox")
+                 , ("Firefox", "firefox -P default-release")
                  , ("Okular", "okular")
                  , ("Cantata", "cantata")
                  , ("Inkscape", "inkscape")
@@ -247,8 +247,8 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.4
                  t = 0.75 -h
                  l = 0.70 -w
-    spawnBrowser  = "qutebrowser"
-    findBrowser   = className =? "qutebrowser"
+    spawnBrowser  = "firefox --no-remotes -P scratchpad --class browserscratchpad"
+    findBrowser   = className =? "browserscratchpad"
     manageBrowser = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
@@ -550,7 +550,7 @@ myKeys =
         , ("<XF86AudioMicMute>", spawn "amixer set Capture toggle")
         , ("<XF86AudioLowerVolume>", spawn "amixer -M set Master 2%- unmute")
         , ("<XF86AudioRaiseVolume>", spawn "amixer -M set Master 2%+ unmute")
-        , ("<XF86HomePage>", spawn "firefox https://www.google.com/")
+        , ("<XF86HomePage>", spawn "firefox -P default-release https://www.google.com/")
         , ("<XF86Search>", spawn "qutebrowser")
         , ("<XF86Mail>", runOrRaise "betterbird" (resource =? "betterbird"))
         , ("<XF86Calculator>", runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))

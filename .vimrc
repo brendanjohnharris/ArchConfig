@@ -49,3 +49,6 @@ cnoremap <C-d> <Del>
 cnoremap <C-h> <BS>
 cnoremap <C-k> <C-f>D<C-c><C-c>:<Up>
 
+nmap <C-a> <C-o>:call <SID>home()<CR>
+nmap <C-e> <End>
+

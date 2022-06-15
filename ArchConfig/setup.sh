@@ -193,3 +193,5 @@ sudo pacman -Syu piper
 # ! See here for a guide on how to pair the same bluetooth device to BOTH the linux and windows os: https://github.com/spxak1/weywot/blob/main/guides/bt_dualboot.md
 
 # ! To configure the okular theme, install qt5ct and set QT_QPA_PLATFORMTHEME=qt5ct
+
+# ! To set the xset keyboard repeat rate permanently, edit /etc/X11/xinit/xserverrc witht he -ardelay and -arinterval options (https://unix.stackexchange.com/questions/408461/where-is-the-default-repeat-rate-for-xset-stored)
