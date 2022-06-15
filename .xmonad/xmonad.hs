@@ -419,9 +419,10 @@ myKeys =
     -- KB_GROUP Xmonad
         [ ("M-C-r", spawn "xmonad --recompile")       -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart")         -- Restarts xmonad
+        , ("M-S-q", io exitSuccess)                   -- Quits xmonad
         , ("M-S-p t", spawn "~/.local/bin/transparenton") -- Set picom to transparent
         , ("M-S-p o", spawn "~/.local/bin/transparentoff") -- Set picom to opaque
-        , ("M-S-q", io exitSuccess)                   -- Quits xmonad
+        , ("M-S-b", spawn "feh --recursive --randomize --bg-fill $HOME/.wallpapers/") -- Changes backgroundB
 
     -- KB_GROUP Get Help
         , ("M-S-/", spawn "~/.xmonad/xmonad_keys.sh") -- Get list of keybindings
@@ -571,9 +572,9 @@ main :: IO ()
 main = do
     nScreens <- countScreens
     -- Launching three instances of xmobar on their monitors.
-    xmproc0 <- spawnPipe ("xmobar -x 0 $HOME/.config/xmobar/" ++ "xmobarrc")
-    xmproc1 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ (if nScreens == 2 then "dual_xmobarrc" else "xmobarrc"))
-    xmproc2 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ (if nScreens == 3 then "dual_xmobarrc" else "xmobarrc"))
+    xmproc0 <- spawnPipe ("xmobar -x 0 $HOME/.config/xmobar/" ++ (if nScreens > 1 then "dual_xmobarrc" else "xmobarrc"))
+    xmproc1 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ (if nScreens > 2 then "dual_xmobarrc" else "xmobarrc"))
+    xmproc2 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ (if nScreens > 3 then "dual_xmobarrc" else "xmobarrc"))
     -- the xmonad, ya know...what the WM is named after!
     xmonad $ ewmh def
         { manageHook         = myManageHook <+> manageDocks

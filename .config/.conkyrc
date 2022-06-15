@@ -124,6 +124,9 @@ ${color1}[S]+[SHIFT]+←→${alignr}${color2}cycle send window${color}
 ${color1}[S]+h/l${alignr}${color2}adjust size horz.${color}
 ${color1}[S]+[ALT]+h/l${alignr}${color2}adjust size vert.${color}
 ${color1}[C]+[ALT]+hjkl${alignr}${color2}adjust spacing${color}
+${color1}[S]+[SHIFT]+t${alignr}${color2}transparency on${color}
+${color1}[S]+[SHIFT]+o${alignr}${color2}transparency off${color}
+${color1}[S]+[SHIFT]+b${alignr}${color2}change background${color}
 ${color1}[S]+[SHIFT]+r${alignr}${color2}restart xmonad${color}
 ${color1}[S]+[SHIFT]+q${alignr}${color2}quit xmonad${color}
 ${color1}[C]+[ALT]+[BKSP]${alignr}${color2}quit X${color}
