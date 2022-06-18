@@ -1,0 +1,3 @@
+[submodule ".config/Languid"]
+	path = .config/Languid
+	url = https://github.com/brendanjohnharris/Languid

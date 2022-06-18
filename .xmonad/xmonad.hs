@@ -247,7 +247,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.4
                  t = 0.75 -h
                  l = 0.70 -w
-    spawnBrowser  = "firefox --no-remotes -P scratchpad --class browserscratchpad"
+    spawnBrowser  = "firefox -P scratchpad --class browserscratchpad --no-remote --new-window"
     findBrowser   = className =? "browserscratchpad"
     manageBrowser = customFloating $ W.RationalRect l t w h
                where
@@ -401,6 +401,7 @@ myManageHook = composeAll
      , className =? "toolbar"         --> doFloat
      , className =? "Makie"           --> doFloat
      , className =? "Yad"             --> doCenterFloat
+     , title =? "languid"             --> doCenterFloat
      , title =? "Oracle VM VirtualBox Manager"  --> doFloat
      -- , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 1 )
      -- , className =? "Brave-browser"   --> doShift ( myWorkspaces !! 1 )

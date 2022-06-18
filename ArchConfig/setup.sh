@@ -49,7 +49,7 @@ xmonad --recompile
 sudo pacman -Syu nemo nemo-preview
 
 # * Misc. programs
-sudo pacman -Syu firefox mpd cantata mpc gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh mpv lxsession rofi onedrive-abraunegg onedrive_tray-git qt5-base piper gnome-characters peek ranger xclip nvidia-settings lm_sensors pipewire
+sudo pacman -Syu firefox mpd cantata mpc gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh mpv lxsession rofi onedrive-abraunegg onedrive_tray-git qt5-base piper gnome-characters peek ranger xclip nvidia-settings lm_sensors pipewire vim-grammarous
 
 # * Onedrive tray service
 sudo cp /usr/lib/systemd/user/onedrive_tray.service $HOME/.config/systemd/user/
@@ -195,3 +195,5 @@ sudo pacman -Syu piper
 # ! To configure the okular theme, install qt5ct and set QT_QPA_PLATFORMTHEME=qt5ct
 
 # ! To set the xset keyboard repeat rate permanently, edit /etc/X11/xinit/xserverrc witht he -ardelay and -arinterval options (https://unix.stackexchange.com/questions/408461/where-is-the-default-repeat-rate-for-xset-stored)
+
+# ! Install the AUR matlab-support package after installing matlab to make things a heck of a lot nicer
