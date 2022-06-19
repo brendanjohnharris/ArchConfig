@@ -24,12 +24,13 @@ import Data.Monoid
 import Data.Maybe (isJust)
 import Data.Tree
 import qualified Data.Map as M
+import Data.Ratio
 
     -- Hooks
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
 import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
 import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
-import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat, doCenterFloat)
+import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat, doCenterFloat, doRectFloat)
 import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory
@@ -401,7 +402,7 @@ myManageHook = composeAll
      , className =? "toolbar"         --> doFloat
      , className =? "Makie"           --> doFloat
      , className =? "Yad"             --> doCenterFloat
-     , title =? "languid"             --> doCenterFloat
+     , title =? "languid"             --> doRectFloat (W.RationalRect (1 % 6) (1 % 6) (2 % 3) (2 % 3))
      , title =? "Oracle VM VirtualBox Manager"  --> doFloat
      -- , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 1 )
      -- , className =? "Brave-browser"   --> doShift ( myWorkspaces !! 1 )
@@ -435,11 +436,12 @@ myKeys =
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-S-<Return>", spawn (myTerminal))
         , ("M-b", spawn (myBrowser))
-        , ("M-S-f", spawn "nemo")
+        , ("M-S-f", spawn "nemo --name=files --class=files")
         , ("M-<Print>", spawn "flameshot gui")
+        , ("M-S-l", spawn "$HOME/.config/Languid/languid.sh")
 
     -- KB_GROUP Kill windows
-        , ("M-S-c", kill1)     -- Kill the currently focused client
+        , ("M-S-c", kill)     -- Kill the currently focused client
         , ("M-S-a", killAll)   -- Kill all windows on current workspace
 
     -- KB_GROUP Workspaces<Return>

@@ -1,6 +1,6 @@
 set encoding=utf-8
 set number
-set linebreak
+set wrap
 set showbreak=+++ 
 set textwidth=92
 set showmatch
@@ -51,4 +51,7 @@ cnoremap <C-k> <C-f>D<C-c><C-c>:<Up>
 
 nmap <C-a> <C-o>:call <SID>home()<CR>
 nmap <C-e> <End>
+
+let g:grammarous#languagetool_cmd = '/usr/bin/languagetool'
+let g:grammarous#enabled_categories = {'*' : ['CASING','COMPOUNDING','CONFUSED_WORDS','GRAMMAR','MISC','PUNCTUATION','REDUNDANCY','REPETITIONS','REPETITIONS_STYLE','SEMANTICS','STYLE','TYPOGRAPHY','TYPOS']}
 
