@@ -129,6 +129,10 @@ sudo pacman -Syu fish starship fisher
 # * Piper for multi-button mice
 sudo pacman -Syu piper
 
+# * Alternate music player
+paru -Syu sayonara-player
+python -m pip install pydbus
+
 ## TODO: Set the GTK and QT themes to match onedark pro (PLUS OKULAR!)
 ## TODO: Setup HDR display
 ## TODO: Find a way to have super+0 bound to a workspace

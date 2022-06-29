@@ -27,3 +27,6 @@ export READER=okular
 #alias matlab='export GTK_PATH=/usr/lib/x86_64-linux-gnu/gtk-2.0; export MESA_LOADER_DRIVER_OVERRIDE=i965; /usr/local/MATLAB/R2021a/bin/matlab'
 export DISPLAY=:0.0
 
+# Tell julia to use discrete GPU
+export DRI_PRIME=1
+

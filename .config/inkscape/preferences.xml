@@ -125,8 +125,8 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="842.646522822343"
-         height="446.636511134356" />
+         width="281.038837583046"
+         height="233.132593350151" />
       <eventcontext
          id="3dbox"
          style="stroke:none;stroke-linejoin:round;"
@@ -684,6 +684,9 @@
     <group
        id="objects"
        layers_only="1" />
+    <group
+       id="layerProp"
+       addLayerPosition="0" />
   </group>
   <group
      id="printing">
@@ -1000,7 +1003,7 @@
      org.inkscape.color.replace_color.to_color="0" />
   <group
      id="desktop"
-     style="fill:#000000;-inkscape-font-specification:'Open Sans, Normal';font-family:'Open Sans';font-size:13.33333333px;stroke-width:1.99937008;stroke-opacity:0.99990565">
+     style="fill:#dc143c;-inkscape-font-specification:'Open Sans, Normal';font-family:'Open Sans';font-size:13.33333333px;stroke-width:1.99937008;stroke-opacity:0.99990565">
     <group
        width="640"
        height="480"
