@@ -196,7 +196,7 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
 myAppGrid = [ ("Nemo", "nemo")
                  , ("Firefox", "firefox -P default-release")
                  , ("Okular", "okular")
-                 , ("Sayonara", "sayonara")
+                 , ("ncmpcpp", "ncmpcpp")
                  , ("Inkscape", "inkscape")
                  , ("Gimp", "gimp")
                  , ("Audacity", "audacity")
@@ -232,8 +232,8 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.9
                  t = 0.95 -h
                  l = 0.95 -w
-    spawnMus  = "sayonara"
-    findMus   = className =? "sayonara"
+    spawnMus  = myTerminal ++ " -t ncmpcpp -e ncmpcpp"
+    findMus   = title =? "ncmpcpp"
     manageMus = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
@@ -538,18 +538,17 @@ myKeys =
         , ("M-S-n", spawn "dunstctl close-all") -- Close all notifications
 
     -- -- KB_GROUP Controls for music player (SUPER-m followed by a key)
-        , ("M-m k", spawn "sayonara-ctl next")--"mpc next")
-        , ("M-m j", spawn "sayonara-ctl previous")--"mpc prev")
-        , ("M-m <Space>", spawn "sayonara-ctl play-pause")--"mpc toggle")
-        , ("<XF86AudioStop>", spawn "sayonara-ctl play-pause")--"mpc toggle")
-        , ("<XF86AudioPause>", spawn "sayonara-ctl play-pause")--"mpc toggle")
-        , ("<XF86AudioToggle>", spawn "sayonara-ctl play-pause")--"mpc toggle")
-        --, ("<XF86AudioPlay>", spawn "sayonara-ctl play-pause")--"mpc toggle")
+        , ("M-m k", spawn "mpc next")
+        , ("M-m j", spawn "mpc prev")
+        , ("M-m <Space>", spawn "mpc toggle")
+        , ("<XF86AudioStop>", spawn "mpc toggle")
+        , ("<XF86AudioPause>", spawn "mpc toggle")
+        , ("<XF86AudioToggle>", spawn "mpc toggle")
 
     -- KB_GROUP Multimedia Keys
-        , ("<XF86AudioPlay>", spawn "sayonara-ctl play")--"mpc play")
-        , ("<XF86AudioPrev>", spawn "sayonara-ctl previous")--"mpc prev")
-        , ("<XF86AudioNext>", spawn "sayonara-ctl next")--"mpc next")
+        , ("<XF86AudioPlay>", spawn "mpc play")
+        , ("<XF86AudioPrev>", spawn "mpc prev")
+        , ("<XF86AudioNext>", spawn "mpc next")
         , ("<XF86AudioMute>", spawn "amixer set Master toggle")
         , ("<XF86AudioMicMute>", spawn "amixer set Capture toggle")
         , ("<XF86AudioLowerVolume>", spawn "amixer -M set Master 2%- unmute")

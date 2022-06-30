@@ -238,7 +238,7 @@ schemes:
       blue:    '#51afef'
       magenta: '#c678dd'
       cyan:    '#5699af'
-      white:   '#202328'
+      white:   '#dfdfdf' # Brightened from '#202328'
     bright:
       black:    '#5b6268'
       blue:     '#61AFEF'

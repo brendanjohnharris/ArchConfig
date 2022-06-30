@@ -49,7 +49,7 @@ xmonad --recompile
 sudo pacman -Syu nemo nemo-preview
 
 # * Misc. programs
-sudo pacman -Syu firefox mpd cantata mpc gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh mpv lxsession rofi onedrive-abraunegg onedrive_tray-git qt5-base piper gnome-characters peek ranger xclip nvidia-settings lm_sensors pipewire vim-grammarous
+sudo pacman -Syu firefox mpd ncmpcpp mpc gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh mpv lxsession rofi onedrive-abraunegg onedrive_tray-git qt5-base piper gnome-characters peek ranger xclip nvidia-settings lm_sensors pipewire vim-grammarous
 
 # * Onedrive tray service
 sudo cp /usr/lib/systemd/user/onedrive_tray.service $HOME/.config/systemd/user/
@@ -130,8 +130,9 @@ sudo pacman -Syu fish starship fisher
 sudo pacman -Syu piper
 
 # * Alternate music player
-paru -Syu sayonara-player
-python -m pip install pydbus
+# paru -Syu cantana
+# paru -Syu sayonara-player
+# python -m pip install pydbus
 
 ## TODO: Set the GTK and QT themes to match onedark pro (PLUS OKULAR!)
 ## TODO: Setup HDR display
