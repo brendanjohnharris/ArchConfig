@@ -133,6 +133,7 @@ sudo pacman -Syu piper
 # paru -Syu cantana
 # paru -Syu sayonara-player
 # python -m pip install pydbus
+python -m pip install python-mpd2
 
 ## TODO: Set the GTK and QT themes to match onedark pro (PLUS OKULAR!)
 ## TODO: Setup HDR display
