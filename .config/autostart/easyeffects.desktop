@@ -1,0 +1,7 @@
+[Desktop Entry]
+Terminal=false
+Name=EasyEffects
+Type=Application
+Exec=/usr/bin/easyeffects --gapplication-service
+Comment=EasyEffects Service
+
