@@ -104,6 +104,9 @@ myBrowser = "firefox -P default-release"  -- Sets firefox as browser
 myEditor :: String
 myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor
 
+myMusic :: String
+myMusic = "~/.config/ncmpcpp/ncmpcpp-ueberzug/ncmpcpp-ueberzug"
+
 myBorderWidth :: Dimension
 myBorderWidth = 2           -- Sets border width for windows
 
@@ -198,7 +201,7 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
 myAppGrid = [ ("Nemo", "nemo")
                  , ("Firefox", "firefox -P default-release")
                  , ("Okular", "okular")
-                 , ("ncmpcpp", "ncmpcpp")
+                 , ("ncmpcpp", myMusic)
                  , ("Inkscape", "inkscape")
                  , ("Gimp", "gimp")
                  , ("Audacity", "audacity")
@@ -234,7 +237,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.9
                  t = 0.95 -h
                  l = 0.95 -w
-    spawnMus  = myTerminal ++ " -t ncmpcpp -e ncmpcpp"
+    spawnMus  = myTerminal ++ " -t ncmpcpp -e " ++ myMusic
     findMus   = title =? "ncmpcpp"
     manageMus = customFloating $ W.RationalRect l t w h
                where
