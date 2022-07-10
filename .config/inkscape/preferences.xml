@@ -125,8 +125,8 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="281.038837583046"
-         height="233.132593350151" />
+         width="1410.37731813482"
+         height="273.477210385129" />
       <eventcontext
          id="3dbox"
          style="stroke:none;stroke-linejoin:round;"
@@ -159,11 +159,11 @@
       <eventcontext
          id="arc"
          style="fill:red;"
-         end="0"
+         end="205.448799755271"
          start="0"
          usecurrent="1"
-         rx="2.5"
-         ry="2.5" />
+         rx="6.56318439273392"
+         ry="1.57333441606659" />
       <eventcontext
          id="star"
          magnitude="5"
@@ -344,8 +344,8 @@
        live_outline="1"
        live_objects="1"
        show_helperpath="0"
-       x="2657.08481154922"
-       y="53.9336246191323"
+       x="378.983198740158"
+       y="239.391762519685"
        edit_clipping_paths="0"
        edit_masks="0" />
     <eventcontext
@@ -369,7 +369,7 @@
        gradientdrag="0"
        usepressure="1"
        width="15"
-       population="70"
+       population="10"
        mode="1"
        rotation_variation="0"
        scale_variation="0"
@@ -563,16 +563,17 @@
        id="textandfont" />
     <group
        id="transformation"
-       applyseparately="0"
+       applyseparately="1"
        rotateCounterClockwise="1" />
     <group
        id="align"
-       align-to="1" />
+       align-to="4"
+       align-nodes-to="0" />
     <group
        id="xml"
        h="500"
        w="300"
-       panedpos="349" />
+       panedpos="669" />
     <group
        id="find" />
     <group
@@ -586,7 +587,7 @@
     <group
        id="preferences"
        state="1"
-       page="7" />
+       page="26" />
     <group
        id="gradienteditor" />
     <group
@@ -596,10 +597,10 @@
        default=""
        append_extension="1"
        path=""
-       defaultopts="1">
+       defaultopts="0">
       <group
          id="exportarea"
-         value="custom" />
+         value="page" />
       <group
          id="defaultxdpi"
          value="400" />
@@ -615,7 +616,7 @@
        default="org.inkscape.output.svg.inkscape"
        append_extension="1"
        enable_preview="1"
-       path="/home/brendan/Downloads"
+       path="/home/brendan/OneDrive/Neato"
        use_current_dir="1" />
     <group
        id="save_copy"
@@ -626,7 +627,7 @@
     <group
        id="open"
        enable_preview="1"
-       path="/home/brendan/OneDrive/Masters/Code/Vortices/Julia/GeneralizedPhase.jl" />
+       path="/home/brendan/Downloads/" />
     <group
        id="import"
        enable_preview="1"
@@ -683,7 +684,7 @@
        id="undo-history" />
     <group
        id="objects"
-       layers_only="1" />
+       layers_only="0" />
     <group
        id="layerProp"
        addLayerPosition="0" />
@@ -986,6 +987,9 @@
     <group
        id="threading"
        numthreads="8" />
+    <group
+       id="snapping"
+       snap-global-toggle="1" />
   </group>
   <group
      id="extensions"
@@ -1000,10 +1004,14 @@
      org.inkscape.color.replace_color.ignore_opacity="0"
      org.inkscape.color.replace_color.from_color="4294967295"
      org.inkscape.color.replace_color.tab="to"
-     org.inkscape.color.replace_color.to_color="0" />
+     org.inkscape.color.replace_color.to_color="0"
+     org.inkscape.input.gdkpixbuf.jpg.scale="optimizeQuality"
+     org.inkscape.effect.filter.Invert.channels="0"
+     org.inkscape.effect.filter.Invert.lightness="0"
+     org.inkscape.effect.filter.Invert.__live_effect__="0" />
   <group
      id="desktop"
-     style="fill:#dc143c;-inkscape-font-specification:'Open Sans, Normal';font-family:'Open Sans';font-size:13.33333333px;stroke-width:1.99937008;stroke-opacity:0.99990565">
+     style="fill:#ffffff;-inkscape-font-specification:'Open Sans, Normal';font-family:'Open Sans';font-size:36px;stroke-width:0;stroke-opacity:0.999906;stroke:#ffffff">
     <group
        width="640"
        height="480"

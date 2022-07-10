@@ -29,11 +29,13 @@ import Data.Ratio
     -- Hooks
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
 import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
-import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
+import XMonad.Hooks.ManageDocks (avoidStruts, manageDocks, ToggleStruts(..))
+import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat, doCenterFloat, doRectFloat)
 import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory
+import XMonad.Hooks.StatusBar.PP (filterOutWsPP)
 
     -- Layouts
 import XMonad.Layout.Accordion
@@ -539,9 +541,9 @@ myKeys =
 
     -- -- KB_GROUP Controls for music player (SUPER-m followed by a key)
         , ("M-m k", spawn "mpc next")
-        , ("M-m >", spawn "mpc next")
+        , ("M-m .", spawn "mpc next")
         , ("M-m j", spawn "mpc prev")
-        , ("M-m <", spawn "mpc prev")
+        , ("M-m ,", spawn "mpc prev")
         , ("M-m <Space>", spawn "mpc toggle")
         , ("M-m p", spawn "mpc toggle")
         , ("M-m s", spawn "mpc stop")
@@ -587,9 +589,9 @@ main = do
     xmproc1 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ (if nScreens > 2 then "dual_xmobarrc" else "xmobarrc"))
     xmproc2 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ (if nScreens > 3 then "dual_xmobarrc" else "xmobarrc"))
     -- the xmonad, ya know...what the WM is named after!
-    xmonad $ ewmh def
+    xmonad $ docks $ ewmh def
         { manageHook         = myManageHook <+> manageDocks
-        , handleEventHook    = docksEventHook
+        -- , handleEventHook    = myManageHook <> events def
                                -- Uncomment this line to enable fullscreen support on things like YouTube/Netflix.
                                -- This works perfect on SINGLE monitor systems. On multi-monitor systems,
                                -- it adds a border around the window if screen does not have focus. So, my solution
@@ -603,7 +605,7 @@ main = do
         , borderWidth        = myBorderWidth
         , normalBorderColor  = myNormColor
         , focusedBorderColor = myFocusColor
-        , logHook = dynamicLogWithPP $ namedScratchpadFilterOutWorkspacePP $ xmobarPP
+        , logHook = dynamicLogWithPP $ filterOutWsPP [scratchpadWorkspaceTag] $ xmobarPP
               -- XMOBAR SETTINGS
               { ppOutput = \x -> hPutStrLn xmproc0 x   -- xmobar on monitor 1
                               >> hPutStrLn xmproc1 x   -- xmobar on monitor 2
