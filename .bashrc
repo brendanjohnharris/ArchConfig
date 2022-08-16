@@ -30,3 +30,11 @@ export DISPLAY=:0.0
 # Tell julia to use discrete GPU
 export DRI_PRIME=1
 
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+
+# Make local binaries available
+export PATH="$HOME/.local/bin:$PATH"
+
+# Some programs, like mpd, need this to manually set
+export XDG_CONFIG_HOME="$HOME/.config"
+

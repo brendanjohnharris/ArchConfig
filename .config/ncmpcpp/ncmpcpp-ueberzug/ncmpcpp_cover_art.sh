@@ -4,7 +4,7 @@
 # SETTINGS
 music_library="$HOME/Music"
 fallback_image="$HOME/.config/ncmpcpp/ncmpcpp-ueberzug/img/fallback.png"
-padding_top=7
+padding_top=30
 padding_bottom=1
 padding_right=1
 max_width=0

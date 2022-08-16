@@ -105,7 +105,7 @@ myEditor :: String
 myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor
 
 myMusic :: String
-myMusic = "~/.config/ncmpcpp/ncmpcpp-ueberzug/ncmpcpp-ueberzug"
+myMusic = "ncmpcpp" -- "~/.config/ncmpcpp/ncmpcpp-ueberzug/ncmpcpp-ueberzug"
 
 myBorderWidth :: Dimension
 myBorderWidth = 2           -- Sets border width for windows
@@ -157,7 +157,6 @@ myStartupHook = do
     spawnOnce "xsettingsd"
 
     -- spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
-    spawnOnce "$(watch -n 600 'feh --recursive --randomize --bg-fill $HOME/.wallpapers/')"
     -- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
     -- spawnOnce "feh --randomize --bg-fill ~/wallpapers/*"  -- feh set random wallpaper
     -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
@@ -165,8 +164,9 @@ myStartupHook = do
     setDefaultCursor xC_left_ptr
     --spawnOnce "optimus-manager-qt"
 
+    spawnOnce "$(sleep .5 && watch -n 600 'feh --recursive --randomize --bg-fill $HOME/.wallpapers/')"
     -- Spawn workspace-specific apps
-    -- spawnOn "mail" "betterbird"
+    -- spawnOn "mail" "evolution"
 
 myColorizer :: Window -> Bool -> X (String, String)
 myColorizer = colorRangeFromClassName
@@ -437,6 +437,7 @@ myKeys =
     -- KB_GROUP Run Prompt
         --, ("M-S-<Return>", spawn "dmenu_run -i -fn 'Ubuntu:weight=bold:pixelsize=26:antialias=true:hinting=true' -p \"Run: \"") -- Dmenu
         , ("M-<Return>", spawn "rofi -show drun") -- Dmenu
+        , ("C-S-<Return>", spawn "rofi -show drun") -- Dmenu
 
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-S-<Return>", spawn (myTerminal))
@@ -536,6 +537,7 @@ myKeys =
         , ("M-s e", namedScratchpadAction myScratchPads "emoji")
         , ("M-s p", namedScratchpadAction myScratchPads "peek")
         , ("M-s f", namedScratchpadAction myScratchPads "files")
+        -- Arbitrary scratchpad with XMonad.Util.WindowState?
 
     -- Dunst (notification) controls
         , ("M-M1-n", spawn "dunstctl history-pop") -- Return the most recent notification
@@ -551,6 +553,7 @@ myKeys =
         , ("M-m p", spawn "mpc toggle")
         , ("M-m s", spawn "mpc stop")
         , ("M-m <Backspace>", spawn "mpc stop && mpc play")
+        , ("M-m <Delete>", spawn "mpc del 0")
         , ("M-m f", spawn "mpc seek +10%")
         , ("M-m b", spawn "mpc seek -10%")
         , ("M-m u", spawn "mpc volume +20")
@@ -569,7 +572,7 @@ myKeys =
         , ("<XF86AudioRaiseVolume>", spawn "amixer -M set Master 2%+ unmute")
         , ("<XF86HomePage>", spawn "firefox -P default-release https://www.google.com/")
         , ("<XF86Search>", spawn "qutebrowser")
-        , ("<XF86Mail>", runOrRaise "betterbird" (resource =? "betterbird"))
+        , ("<XF86Mail>", runOrRaise "evolution" (resource =? "evolution"))
         , ("<XF86Calculator>", runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))
         , ("<XF86Eject>", spawn "toggleeject")
 

@@ -30,7 +30,7 @@
        state="1" />
     <group
        id="rulers"
-       state="1" />
+       state="0" />
     <group
        id="scrollbars"
        state="1" />
@@ -125,8 +125,9 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="1410.37731813482"
-         height="273.477210385129" />
+         width="1080"
+         height="1620"
+         ry="0" />
       <eventcontext
          id="3dbox"
          style="stroke:none;stroke-linejoin:round;"
@@ -160,10 +161,11 @@
          id="arc"
          style="fill:red;"
          end="205.448799755271"
-         start="0"
+         start="209.046625204438"
          usecurrent="1"
-         rx="6.56318439273392"
-         ry="1.57333441606659" />
+         rx="84.2531555656384"
+         ry="135.866665577325"
+         arc_type="1" />
       <eventcontext
          id="star"
          magnitude="5"
@@ -317,7 +319,7 @@
        id="lpetool"
        mode="drag"
        style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;"
-       unit="mm"
+       unit="pt"
        show_bbox="1" />
     <eventcontext
        id="text"
@@ -344,8 +346,8 @@
        live_outline="1"
        live_objects="1"
        show_helperpath="0"
-       x="378.983198740158"
-       y="239.391762519685"
+       x="57794.5476089278"
+       y="145.337610533333"
        edit_clipping_paths="0"
        edit_masks="0" />
     <eventcontext
@@ -353,7 +355,7 @@
        selcue="0"
        gradientdrag="0"
        show_handles="0"
-       width="0.2"
+       width="0.06"
        force="0.2"
        fidelity="0.5"
        usepressure="1"
@@ -362,7 +364,8 @@
        doh="1"
        dos="1"
        dol="1"
-       doo="1" />
+       doo="1"
+       mode="2" />
     <eventcontext
        id="spray"
        selcue="1"
@@ -567,8 +570,9 @@
        rotateCounterClockwise="1" />
     <group
        id="align"
-       align-to="4"
-       align-nodes-to="0" />
+       align-to="1"
+       align-nodes-to="0"
+       objects-align-to="first" />
     <group
        id="xml"
        h="500"
@@ -587,7 +591,7 @@
     <group
        id="preferences"
        state="1"
-       page="26" />
+       page="50" />
     <group
        id="gradienteditor" />
     <group
@@ -613,25 +617,25 @@
     </group>
     <group
        id="save_as"
-       default="org.inkscape.output.svg.inkscape"
+       default="org.inkscape.output.pdf.cairorenderer"
        append_extension="1"
        enable_preview="1"
-       path="/home/brendan/OneDrive/Neato"
+       path="/home/brendan/Downloads"
        use_current_dir="1" />
     <group
        id="save_copy"
-       default="org.inkscape.output.svg.inkscape"
+       default="org.inkscape.output.pdf.cairorenderer"
        append_extension="1"
        enable_preview="1"
        path="/home/brendan/OneDrive/Masters/CNS/Poster" />
     <group
        id="open"
        enable_preview="1"
-       path="/home/brendan/Downloads/" />
+       path="/home/brendan/OneDrive/Neato/" />
     <group
        id="import"
        enable_preview="1"
-       path="/home/brendan/Downloads/"
+       path="/home/brendan/OneDrive/Masters/Code/Features/Criticality/paper/"
        ask="1"
        ask_svg="1"
        link="embed"
@@ -684,10 +688,14 @@
        id="undo-history" />
     <group
        id="objects"
-       layers_only="0" />
+       layers_only="1" />
     <group
        id="layerProp"
        addLayerPosition="0" />
+    <group
+       id="printing"
+       asbitmap="1"
+       dpi="300" />
   </group>
   <group
      id="printing">
@@ -700,7 +708,8 @@
   <group
      id="options"
      rotationlock="1"
-     onimport="0">
+     onimport="0"
+     displaymode="0">
     <group
        id="renderingcache"
        size="4096" />
@@ -733,7 +742,7 @@
        value="12" />
     <group
        id="cursortolerance"
-       value="8.0" />
+       value="8" />
     <group
        id="dragtolerance"
        value="4.0" />
@@ -870,7 +879,7 @@
        layerdeselect="1" />
     <group
        id="createbitmap"
-       resolution="300" />
+       resolution="600" />
     <group
        id="compassangledisplay"
        value="0" />
@@ -969,7 +978,8 @@
        colorsontop="0"
        partialdynamic="0" />
     <group
-       id="rendering" />
+       id="rendering"
+       update_strategy="1" />
     <group
        id="boot"
        theme="custom"
@@ -989,29 +999,36 @@
        numthreads="8" />
     <group
        id="snapping"
-       snap-global-toggle="1" />
+       snap-global-toggle="0" />
   </group>
   <group
      id="extensions"
-     org.inkscape.output.png.inkscape.png_bitdepth="99"
-     org.inkscape.output.png.inkscape.png_compression="6"
+     org.inkscape.output.png.inkscape.png_bitdepth="100"
+     org.inkscape.output.png.inkscape.png_compression="0"
      org.inkscape.output.png.inkscape.png_antialias="2"
      org.inkscape.output.pdf.cairorenderer.PDFversion="PDF-1.5"
      org.inkscape.input.svg.scale="auto"
      org.inkscape.output.pdf.cairorenderer.blurToBitmap="1"
      org.inkscape.output.pdf.cairorenderer.textToPath="embed"
-     org.inkscape.output.pdf.cairorenderer.resolution="260"
+     org.inkscape.output.pdf.cairorenderer.resolution="1000"
      org.inkscape.color.replace_color.ignore_opacity="0"
-     org.inkscape.color.replace_color.from_color="4294967295"
-     org.inkscape.color.replace_color.tab="to"
-     org.inkscape.color.replace_color.to_color="0"
+     org.inkscape.color.replace_color.from_color="255"
+     org.inkscape.color.replace_color.tab="from"
+     org.inkscape.color.replace_color.to_color="4294967295"
      org.inkscape.input.gdkpixbuf.jpg.scale="optimizeQuality"
      org.inkscape.effect.filter.Invert.channels="0"
      org.inkscape.effect.filter.Invert.lightness="0"
-     org.inkscape.effect.filter.Invert.__live_effect__="0" />
+     org.inkscape.effect.filter.Invert.__live_effect__="0"
+     org.inkscape.print.eps.cairo.PSlevel="PS3"
+     org.inkscape.print.eps.cairo.resolution="600"
+     org.inkscape.input.eps.autorotate="None"
+     org.inkscape.raster.tiff_output.quality="100"
+     org.inkscape.raster.png_output.level="0"
+     org.inkscape.raster.png_output.tab="lossy"
+     org.inkscape.raster.jpg_output.tab="options" />
   <group
      id="desktop"
-     style="fill:#ffffff;-inkscape-font-specification:'Open Sans, Normal';font-family:'Open Sans';font-size:36px;stroke-width:0;stroke-opacity:0.999906;stroke:#ffffff">
+     style="fill:#000000;-inkscape-font-specification:'Calibri, Normal';font-family:Calibri;font-size:26.66666667px;stroke-width:4.06666667">
     <group
        width="640"
        height="480"
@@ -1160,4 +1177,7 @@
     <group
        id="visibility" />
   </group>
+  <group
+     id="gradient-edit"
+     stoplist="1" />
 </inkscape>
