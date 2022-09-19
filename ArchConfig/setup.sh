@@ -49,7 +49,7 @@ xmonad --recompile
 sudo pacman -Syu nemo nemo-preview
 
 # * Misc. programs
-sudo pacman -Syu firefox mpd ncmpcpp mpc gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh mpv lxsession rofi onedrive-abraunegg onedrive_tray-git qt5-base piper gnome-characters peek ranger xclip nvidia-settings lm_sensors pipewire vim-grammarous
+sudo pacman -Syu firefox mpd ncmpcpp mpc gimp kdenlive audacity inkscape okular libreoffice-fresh conky yad qalculate-gtk network-manager-applet ffmpeg gnome-keyring seahorse asp pacman-contrib htop flameshot bc qutebrowser dunst lxappearance arc-gtk-theme kvantum feh mpv lxsession rofi onedrive-abraunegg onedrive_tray-git qt5-base piper gnome-characters peek ranger xclip nvidia-settings lm_sensors pipewire vim-grammarous pamixer
 
 # * Onedrive tray service
 sudo cp /usr/lib/systemd/user/onedrive_tray.service $HOME/.config/systemd/user/
@@ -203,3 +203,8 @@ python -m pip install python-mpd2
 # ! To set the xset keyboard repeat rate permanently, edit /etc/X11/xinit/xserverrc witht he -ardelay and -arinterval options (https://unix.stackexchange.com/questions/408461/where-is-the-default-repeat-rate-for-xset-stored)
 
 # ! Install the AUR matlab-support package after installing matlab to make things a heck of a lot nicer
+
+
+
+# ! A neat trick is to create .desktop files for websites that open in Chrome's Kiosk mode, giving you a little isolated web-based app. The extension 'open in firefox' is useful in that case, because ayny links unrelated to the web app can be automatically opened in firefox. E.g., a list of links to exclude in 'open-in-firefox':
+# www.messenger.com, www.facebook.com, www.twitter.com, www.chess.com, www.overleaf.com, matlab.mathworks.com, unisydneyedu-my.sharepoint.com, au.mathworks.com, www.youtube.com, fourwaves.com, canvas.sydney.edu.au, www.outlook.com, login.live.com, www.spotify.com, open.spotify.com, mail.google.com
