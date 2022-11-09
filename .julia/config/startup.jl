@@ -16,7 +16,7 @@ function template()
                                 Git(;ignore=["*.code-workspace", "*.mat", "*.csv", "*.parquet", "*.jld2", "data/**", "*.jl.cov", "*.jl.*.cov", "*.jl.mem", "docs/build/", "docs/site/"]),
                                 CompatHelper(),
                                 TagBot(),
-                                GitHubActions(; linux=true, osx=true, windows=true, x86=true, extra_versions=["1.6", "1.7", "nightly"]),
+                                GitHubActions(; linux=true, osx=true, windows=true, x86=true, extra_versions=["1.6", "1", "nightly"]),
                                 Codecov(),
                                 Documenter{NoDeploy}()])
     end

@@ -54,7 +54,7 @@ fi
 eval $(gnome-keyring-daemon --start)
 export SSH_AUTH_SOCK
 
-(sleep 1s && xset r rate 300 50 && xrandr --output "DP-4" --primary) & 
+sleep 2s && xset r rate 300 50 && xrandr --output "DP-4" --primary
 
 exec xmonad
 
