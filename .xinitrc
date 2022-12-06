@@ -51,10 +51,7 @@ fi
 # ! This can be done here, but easier to do it with libinput
 # xinput set-prop "MSFT0001:01 06CB:CE44 Touchpad" "libinput Natural Scrolling Enabled" 1 # Set the trackpad device, "MSFT0001:01 06CB:CE44 Touchpad", to natural scrolling
 
-eval $(gnome-keyring-daemon --start)
-export SSH_AUTH_SOCK
-
-sleep 2s && xset r rate 300 50 && xrandr --output "DP-4" --primary
+# sleep 2s && xset r rate 300 50 && xrandr --output "DP-4" --primary
 
 exec xmonad
 
