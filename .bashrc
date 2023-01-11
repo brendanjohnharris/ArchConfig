@@ -37,4 +37,5 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # Some programs, like mpd, need this to manually set
 export XDG_CONFIG_HOME="$HOME/.config"
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/lib
 

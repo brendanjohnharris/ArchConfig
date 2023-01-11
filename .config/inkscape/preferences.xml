@@ -631,7 +631,7 @@
     <group
        id="open"
        enable_preview="1"
-       path="/home/brendan/OneDrive/Neato/" />
+       path="/home/brendan/OneDrive/Masters/Code/Features/Criticality_Figures/" />
     <group
        id="import"
        enable_preview="1"
@@ -1028,7 +1028,7 @@
      org.inkscape.raster.jpg_output.tab="options" />
   <group
      id="desktop"
-     style="fill:#000000;-inkscape-font-specification:'Calibri, Normal';font-family:Calibri;font-size:26.66666667px;stroke-width:4.06666667">
+     style="fill:#eeeeee;-inkscape-font-specification:'Calibri, Bold';font-family:Calibri;font-size:26.66666603px;stroke-width:0;font-weight:bold;stroke:#eeeeee">
     <group
        width="640"
        height="480"

@@ -13,7 +13,7 @@ function template()
                                 Tests(; project=true),
                                 Readme(),
                                 License(),
-                                Git(;ignore=["*.code-workspace", "*.mat", "*.csv", "*.parquet", "*.jld2", "data/**", "*.jl.cov", "*.jl.*.cov", "*.jl.mem", "docs/build/", "docs/site/"]),
+                                Git(;ignore=["*.code-workspace", "*.mat", "*.csv", "*.parquet", "*.jld2", "data/**", "*.jl.cov", "*.jl.*.cov", "*.jl.mem", "docs/build/", "docs/site/, LocalPreferences.toml"]),
                                 CompatHelper(),
                                 TagBot(),
                                 GitHubActions(; linux=true, osx=true, windows=true, x86=true, extra_versions=["1.6", "1", "nightly"]),
