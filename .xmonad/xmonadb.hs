@@ -77,6 +77,8 @@ import Colors.DoomOne
 
 myFont :: String
 myFont = "xft:SauceCodePro Nerd Font:regular:size=9:antialias=true:hinting=true"
+myGridFont :: String
+myGridFont = "xft:SauceCodePro Nerd Font:regular:size=18:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask        -- Sets modkey to super/windows key
@@ -166,23 +168,23 @@ myColorizer = colorRangeFromClassName
 -- gridSelect menu layout
 mygridConfig :: p -> GSConfig Window
 mygridConfig colorizer = (buildDefaultGSConfig myColorizer)
-    { gs_cellheight   = 40
-    , gs_cellwidth    = 200
+    { gs_cellheight   = 90
+    , gs_cellwidth    = 600
     , gs_cellpadding  = 6
-    , gs_originFractX = 0.5
+    , gs_originFractX = 0.1
     , gs_originFractY = 0.5
-    , gs_font         = myFont
+    , gs_font         = myGridFont
     }
 
 spawnSelected' :: [(String, String)] -> X ()
 spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
     where conf = def
-                   { gs_cellheight   = 40
-                   , gs_cellwidth    = 200
+                   { gs_cellheight   = 90
+                   , gs_cellwidth    = 600
                    , gs_cellpadding  = 6
-                   , gs_originFractX = 0.5
+                   , gs_originFractX = 0.1
                    , gs_originFractY = 0.5
-                   , gs_font         = myFont
+                   , gs_font         = myGridFont
                    }
 
 myAppGrid = [ ("Nemo", "nemo")
