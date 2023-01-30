@@ -93,7 +93,7 @@ myEditor :: String
 myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor
 
 myMusic :: String
-myMusic = "ncmpcpp" -- "~/.config/ncmpcpp/ncmpcpp-ueberzug/ncmpcpp-ueberzug"
+myMusic = "spotify"
 
 myBorderWidth :: Dimension
 myBorderWidth = 2           -- Sets border width for windows
@@ -190,7 +190,7 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
 myAppGrid = [ ("Nemo", "nemo")
                  , ("Firefox", "firefox -P default-release")
                  , ("Okular", "okular")
-                 , ("ncmpcpp", myMusic)
+                 , ("Spotify", myMusic)
                  , ("Inkscape", "inkscape")
                  , ("Gimp", "gimp")
                  , ("Audacity", "audacity")
@@ -226,8 +226,8 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.9
                  t = 0.95 -h
                  l = 0.95 -w
-    spawnMus  = myTerminal ++ " -t ncmpcpp -e " ++ myMusic
-    findMus   = title =? "ncmpcpp"
+    spawnMus  = myMusic
+    findMus   = className =? "Spotify"
     manageMus = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
@@ -534,27 +534,27 @@ myKeys =
         , ("M-S-n", spawn "dunstctl close-all") -- Close all notifications
 
     -- -- KB_GROUP Controls for music player (SUPER-m followed by a key)
-        , ("M-m k", spawn "mpc next")
-        , ("M-m .", spawn "mpc next")
-        , ("M-m j", spawn "mpc prev")
-        , ("M-m ,", spawn "mpc prev")
-        , ("M-m <Space>", spawn "mpc toggle")
-        , ("M-m p", spawn "mpc toggle")
+        , ("M-m k", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next")
+        , ("M-m .", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next")
+        , ("M-m j", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous")
+        , ("M-m ,", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous")
+        , ("M-m <Space>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
+        , ("M-m p", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
         , ("M-m s", spawn "mpc stop")
-        , ("M-m <Backspace>", spawn "mpc stop && mpc play")
-        , ("M-m <Delete>", spawn "mpc del 0")
+        -- , ("M-m <Backspace>", spawn "mpc stop && dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Play")
+        -- , ("M-m <Delete>", spawn "mpc del 0")
         , ("M-m f", spawn "mpc seek +10%")
         , ("M-m b", spawn "mpc seek -10%")
         , ("M-m u", spawn "mpc volume +20")
         , ("M-m d", spawn "mpc volume -20")
-        , ("<XF86AudioStop>", spawn "mpc toggle")
-        , ("<XF86AudioPause>", spawn "mpc toggle")
-        , ("<XF86AudioToggle>", spawn "mpc toggle")
+        , ("<XF86AudioStop>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
+        , ("<XF86AudioPause>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
+        , ("<XF86AudioToggle>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
 
     -- KB_GROUP Multimedia Keys
-        , ("<XF86AudioPlay>", spawn "mpc play")
-        , ("<XF86AudioPrev>", spawn "mpc prev")
-        , ("<XF86AudioNext>", spawn "mpc next")
+        , ("<XF86AudioPlay>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Play")
+        , ("<XF86AudioPrev>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous")
+        , ("<XF86AudioNext>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next")
         , ("<XF86AudioMute>", spawn "amixer set Master toggle")
         , ("<XF86AudioMicMute>", spawn "amixer set Capture toggle")
         , ("<XF86AudioLowerVolume>", spawn "amixer -M set Master 2%- unmute")
