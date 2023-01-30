@@ -53,5 +53,9 @@ fi
 
 # sleep 2s && xset r rate 300 50 && xrandr --output "DP-4" --primary
 
+# ? envycontrol
+xrandr --setprovideroutputsource modesetting NVIDIA-0
+xrandr --auto
+
 exec xmonad
 

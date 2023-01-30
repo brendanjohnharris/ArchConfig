@@ -73,6 +73,20 @@ import XMonad.Util.SpawnOnce
 import XMonad.Util.Cursor
 
 
+-- import XMonad.Actions.SpawnOn
+
+   -- ColorScheme module (SET ONLY ONE!)
+      -- Possible choice are:
+      -- DoomOne
+      -- Dracula
+      -- GruvboxDark
+      -- MonokaiPro
+      -- Nord
+      -- OceanicNext
+      -- Palenight
+      -- SolarizedDark
+      -- SolarizedLight
+      -- TomorrowNight
 import Colors.DoomOne
 
 myFont :: String
@@ -126,24 +140,30 @@ myShowWNameTheme = def
 
 myStartupHook :: X ()
 myStartupHook = do
-    -- spawn "/usr/bin/prime-offload"
+    spawn "/usr/bin/prime-offload"
     spawn "killall conky"   -- kill current conky on each restart
     -- spawn "killall trayer"  -- kill current trayer on each restart
-    spawn "killall picom"
 
     spawnOnce "lxsession"
+    spawnOnce "picom"
     spawnOnce "dunst"
         
     setWMName "LG3D"
     setDefaultCursor xC_left_ptr
 
     spawn ("trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor primary --transparent true --alpha 0 " ++ colorTrayer ++ " --height 30 --distance 1") -- Effective height is height + 2*distance
-    -- spawn ("conky -c $HOME/.config/.conkyrc")
+    spawn ("conky -c $HOME/.config/.conkyrc")
 
     spawnOnce "nm-applet"
     spawnOnce "blueman-applet"
     spawnOnce "volumeicon"
     spawnOnce "xsettingsd"
+
+    -- spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
+    -- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
+    -- spawnOnce "feh --randomize --bg-fill ~/wallpapers/*"  -- feh set random wallpaper
+    -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
+    --spawnOnce "optimus-manager-qt"
 
     spawnOnce "eval $(gnome-keyring-daemon --start)"
     spawnOnce "export SSH_AUTH_SOCK"
@@ -151,7 +171,7 @@ myStartupHook = do
     spawnOnce "xset r rate 300 50"
     spawnOnce "xrandr --output 'DP-4' --primary"
 
-    spawnOnce "feh --bg-fill $HOME/.wallpapers/Paintings/complexity.jpg"
+    spawnOnce "watch -n 600 'feh --recursive --randomize --bg-fill $HOME/.wallpapers/'"
     -- Spawn workspace-specific apps
     -- spawnOn "mail" "evolution"
 
@@ -396,7 +416,7 @@ myManageHook = composeAll
      , className =? "Yad"             --> doCenterFloat
      , title =? "languid"             --> doRectFloat (W.RationalRect (1 % 6) (1 % 6) (2 % 3) (2 % 3))
      , title =? "Oracle VM VirtualBox Manager"  --> doFloat
-     -- , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 1 )
+     , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 2 )
      -- , className =? "Brave-browser"   --> doShift ( myWorkspaces !! 1 )
      --, className =? "mpv"             --> doShift ( myWorkspaces !! 7 )
      -- , className =? "Gimp"            --> doShift ( myWorkspaces !! 8 )
@@ -412,7 +432,7 @@ myKeys :: [(String, X ())]
 myKeys =
     -- KB_GROUP Xmonad
         [ ("M-C-r", spawn "xmonad --recompile")       -- Recompiles xmonad
-        , ("M-S-r", spawn "xmonad --restart")         -- Restarts xmonad
+        , ("M-S-r", spawn "xmonad --restart; feh --recursive --randomize --bg-fill $HOME/.wallpapers/")         -- Restarts xmonad
         , ("M-S-q", io exitSuccess)                   -- Quits xmonad
         , ("M-S-p t", spawn "~/.local/bin/transparenton") -- Set picom to transparent
         , ("M-S-p o", spawn "~/.local/bin/transparentoff") -- Set picom to opaque
@@ -428,7 +448,7 @@ myKeys =
 
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-S-<Return>", spawn (myTerminal))
-        , ("M-b", spawn (myBrowser))
+        , ("M-b", spawn (myBrowser) >> moveTo Prev (WSIs $ return (('w' `elem`) . W.tag)))
         , ("M-S-f", spawn "nemo --name=files --class=files")
         , ("M-<Print>", spawn "flameshot gui")
         , ("M-S-l", spawn "$HOME/.config/Languid/languid.sh")
@@ -578,9 +598,9 @@ main :: IO ()
 main = do
     nScreens <- countScreens
     -- Launching three instances of xmobar on their monitors.
-    xmproc0 <- spawnPipe ("xmobar -x 0 $HOME/.config/xmobar/" ++ "xmobarrcb")
-    xmproc1 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ (if nScreens > 1 then "dual_xmobarrc" else "xmobarrcb"))
-    xmproc2 <- spawnPipe ("xmobar -x 2 $HOME/.config/xmobar/" ++ (if nScreens > 2 then "dual_xmobarrc" else "xmobarrcb"))
+    xmproc0 <- spawnPipe ("xmobar -x 0 $HOME/.config/xmobar/" ++ "xmobarrc")
+    xmproc1 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ (if nScreens > 1 then "dual_xmobarrc" else "xmobarrc"))
+    xmproc2 <- spawnPipe ("xmobar -x 2 $HOME/.config/xmobar/" ++ (if nScreens > 2 then "dual_xmobarrc" else "xmobarrc"))
     -- the xmonad, ya know...what the WM is named after!
     xmonad $ docks $ ewmh def
         { manageHook         = myManageHook <+> manageDocks

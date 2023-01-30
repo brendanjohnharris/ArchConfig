@@ -160,11 +160,11 @@
       <eventcontext
          id="arc"
          style="fill:red;"
-         end="205.448799755271"
+         end="209.023231337662"
          start="209.046625204438"
          usecurrent="1"
-         rx="84.2531555656384"
-         ry="135.866665577325"
+         rx="7.82975069681805"
+         ry="7.82975069681792"
          arc_type="1" />
       <eventcontext
          id="star"
@@ -197,7 +197,8 @@
          selcue="1"
          style="stroke-width:1px;"
          usecurrent="0"
-         freehand-mode="3" />
+         freehand-mode="1"
+         shape="0" />
     </group>
     <eventcontext
        id="calligraphic"
@@ -346,8 +347,8 @@
        live_outline="1"
        live_objects="1"
        show_helperpath="0"
-       x="541.942658267717"
-       y="372.471779527559"
+       x="76.5501333982607"
+       y="426.333996835482"
        edit_clipping_paths="0"
        edit_masks="0" />
     <eventcontext
@@ -617,17 +618,17 @@
     </group>
     <group
        id="save_as"
-       default="org.inkscape.output.svg.inkscape"
+       default="org.inkscape.output.pdf.cairorenderer"
        append_extension="1"
        enable_preview="1"
-       path="/Chambertin/Presentations/HeronIsland/Figures/Plots/OneRegion"
+       path="/home/brendan/Downloads"
        use_current_dir="1" />
     <group
        id="save_copy"
        default="org.inkscape.output.pdf.cairorenderer"
        append_extension="1"
        enable_preview="1"
-       path="/home/brendan/OneDrive/Masters/CNS/Poster" />
+       path="/home/brendan/Downloads" />
     <group
        id="open"
        enable_preview="1"
@@ -1012,7 +1013,7 @@
      org.inkscape.output.pdf.cairorenderer.textToPath="embed"
      org.inkscape.output.pdf.cairorenderer.resolution="1000"
      org.inkscape.color.replace_color.ignore_opacity="1"
-     org.inkscape.color.replace_color.from_color="4294967295"
+     org.inkscape.color.replace_color.from_color="1869574143"
      org.inkscape.color.replace_color.tab="to"
      org.inkscape.color.replace_color.to_color="4294967040"
      org.inkscape.input.gdkpixbuf.jpg.scale="optimizeQuality"
@@ -1032,7 +1033,7 @@
      org.inkscape.color.replace_color.__live_effect__="0" />
   <group
      id="desktop"
-     style="fill:#eeeeee;-inkscape-font-specification:'Calibri, Normal';font-family:Calibri;font-size:19.54117775px;stroke-width:7.55905512;stroke-opacity:0;opacity:0.08060216">
+     style="fill:#d95319;-inkscape-font-specification:'Calibri, Normal';font-family:Calibri;font-size:19.54117775px;stroke-width:1.66666667;stroke:#d95319">
     <group
        width="640"
        height="480"

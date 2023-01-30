@@ -126,10 +126,9 @@ myShowWNameTheme = def
 
 myStartupHook :: X ()
 myStartupHook = do
-    -- spawn "/usr/bin/prime-offload"
+    spawn "/usr/bin/prime-offload"
     spawn "killall conky"   -- kill current conky on each restart
     -- spawn "killall trayer"  -- kill current trayer on each restart
-    spawn "killall picom"
 
     spawnOnce "lxsession"
     spawnOnce "dunst"
@@ -154,6 +153,7 @@ myStartupHook = do
     spawnOnce "feh --bg-fill $HOME/.wallpapers/Paintings/complexity.jpg"
     -- Spawn workspace-specific apps
     -- spawnOn "mail" "evolution"
+    spawn "killall picom"
 
 myColorizer :: Window -> Bool -> X (String, String)
 myColorizer = colorRangeFromClassName
@@ -396,7 +396,7 @@ myManageHook = composeAll
      , className =? "Yad"             --> doCenterFloat
      , title =? "languid"             --> doRectFloat (W.RationalRect (1 % 6) (1 % 6) (2 % 3) (2 % 3))
      , title =? "Oracle VM VirtualBox Manager"  --> doFloat
-     -- , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 1 )
+    --  , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 2 )
      -- , className =? "Brave-browser"   --> doShift ( myWorkspaces !! 1 )
      --, className =? "mpv"             --> doShift ( myWorkspaces !! 7 )
      -- , className =? "Gimp"            --> doShift ( myWorkspaces !! 8 )
@@ -428,7 +428,7 @@ myKeys =
 
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-S-<Return>", spawn (myTerminal))
-        , ("M-b", spawn (myBrowser))
+        , ("M-b", spawn (myBrowser)) -- , ("M-b", spawn (myBrowser) >> moveTo Prev (WSIs $ return (('w' `elem`) . W.tag)))
         , ("M-S-f", spawn "nemo --name=files --class=files")
         , ("M-<Print>", spawn "flameshot gui")
         , ("M-S-l", spawn "$HOME/.config/Languid/languid.sh")
