@@ -8,7 +8,11 @@ if [ -z "$CHK" ]; then
     fi
 fi
 DIR=$HOME/Notebook/Papers/
-DOI=`xclip -selection c -o`
+if [ -z $1 ]; then
+    DOI=`xclip -selection c -o`
+else
+    DOI="$1"
+fi
 BIB=`curl -LH "Accept: text/bibliography; style=bibtex" $DOI`
 AUTHOR=`echo $BIB | grep -oP '(?<=(author={)).*?(?=,)'`
 YEAR=`echo $BIB | grep -oP '(?<=(year={)).*?(?=})'`

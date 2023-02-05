@@ -433,8 +433,9 @@ myKeys =
         , ("M-b", spawn (myBrowser)) -- , ("M-b", spawn (myBrowser) >> moveTo Prev (WSIs $ return (('w' `elem`) . W.tag)))
         , ("M-S-f", spawn "nemo --name=files --class=files")
         , ("M-<Print>", spawn "flameshot gui")
-        , ("M-S-l", spawn "$HOME/.config/Languid/languid.sh")
-
+        -- , ("M-S-l", spawn "$HOME/.config/Languid/languid.sh")
+        , ("M-d", spawn "downloadpaper")
+        
     -- KB_GROUP Kill windows
         , ("M-S-c", kill)     -- Kill the currently focused client
         , ("M-S-a", killAll)   -- Kill all windows on current workspace

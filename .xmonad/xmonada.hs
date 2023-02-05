@@ -454,6 +454,7 @@ myKeys =
         , ("M-S-f", spawn "nemo --name=files --class=files")
         , ("M-<Print>", spawn "flameshot gui")
         , ("M-S-l", spawn "$HOME/.config/Languid/languid.sh")
+        , ("M-d", spawn "downloadpaper")
 
     -- KB_GROUP Kill windows
         , ("M-S-c", kill)     -- Kill the currently focused client
