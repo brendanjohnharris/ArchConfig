@@ -25,9 +25,8 @@ else
         notify-send "$FILE already exists"
     else 
         scidownl download --doi "$DOI" --out "$DIR$FILE"
-        TMP=`mktemp /tmp/bibXXXXXXXX.bib`
-        echo "$IMPORT" > "$TMP"
-        jabref -n -asfl --importToOpen "$TMP"
     fi
+    TMP=`mktemp /tmp/bibXXXXXXXX.bib`
+    echo "$IMPORT" > "$TMP"
+    jabref -n -asfl --importToOpen "$TMP" -w "$KEY"
 fi
-
