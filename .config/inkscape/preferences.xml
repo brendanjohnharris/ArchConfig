@@ -1033,7 +1033,7 @@
      org.inkscape.color.replace_color.__live_effect__="0" />
   <group
      id="desktop"
-     style="fill:#d95319;-inkscape-font-specification:'Calibri, Normal';font-family:Calibri;font-size:19.54117775px;stroke-width:1.66666667;stroke:#d95319">
+     style="fill:#000000;-inkscape-font-specification:'Calibri, Normal';font-family:Calibri;font-size:19.54117775px;stroke-width:1.4;stroke:#6495ed;fill-opacity:0.90980393;stroke-opacity:0.66975099">
     <group
        width="640"
        height="480"

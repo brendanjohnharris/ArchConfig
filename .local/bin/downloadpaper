@@ -1,0 +1,33 @@
+#! /bin/bash
+CHK=`pip list | grep scidownl`
+if [ -z "$CHK" ]; then 
+    pip install -U scidownl
+    CHK=`pip list | grep 'scidownl'`
+    if [ -z "$CHK" ]; then
+        notify-send "scidownl could not be installed. Please try 'pip install -U scidownl'"
+    fi
+fi
+DIR=$HOME/Notebook/Papers/
+DOI=`xclip -selection c -o`
+BIB=`curl -LH "Accept: text/bibliography; style=bibtex" $DOI`
+AUTHOR=`echo $BIB | grep -oP '(?<=(author={)).*?(?=,)'`
+YEAR=`echo $BIB | grep -oP '(?<=(year={)).*?(?=})'`
+TITLE=`echo $BIB | grep -oP '(?<=(title={)).*?(?=})'`
+KEY="$AUTHOR$YEAR"
+FILE="$KEY - $TITLE.pdf"
+FILE=`echo $FILE | sed 's/[\<\>\:\"\/\\\|\?\*]*//g'`
+tmpBIB="${BIB:1:-1}"
+IMPORT="$tmpBIB, file={:$FILE:PDF},}"
+if [ -z "$BIB" ]; then
+    notify-send "No bib info found for: $DOI"
+else
+    if [ -f "$DIR$FILE" ]; then
+        notify-send "$FILE already exists"
+    else 
+        scidownl download --doi "$DOI" --out "$DIR$FILE"
+        TMP=`mktemp /tmp/bibXXXXXXXX.bib`
+        echo "$IMPORT" > "$TMP"
+        jabref -n -asfl --importToOpen "$TMP"
+    fi
+fi
+
