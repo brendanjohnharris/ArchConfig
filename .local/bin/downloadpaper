@@ -13,7 +13,13 @@ if [ -z $1 ]; then
 else
     DOI="$1"
 fi
-BIB=`curl -LH "Accept: text/bibliography; style=bibtex" $DOI`
+notify-send "Downloading $DOI"
+[[ $DOI == .*doi.org.* ]] || DOI="dx.doi.org/$DOI"
+BIB=`timeout 5 curl -LH "Accept: text/bibliography; style=bibtex" $DOI`
+if [ -z "$BIB" ]; then
+    notify-send "Could not retrieve bib info before timeout"
+    exit 1
+fi
 AUTHOR=`echo $BIB | grep -oP '(?<=(author={)).*?(?=,)'`
 YEAR=`echo $BIB | grep -oP '(?<=(year={)).*?(?=})'`
 TITLE=`echo $BIB | grep -oP '(?<=(title={)).*?(?=})'`
@@ -29,6 +35,10 @@ else
         notify-send "$FILE already exists"
     else 
         scidownl download --doi "$DOI" --out "$DIR$FILE"
+        if [ ! -f "$DIR$FILE" ]; then
+            notify-send "Could not download $DOI"
+            IMPORT="$tmpBIB}"
+        fi 
     fi
     TMP=`mktemp /tmp/bibXXXXXXXX.bib`
     echo "$IMPORT" > "$TMP"
