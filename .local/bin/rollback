@@ -1,0 +1,27 @@
+#! /bin/bash
+if [ -z $1 ]; then # Just restore the mirrorlist and do a normal upgrade
+    sudo cp /etc/pacman.d/mirrorlist.rollback /etc/pacman.d/mirrorlist
+    sudo pacman -Syyuu
+    exit 0
+elif [ -z $2]; then
+    DAY=`echo $1 | cut -d / -f3`
+    MONTH=`echo $1 | cut -d / -f2`
+    YEAR=`echo $1 | cut -d / -f1`
+elif [[ ! -z $1 ]]; then
+    DAY=$3
+    MONTH=$2
+    YEAR=$1
+fi
+
+if [ ${#DAY} == 1 ]; then
+    $DAY="0$DAY"
+fi
+if [ ${#MONTH} == 1 ]; then
+    $MONTH="0$MONTH"
+fi
+
+sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.rollback
+echo "Server=https://archive.archlinux.org/repos/$YEAR/$MONTH/$DAY/\$repo/os/\$arch" | sudo tee /etc/pacman.d/mirrorlist
+sudo pacman -Syyuu
+wait
+sudo cp /etc/pacman.d/mirrorlist.rollback /etc/pacman.d/mirrorlist
