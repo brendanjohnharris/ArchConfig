@@ -13,9 +13,10 @@ if [ -z $1 ]; then
 else
     DOI="$1"
 fi
-notify-send "Downloading $DOI"
-[[ $DOI == .*doi.org.* ]] || DOI="dx.doi.org/$DOI"
-BIB=`timeout 5 curl -LH "Accept: text/bibliography; style=bibtex" $DOI`
+DOI=`echo $DOI | grep -oP '(10.).*'` # All DOIS should start with 10.
+notify-send "Retrieving bib info for $DOI"
+URL="dx.doi.org/$DOI"
+BIB=`timeout 5 curl -LH "Accept: text/bibliography; style=bibtex" $URL`
 if [ -z "$BIB" ]; then
     notify-send "Could not retrieve bib info before timeout"
     exit 1
@@ -24,7 +25,7 @@ AUTHOR=`echo $BIB | grep -oP '(?<=(author={)).*?(?=,)'`
 YEAR=`echo $BIB | grep -oP '(?<=(year={)).*?(?=})'`
 TITLE=`echo $BIB | grep -oP '(?<=(title={)).*?(?=})'`
 KEY="$AUTHOR$YEAR"
-FILE="$KEY - $TITLE.pdf"
+FILE="$KEY.pdf"
 FILE=`echo $FILE | sed 's/[\<\>\:\"\/\\\|\?\*]*//g'`
 tmpBIB="${BIB:1:-1}"
 IMPORT="$tmpBIB, file={:$FILE:PDF},}"
@@ -33,14 +34,18 @@ if [ -z "$BIB" ]; then
 else
     if [ -f "$DIR$FILE" ]; then
         notify-send "$FILE already exists"
-    else 
-        scidownl download --doi "$DOI" --out "$DIR$FILE"
+    else
+        notify-send "Downloading $DOI"
+        scidownl download --doi "$URL" --out "$DIR$FILE"
         if [ ! -f "$DIR$FILE" ]; then
             notify-send "Could not download $DOI"
             IMPORT="$tmpBIB}"
-        fi 
+        fi
     fi
+    notify-send "Importing $DOI"
     TMP=`mktemp /tmp/bibXXXXXXXX.bib`
     echo "$IMPORT" > "$TMP"
     jabref -n -asfl --importToOpen "$TMP" -w "$KEY"
 fi
+
+# xdg-open "obsidian://advanced-uri?vault=Notebook&filepath=Papers%252F${KEY}.pdf&commandid=obsidian-citation-plugin%253Aopen-literature-note" # Doesn't quite work

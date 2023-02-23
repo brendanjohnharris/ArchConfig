@@ -1,0 +1,15 @@
+#!/bin/bash
+
+OPT="$1"
+INFO="dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:org.mpris.MediaPlayer2.Player string:Metadata"
+if [ -z "$OPT" ]; then
+    OPT="title"
+fi
+if [ "$OPT" = "title" ]; then
+    OUT=`$INFO | sed -n '/title/{n;p}' | cut -d '"' -f 2`
+elif [ "$OPT" = "artist" ]; then
+    OUT=`$INFO | sed -n '/artist/{n;n;p}' | cut -d '"' -f 2`
+elif [ "$OPT" = "album" ]; then
+    OUT=`$INFO | sed -n '/\"xesam:album\"/{n;p}' | cut -d '"' -f 2`
+fi
+echo $OUT
