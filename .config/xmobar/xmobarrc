@@ -3,12 +3,12 @@
 -- This config is packaged in the DTOS repo as dtos-xmobar
 -- Dependencies: otf-font-awesome ttf-mononoki ttf-ubuntu-font-family trayer
 -- Also depends on scripts from dtos-local-bin from the dtos-core-repo.
-
-Config { font            = "xft:Ubuntu:weight=bold:pixelsize=20:antialias=true:hinting=true"
-       , additionalFonts = [ "xft:Mononoki:pixelsize=20:antialias=true:hinting=true"
-                           , "xft:Font Awesome 6 Free Solid:pixelsize=20"
-                           , "xft:Font Awesome 6 Brands:pixelsize=20"
-                           , "xft:Material Design Icons:pixelsize=27"
+-- "xft:Ubuntu:weight=bold:pixelsize=20:antialias=true:hinting=true"
+Config { font            = "xft:Ubuntu-bold-15"
+       , additionalFonts = [ "xft:Mononoki-bold-14"
+                           , "xft:Font Awesome 6 Free Solid-14"
+                           , "xft:Font Awesome 6 Brands-14"
+                           , "xft:Material Design Icons-20"
                            ]
        , bgColor      = "#282c34"
        , fgColor      = "#ff6c6b"

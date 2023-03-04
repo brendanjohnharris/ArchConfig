@@ -97,9 +97,9 @@ ${goto 12}${color1}${top_mem name 3}$alignr$color${top_mem mem_res 3}
 ${voffset 14}${goto 12}${color3}GPU${goto 50}${exec $HOME/.local/bin/gpupct}: ${exec $HOME/.local/bin/gputemp}
 ${color2}${goto 12}${execbar $HOME/.local/bin/gpupct}${color}
 ${color1}${hr}${color}
-${color2}${exec mpc current -f "[%artist%]"}${color}
-${font4}${color1}${exec mpc current -f "[%title%]|[%file%]"|fold -w38}${color}${font}
-${color3}${exec mpc current -f "[%album%]"}${color}
+${color2}${exec statspotify artist}${color}
+${font4}${color1}${exec statspotify title | fold -w38}${color}${font}
+${color3}${exec statspotify album}${color}
 ${color1}${hr}${color}
 ${color1}[S]+[SHIFT]+/${alignr}${color2}view shortcuts${color}
 ${color1}[S]+[SHIFT]+[RET]${alignr}${color2}open terminal${color}

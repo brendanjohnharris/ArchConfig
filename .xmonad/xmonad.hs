@@ -247,7 +247,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  t = 0.95 -h
                  l = 0.95 -w
     spawnMus  = myMusic
-    findMus   = className =? "Spotify"
+    findMus   = className =? "spotify"
     manageMus = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9

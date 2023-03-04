@@ -1,3 +1,8 @@
+using Pkg
+Pkg.add("Revise")
+Pkg.add("OhMyREPL")
+Pkg.add("PkgTemplates")
+using Revise
 using OhMyREPL
 colorscheme!("OneDark")
 enable_autocomplete_brackets(false)

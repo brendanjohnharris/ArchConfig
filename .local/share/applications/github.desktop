@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Name=GitHub
+GenericName=Git Hosting Service
+Comment=Open GitHub in the web browser
+Keywords=GitHub;Code;Developer
+Exec=chromium --app="https://github.com/brendanjohnharris"
+Icon=github
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
+StartupNotify=true
+StartupWMClass=GitHub-chromium
+Categories=Developer

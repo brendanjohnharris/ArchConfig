@@ -125,9 +125,10 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="17.7666956583656"
-         height="51.3850250244141"
-         ry="0" />
+         width="681.83880945145"
+         height="579.307562014706"
+         ry="15.1185744002746"
+         rx="15.2297639218281" />
       <eventcontext
          id="3dbox"
          style="stroke:none;stroke-linejoin:round;"
@@ -347,8 +348,8 @@
        live_outline="1"
        live_objects="1"
        show_helperpath="0"
-       x="76.5501333982607"
-       y="426.333996835482"
+       x="135.849394110432"
+       y="164.919701426903"
        edit_clipping_paths="0"
        edit_masks="0" />
     <eventcontext
@@ -578,7 +579,7 @@
        id="xml"
        h="500"
        w="300"
-       panedpos="669" />
+       panedpos="443" />
     <group
        id="find" />
     <group
@@ -592,7 +593,7 @@
     <group
        id="preferences"
        state="1"
-       page="26" />
+       page="32" />
     <group
        id="gradienteditor" />
     <group
@@ -863,8 +864,8 @@
        value="2" />
     <group
        id="transform"
-       stroke="1"
-       rectcorners="1"
+       stroke="0"
+       rectcorners="0"
        pattern="1"
        gradient="1" />
     <group
@@ -1001,6 +1002,9 @@
     <group
        id="snapping"
        snap-global-toggle="0" />
+    <group
+       id="kbshortcuts"
+       value="group" />
   </group>
   <group
      id="extensions"
@@ -1033,7 +1037,7 @@
      org.inkscape.color.replace_color.__live_effect__="0" />
   <group
      id="desktop"
-     style="fill:#000000;-inkscape-font-specification:'Calibri, Normal';font-family:Calibri;font-size:19.54117775px;stroke-width:1.4;stroke:#6495ed;fill-opacity:0.90980393;stroke-opacity:0.66975099">
+     style="fill:none;-inkscape-font-specification:'Calibri, Bold';font-family:Calibri;font-size:23.67533302px;font-weight:bold;stroke-width:5;fill-opacity:0.14901961;stroke-linejoin:round;paint-order:stroke fill markers;stroke:#9e9e9e;stroke-linecap:round">
     <group
        width="640"
        height="480"
