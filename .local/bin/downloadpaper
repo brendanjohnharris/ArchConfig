@@ -39,7 +39,7 @@ else
         scidownl download --doi "$URL" --out "$DIR$FILE"
         if [ ! -f "$DIR$FILE" ]; then
             notify-send "Could not download $DOI"
-            IMPORT="$tmpBIB}"
+            IMPORT="$tmpBIB}" # FIx...
         fi
     fi
     notify-send "Importing $DOI"
