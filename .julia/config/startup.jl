@@ -23,6 +23,6 @@ function template()
                                 TagBot(),
                                 GitHubActions(; linux=true, osx=true, windows=true, x86=true, extra_versions=["1.6", "1", "nightly"]),
                                 Codecov(),
-                                Documenter{NoDeploy}()])
+                                Documenter{GitHubActions}()])
     end
 end

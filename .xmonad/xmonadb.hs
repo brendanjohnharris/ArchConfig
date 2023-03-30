@@ -434,6 +434,7 @@ myKeys =
         , ("M-b", spawn (myBrowser)) -- , ("M-b", spawn (myBrowser) >> moveTo Prev (WSIs $ return (('w' `elem`) . W.tag)))
         , ("M-S-f", spawn "nemo --name=files --class=files")
         , ("M-<Print>", spawn "flameshot gui")
+        , ("M-S-<Print>", spawn "TMPFILE=/tmp/$RANDOM.png; flameshot gui -p $TMPFILE; pix2tex $TMPFILE | xclip; notify-send 'Copied LaTeX to clipboard'")
         , ("M-S-l", spawn "$HOME/.config/Languid/languid.sh")
         , ("M-d", spawn "downloadpaper")
 
