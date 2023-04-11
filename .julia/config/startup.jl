@@ -1,4 +1,6 @@
 using Pkg
+ENV["PYTHON"] = "python3.9"
+ENV["JULIA_PYTHONCALL_EXE"]="python3.9"
 Pkg.add("Revise")
 Pkg.add("OhMyREPL")
 Pkg.add("PkgTemplates")

@@ -18,5 +18,5 @@ Config { font            = "xft:Ubuntu-bold-15"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <action=`xmonad --recompile && xmonad --restart`><icon=haskell_20.xpm/></action>   <fc=#666666>|</fc> %UnsafeStdinReader% }{    %trayerpad%"
+       , template = " <action=`xmonad --recompile && xmonad --restart`><icon=haskell_20.xpm/></action>   <fc=#666666>|</fc> %UnsafeStdinReader% }{   "
        }
