@@ -321,7 +321,7 @@
        id="lpetool"
        mode="drag"
        style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;"
-       unit="pt"
+       unit="mm"
        show_bbox="1" />
     <eventcontext
        id="text"
@@ -1037,7 +1037,7 @@
      org.inkscape.color.replace_color.__live_effect__="0" />
   <group
      id="desktop"
-     style="fill:none;-inkscape-font-specification:'Calibri, Bold';font-family:Calibri;font-size:23.67533302px;font-weight:bold;stroke-width:5;fill-opacity:0.14901961;stroke-linejoin:round;paint-order:stroke fill markers;stroke:#9e9e9e;stroke-linecap:round">
+     style="fill:#000000;-inkscape-font-specification:'Cambria Math, Normal';font-family:'Cambria Math';font-size:106.66658783px;stroke-width:5;stroke-linejoin:round;paint-order:stroke fill markers;stroke-linecap:round">
     <group
        width="640"
        height="480"
