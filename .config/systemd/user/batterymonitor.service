@@ -1,0 +1,10 @@
+[Unit]
+Description=Battery monitor
+
+[Service]
+ExecStart=/home/brendan/.local/bin/batterymonitor
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=default.target

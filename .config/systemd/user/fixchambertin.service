@@ -1,0 +1,6 @@
+[Unit]
+Description=Fix Chambertin after having booted windows
+[Service]
+ExecStart=sudo /home/brendan/.local/bin/fixshareddrive 664C84E94C84B579 /Chambertin
+[Install]
+WantedBy=default.target

@@ -1,0 +1,15 @@
+#!/bin/bash
+if [[ $1 == *"/"* ]]; then
+    sudo umount $2
+    sudo ntfsfix $1
+    sudo mount $1 $2
+else
+    sdrive=`ls -lha /dev/disk/by-uuid/$1 | grep -Eo 'nvme.*'`
+    drive="/dev/$sdrive"
+    sudo umount $2
+    sudo ntfsfix $drive
+    sudo mount $drive $2
+fi
+
+# E.g. $1 can be a drive or a uuid, e.g. 664C84E94C84B579
+
