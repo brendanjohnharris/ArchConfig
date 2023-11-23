@@ -171,9 +171,10 @@ myStartupHook = do
     spawnOnce "export SSH_AUTH_SOCK"
 
     spawnOnce "xset r rate 300 50"
-    spawnOnce "xrandr --output 'DP-4' --primary"
+    spawnOnce "xrandr --output 'eDP-1' --primary"
 
     spawnOnce "watch -n 600 'feh --recursive --randomize --bg-fill $HOME/.wallpapers/'"
+
     -- Spawn workspace-specific apps
     -- spawnOn "mail" "evolution"
 
@@ -440,6 +441,9 @@ myKeys =
         , ("M-S-p t", spawn "~/.local/bin/transparenton") -- Set picom to transparent
         , ("M-S-p o", spawn "~/.local/bin/transparentoff") -- Set picom to opaque
         , ("M-S-b", spawn "feh --recursive --randomize --bg-fill $HOME/.wallpapers/") -- Changes backgroundB
+        , ("M-C-1", spawn "~/.local/bin/docked")
+        , ("M-C-2", spawn "~/.local/bin/doubledocked")
+        , ("M-C-3", spawn "~/.local/bin/doubledockedmixed") 
 
     -- KB_GROUP Get Help
         , ("M-S-/", spawn "~/.xmonad/xmonad_keys.sh") -- Get list of keybindings

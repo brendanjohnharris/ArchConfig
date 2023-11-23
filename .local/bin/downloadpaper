@@ -1,4 +1,26 @@
 #! /bin/bash
+check_file_name() {
+    local base_name="$1"
+    local counter=0
+    local suffix=""
+    local chars=("a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t" "u" "v" "w" "x" "y" "z")
+
+    # Keep checking and modifying filename until a unique name is found.
+    while true; do
+        # Construct the new file name.
+        local new_name="$base_name$suffix.pdf"
+        
+        # If file doesn't exist, we've found our unique name.
+        if [ ! -f "$DIR$new_name" ] && [ $(find "$DIR" -type f -name "$base_name$suffix.pdf" | wc -l) -eq 0 ]; then
+            echo "$new_name"
+            return 0
+        fi
+
+        # Otherwise, update suffix and check again.
+        suffix="${chars[$counter]}"
+        counter=$((counter+1))
+    done
+}
 CHK=`pip list | grep scidownl`
 if [ -z "$CHK" ]; then 
     pip install -U scidownl
@@ -18,19 +40,19 @@ notify-send "Retrieving bib info for $DOI"
 URL="dx.doi.org/$DOI"
 BIB=`timeout 5 curl -LH "Accept: text/bibliography; style=bibtex" $URL`
 if [ -z "$BIB" ]; then
-    notify-send "Could not retrieve bib info before timeout"
     exit 1
 fi
 AUTHOR=`echo $BIB | grep -oP '(?<=(author={)).*?(?=,)'`
 YEAR=`echo $BIB | grep -oP '(?<=(year={)).*?(?=})'`
 TITLE=`echo $BIB | grep -oP '(?<=(title={)).*?(?=})'`
 KEY="$AUTHOR$YEAR"
-FILE="$KEY.pdf"
-FILE=`echo $FILE | sed 's/[\<\>\:\"\/\\\|\?\*]*//g'`
+KEY=`echo $KEY | sed 's/[\<\>\:\"\/\\\|\?\*]*//g'`
+FILE=$(check_file_name "$KEY")  # Update the FILE variable with a unique name.
 tmpBIB="${BIB:1:-1}"
 IMPORT="$tmpBIB, file={:$FILE:PDF},}"
+notify-send "Retrieved info"
 if [ -z "$BIB" ]; then
-    notify-send "No bib info found for: $DOI"
+    notify-send "Entry exists in database"
 else
     if [ -f "$DIR$FILE" ]; then
         notify-send "$FILE already exists"
@@ -39,7 +61,7 @@ else
         scidownl download --doi "$URL" --out "$DIR$FILE"
         if [ ! -f "$DIR$FILE" ]; then
             notify-send "Could not download $DOI"
-            IMPORT="$tmpBIB}" # FIx...
+            IMPORT="$tmpBIB}" # Fix...
         fi
     fi
     notify-send "Importing $DOI"

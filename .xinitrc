@@ -60,5 +60,9 @@ xrandr --auto
 # ? xdg-desktop-portal fux
 source /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
 
+# ? Type accents
+setxkbmap -option compose:ralt
+
 exec xmonad
+
 
