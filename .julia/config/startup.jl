@@ -3,12 +3,16 @@ using Pkg
 #ENV["JULIA_PYTHONCALL_EXE"]="@PyCall"
 using Revise
 using OhMyREPL
+using CUDA
+using Downloads
 colorscheme!("OneDark")
 enable_autocomplete_brackets(false)
 
 function template()
     @eval begin
         using PkgTemplates
+        stylefile = tempname()
+        Downloads.download("https://gist.githubusercontent.com/brendanjohnharris/182f2deec122d16d28218d39ebecc9c8/raw/744b9950af52a949cb9bd4c6df4351d049cc37ca/.JuliaFormatter.toml", stylefile)
         Template(; user="brendanjohnharris",
             dir="./",
             julia=v"1.6.0",
@@ -20,8 +24,11 @@ function template()
                 Git(; ignore=["*.code-workspace", "*.mat", "*.csv", "*.parquet", "*.jld2", "data", "*.jl.cov", "*.jl.*.cov", "*.jl.mem", "docs/build/", "docs/site/", "LocalPreferences.toml", ".CondaPkg/", "Artifacts.toml", "Manifest.toml", ".vscode"]),
                 CompatHelper(),
                 TagBot(),
-                GitHubActions(; linux=true, osx=true, windows=true, x86=true, extra_versions=["1.6", "1", "nightly"]),
+                GitHubActions(; linux=true, osx=true, windows=true, x86=true, extra_versions=["1.6", "nightly"]),
                 Codecov(),
-                Documenter{GitHubActions}()])
+                Documenter{GitHubActions}(),
+                Dependabot(),
+                RegisterAction(),
+                Formatter(; file=stylefile)],)
     end
 end

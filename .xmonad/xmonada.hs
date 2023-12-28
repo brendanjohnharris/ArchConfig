@@ -229,6 +229,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "emoji" spawnEmoji findEmoji manageEmoji
                 , NS "peek" spawnPeek findPeek managePeek
                 , NS "files" spawnFiles findFiles manageFiles
+                , NS "reader" spawnReader findReader manageReader
                 ]
   where
     spawnTerm  = myTerminal ++ " -t scratchpad"
@@ -290,6 +291,14 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
     spawnFiles   = "nemo --name=filescratchpad --class=filescratchpad"
     findFiles    = className =? "filescratchpad"
     manageFiles  = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 -h
+                 l = 0.95 -w
+    spawnReader   = "okular --qwindowtitle reader-scratchpad"
+    findReader    = className =? "okular"
+    manageReader  = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
                  w = 0.9
@@ -555,6 +564,7 @@ myKeys =
         , ("M-s e", namedScratchpadAction myScratchPads "emoji")
         , ("M-s p", namedScratchpadAction myScratchPads "peek")
         , ("M-s f", namedScratchpadAction myScratchPads "files")
+        , ("M-s r", namedScratchpadAction myScratchPads "reader")
         -- Arbitrary scratchpad with XMonad.Util.WindowState?
 
     -- Dunst (notification) controls

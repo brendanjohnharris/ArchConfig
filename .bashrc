@@ -39,5 +39,5 @@ export PATH="$HOME/.local/bin:$PATH"
 export XDG_CONFIG_HOME="$HOME/.config"
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/lib
 
-alias startxa='cp $HOME/.xmonad/xmonada.hs $HOME/.xmonad/xmonad.hs; xmonad --recompile; startx'
-alias startxb='cp $HOME/.xmonad/xmonadb.hs $HOME/.xmonad/xmonad.hs; xmonad --recompile; startx'
+alias startxa='rm $HOME/.xmonad/xmonad.hs; ln -s $HOME/.xmonad/xmonada.hs $HOME/.xmonad/xmonad.hs; xmonad --recompile; startx'
+alias startxb='rm $HOME/.xmonad/xmonad.hs; ln -s $HOME/.xmonad/xmonadb.hs $HOME/.xmonad/xmonad.hs; xmonad --recompile; startx'
