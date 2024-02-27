@@ -125,10 +125,10 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="4000.6015625"
-         height="2753.64095052021"
-         ry="106.666666666642"
-         rx="106.666666666667" />
+         width="1492.8349609375"
+         height="1490.86938476562"
+         ry="106.666656494141"
+         rx="106.666656494141" />
       <eventcontext
          id="3dbox"
          style="stroke:none;stroke-linejoin:round;"
@@ -321,7 +321,7 @@
        id="lpetool"
        mode="drag"
        style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;"
-       unit="px"
+       unit="pt"
        show_bbox="1" />
     <eventcontext
        id="text"
@@ -559,6 +559,8 @@
     <group
        id="CMS"
        visible="1" />
+    <group
+       id="OKHSL" />
   </group>
   <group
      id="embedded">
@@ -651,7 +653,7 @@
     </group>
     <group
        id="save_as"
-       default="org.inkscape.output.pdf.cairorenderer"
+       default="org.inkscape.output.svg.inkscape"
        append_extension="1"
        enable_preview="1"
        path="/Chambertin/Figures"
@@ -1074,7 +1076,7 @@
      org.inkscape.color.replace_color.__live_effect__="0" />
   <group
      id="desktop"
-     style="fill:#cccccc;-inkscape-font-specification:'Cambria Math, Normal';font-family:'Cambria Math';font-size:106.66658783px;stroke-width:2.20000067;stroke-linecap:square;stroke:#282c34">
+     style="fill:#ffffff;-inkscape-font-specification:'Cambria Math, Normal';font-family:'Cambria Math';font-size:106.66658783px;stroke-width:2.20000067;stroke-linecap:square;stroke:#282c34">
     <group
        width="640"
        height="480"

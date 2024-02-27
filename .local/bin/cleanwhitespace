@@ -1,0 +1,5 @@
+#!/bin/bash
+clean=`git diff --cached -b -R`
+git apply --cached <(git diff --cached -R)
+echo "$clean" | git apply --cached -R -
+clean=

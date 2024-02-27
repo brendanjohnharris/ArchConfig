@@ -116,7 +116,7 @@ pacman -Sy os-prober
 sed -i 's/#GRUB_DISABLE_OS_PROBER=false/GRUB_DISABLE_OS_PROBER=false/g' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
-# * The enable microcode updates, and afterword repeat the grub config
+# * Then enable microcode updates, and afterword repeat the grub config
 # ? AMD
 pacman -Sy amd-ucode
 # ? Intel
