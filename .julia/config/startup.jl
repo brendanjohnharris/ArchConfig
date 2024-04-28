@@ -1,9 +1,11 @@
 using Pkg
 #ENV["PYTHON"] = "python3.9"
 #ENV["JULIA_PYTHONCALL_EXE"]="@PyCall"
+ENV["FORESIGHT_PATCHES"] = true
 using Revise
 using OhMyREPL
 using CUDA
+using Infiltrator
 using Downloads
 colorscheme!("OneDark")
 enable_autocomplete_brackets(false)
@@ -22,7 +24,7 @@ function template()
                 Readme(),
                 License(),
                 Git(; ignore=["*.code-workspace", "*.mat", "*.csv", "*.parquet", "*.jld2", "data", "*.jl.cov", "*.jl.*.cov", "*.jl.mem", "docs/build/", "docs/site/", "LocalPreferences.toml", ".CondaPkg/", "Artifacts.toml", "Manifest.toml", ".vscode"]),
-                CompatHelper(),
+                # CompatHelper(),
                 TagBot(),
                 GitHubActions(; linux=true, osx=true, windows=true, x86=true, extra_versions=["1.9", "nightly"]),
                 Codecov(),

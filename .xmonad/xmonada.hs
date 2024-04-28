@@ -107,7 +107,7 @@ myEditor :: String
 myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor
 
 myMusic :: String
-myMusic = "spotify" 
+myMusic = "spotify"
 
 myBorderWidth :: Dimension
 myBorderWidth = 2           -- Sets border width for windows
@@ -149,7 +149,7 @@ myStartupHook = do
     spawnOnce "lxsession"
     spawnOnce "picom"
     spawnOnce "dunst"
-        
+
     setWMName "LG3D"
     setDefaultCursor xC_left_ptr
 
@@ -249,7 +249,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  t = 0.95 -h
                  l = 0.95 -w
     spawnMus  = myMusic
-    findMus   = className =? "spotify"
+    findMus   = className =? "Spotify"
     manageMus = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
@@ -452,7 +452,7 @@ myKeys =
         , ("M-S-b", spawn "feh --recursive --randomize --bg-fill $HOME/.wallpapers/") -- Changes backgroundB
         , ("M-C-1", spawn "~/.local/bin/docked")
         , ("M-C-2", spawn "~/.local/bin/doubledocked")
-        , ("M-C-3", spawn "~/.local/bin/doubledockedmixed") 
+        , ("M-C-3", spawn "~/.local/bin/doubledockedmixed")
 
     -- KB_GROUP Get Help
         , ("M-S-/", spawn "~/.xmonad/xmonad_keys.sh") -- Get list of keybindings
@@ -469,7 +469,8 @@ myKeys =
         , ("M-<Print>", spawn "flameshot gui")
         , ("M-S-<Print>", spawn "TMPFILE=/tmp/$RANDOM.png; flameshot gui -p $TMPFILE; pix2tex $TMPFILE | xclip; notify-send 'Copied LaTeX to clipboard'")
         , ("M-S-l", spawn "$HOME/.config/Languid/languid.sh")
-        , ("M-d", spawn "downloadpaper")
+        , ("M-d", spawn "downloadbibinfo")
+        , ("M-S-d", spawn "downloadpaper")
 
     -- KB_GROUP Kill windows
         , ("M-S-c", kill)     -- Kill the currently focused client
