@@ -40,3 +40,5 @@ export XDG_CONFIG_HOME="$HOME/.config"
 
 alias startxa='rm $HOME/.xmonad/xmonad.hs; ln -s $HOME/.xmonad/xmonada.hs $HOME/.xmonad/xmonad.hs; xmonad --recompile; startx'
 alias startxb='rm $HOME/.xmonad/xmonad.hs; ln -s $HOME/.xmonad/xmonadb.hs $HOME/.xmonad/xmonad.hs; xmonad --recompile; startx'
+
+

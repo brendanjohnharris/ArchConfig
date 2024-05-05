@@ -18,36 +18,36 @@ check_file_name() {
 
         # Otherwise, update suffix and check again.
         suffix="${chars[$counter]}"
-        counter=$((counter+1))
+        counter=$((counter + 1))
     done
 }
 DIR=$HOME/Notebook/Papers/
 if [ -z $1 ]; then
-    DOI=`xclip -selection c -o`
+    DOI=$(xclip -selection c -o)
 else
     DOI="$1"
 fi
-DOI=`echo $DOI | grep -oP '(10.).*'` # All DOIS should start with 10.
+DOI=$(echo $DOI | grep -oP '(10.).*') # All DOIS should start with 10.
 notify-send "Retrieving bib info for $DOI"
 URL="dx.doi.org/$DOI"
-BIB=`timeout 5 curl -LH "Accept: text/bibliography; style=bibtex" $URL`
+BIB=$(timeout 5 curl -LH "Accept: text/bibliography; style=bibtex" $URL)
 if [ -z "$BIB" ]; then
     exit 1
 fi
-AUTHOR=`echo $BIB | grep -oP '(?<=(author={)).*?(?=,)'`
-YEAR=`echo $BIB | grep -oP '(?<=(year={)).*?(?=})'`
-TITLE=`echo $BIB | grep -oP '(?<=(title={)).*?(?=})'`
+AUTHOR=$(echo $BIB | grep -oP '(?<=(author={)).*?(?=,)')
+YEAR=$(echo $BIB | grep -oP '(?<=(year={)).*?(?=})')
+TITLE=$(echo $BIB | grep -oP '(?<=(title={)).*?(?=})')
 KEY="$AUTHOR$YEAR"
-KEY=`echo $KEY | sed 's/[\<\>\:\"\/\\\|\?\*]*//g'`
-FILE=$(check_file_name "$KEY")  # Update the FILE variable with a unique name.
+KEY=$(echo $KEY | sed 's/[\<\>\:\"\/\\\|\?\*]*//g')
+FILE=$(check_file_name "$KEY") # Update the FILE variable with a unique name.
 tmpBIB="${BIB:1:-1}"
-IMPORT="$tmpBIB, file={:$FILE:PDF},}"
+IMPORT="$tmpBIB,}"
 notify-send "Retrieved info"
 if [ -z "$BIB" ]; then
     notify-send "Entry exists in database"
 else
     notify-send "Importing $DOI"
-    TMP=`mktemp /tmp/bibXXXXXXXX.bib`
-    echo "$IMPORT" > "$TMP"
+    TMP=$(mktemp /tmp/bibXXXXXXXX.bib)
+    echo "$IMPORT" >"$TMP"
     jabref -n -asfl --importToOpen "$TMP" -w "$KEY"
 fi
