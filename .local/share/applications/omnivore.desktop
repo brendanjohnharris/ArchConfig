@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Name=Omnivore
+GenericName=PDF management
+Comment=Open Omnivore in the web browser
+Keywords=Omnivore;Papers;Reader
+Exec=chromium --app="https://omnivore.app/home"
+Icon=arianna
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
+StartupNotify=true
+StartupWMClass=Omnivore-chromium
+Categories=Reader

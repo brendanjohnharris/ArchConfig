@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Name=Google Docs
+GenericName=Document editor
+Comment=Open Google Docs in the web browser
+Keywords=Google Docs;Code;Developer
+Exec=chromium --app="https://docs.google.com"
+Icon=libreoffice-writer
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
+StartupNotify=true
+StartupWMClass=Google Docs-chromium
+Categories=Developer

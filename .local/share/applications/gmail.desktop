@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Name=Gmail
+GenericName=Mail-Client
+Comment=Open Gmail in the web browser
+Keywords=Email;Calendar
+Exec=chromium --app="https://mail.google.com/mail/u/0/#inbox"
+Icon=gmail
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
+StartupNotify=true
+StartupWMClass=gmail-chromium
+Categories=Mail

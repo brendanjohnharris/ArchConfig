@@ -288,8 +288,8 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 1
                  t = 1 -h
                  l = 1 -w
-    spawnFiles   = "nemo --name=filescratchpad --class=filescratchpad"
-    findFiles    = className =? "filescratchpad"
+    spawnFiles   = "nemo" -- --name=filescratchpad --class=filescratchpad"
+    findFiles    = className =? "Nemo" --"filescratchpad"
     manageFiles  = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
@@ -402,7 +402,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                                 --  ||| wideAccordion
 
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
-myWorkspaces = [" chat ", " mail ", " web ", " dev", " note ", " read ", " write ", " sys ", " misc "]
+myWorkspaces = [" chat ", " mail ", " www ", " dev", " note ", " read ", " write ", " sys ", " misc "]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"

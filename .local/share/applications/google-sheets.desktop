@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Name=Google Sheets
+GenericName=Spreadsheet editor
+Comment=Open Google Sheets in the web browser
+Keywords=Google Sheets;Code;Developer
+Exec=chromium --app="https://sheets.google.com"
+Icon=libreoffice-calc
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
+StartupNotify=true
+StartupWMClass=Google Sheets-chromium
+Categories=Developer

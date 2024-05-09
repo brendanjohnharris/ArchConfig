@@ -30,7 +30,7 @@ fi
 DOI=$(echo $DOI | grep -oP '(10.).*') # All DOIS should start with 10.
 notify-send "Retrieving bib info for $DOI"
 URL="dx.doi.org/$DOI"
-BIB=$(timeout 5 curl -LH "Accept: text/bibliography; style=bibtex" $URL)
+BIB=$(timeout 5 curl -LH "Accept: text/bibliography; style=biblatex" $URL)
 if [ -z "$BIB" ]; then
     exit 1
 fi

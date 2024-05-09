@@ -1,0 +1,15 @@
+# [Desktop Entry]
+# Version=1.0
+# Name=Spotify
+# GenericName=Music
+# Comment=Open Spotify in the web browser
+# Keywords=Audio;Player;Streaming;Web
+# Exec=chromium --app="https://open.spotify.com/browse"
+# Icon=spotify
+# Terminal=false
+# X-MultipleArgs=false
+# Type=Application
+# MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
+# StartupNotify=true
+# StartupWMClass=spotify-chromium
+# Categories=Music

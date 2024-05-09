@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Name=WhatsApp
+GenericName=IM-client
+Comment=Open WhatsApp in the web browser
+Keywords=Chat;WhatsApp;Social;Messages
+Exec=chromium --app="https://web.whatsapp.com/"
+Icon=WhatsApp
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
+StartupNotify=true
+StartupWMClass=WhatsApp-chromium
+Categories=Chat
