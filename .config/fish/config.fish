@@ -1,6 +1,8 @@
 starship init fish | source
 
 function config; git --git-dir="$HOME/ArchConfig" --work-tree="$HOME" $argv; end
+function qload; ssh headnode.physics.usyd.edu.au -t "qload"; end
+function monitor; ssh headnode.physics.usyd.edu.au -t "monitor"; end
 
 set fish_greeting ""
 

@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Check if correct number of arguments are provided
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <input_svg_file>"
+    exit 1
+fi
+
+# Assign arguments to variables for better readability
+input_svg_file=$1
+
+file_extension="${input_svg_file##*.}"
+
+if [ "$file_extension" = "pdf" ]; then
+    # Convert PDF to SVG using pdftoppm
+    output_svg="${input_svg_file%.pdf}.svg"
+    pdf2svg "$input_svg_file" "$output_svg"
+    echo "Converted PDF to SVG: $output_svg"
+    input_svg_file="$output_svg"
+fi
+
+# cp "$input_svg_file" "dark_$input_svg_file"
+file="dark_${input_svg_file##*/}"
+cp "$input_svg_file" "$file"
+
+# Black
+replacecolor "$file" "#000000" "#eeeeee"
+replacecolor "$file" "rgb(0%, 0%, 0%)" "rgb(93.33%, 93.33%, 93.33%)"
+
+# White
+replacecolor "$file" "#FFFFFF" "#000000"
+replacecolor "$file" "rgb(100%, 100%, 100%)" "rgb(15.68%, 17.25%, 20.39%)"

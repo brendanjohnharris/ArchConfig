@@ -21,12 +21,12 @@ conky.config = {
     -- Placement (For SINGLE monitor users!)
 	alignment = 'top_right',		            -- top_left,top_middle,top_right,bottom_left,bottom_middle,bottom_right,
 	gap_x = 50,								-- pixels between right or left border
-	gap_y = 70,								-- pixels between bottom or left border
+	gap_y = 50,								-- pixels between bottom or left border
 
     -- Size
     minimum_height = 200,						-- minimum height of window
-	minimum_width = 260,						-- minimum width of window
-	maximum_width = 260,						-- maximum width of window
+	minimum_width = 420,						-- minimum width of window
+	maximum_width = 420,						-- maximum width of window
 
 	--Graphical
 	border_inner_margin = 5, 					-- margin between border and text
@@ -80,7 +80,9 @@ conky.config = {
 	color2 = '#51afef',
 	color3 = '#98be65',
 };
-
+-- ${color2}${exec statspotify artist}${color}
+-- ${font4}${color1}${exec statspotify title | fold -w38}${color}${font}
+-- ${color3}${exec statspotify album}${color}
 conky.text = [[
 ${alignc}${color0}${font2}${time %H:%M}${font}
 ${voffset 6}${alignc}${color0}${font3}${time %b %d, %Y}${font}${color}
@@ -97,9 +99,7 @@ ${goto 12}${color1}${top_mem name 3}$alignr$color${top_mem mem_res 3}
 ${voffset 14}${goto 12}${color3}GPU${goto 50}${exec $HOME/.local/bin/gpupct}: ${exec $HOME/.local/bin/gputemp}
 ${color2}${goto 12}${execbar $HOME/.local/bin/gpupct}${color}
 ${color1}${hr}${color}
-${color2}${exec statspotify artist}${color}
-${font4}${color1}${exec statspotify title | fold -w38}${color}${font}
-${color3}${exec statspotify album}${color}
+${cpugraph cpu0 80,284 282c34 c678dd}
 ${color1}${hr}${color}
 ${color1}[S]+[SHIFT]+/${alignr}${color2}view shortcuts${color}
 ${color1}[S]+[SHIFT]+[RET]${alignr}${color2}open terminal${color}

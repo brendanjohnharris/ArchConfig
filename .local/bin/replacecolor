@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Check if correct number of arguments are provided
+if [ "$#" -ne 3 ]; then
+    echo "Usage: $0 <input_svg_file> <color_to_replace> <new_color>"
+    exit 1
+fi
+
+# Assign arguments to variables for better readability
+input_svg_file=$1
+color_to_replace=$2
+new_color=$3
+
+# Extract file extension
+file_extension="${input_svg_file##*.}"
+
+# Check if the file is a PDF
+if [ "$file_extension" = "pdf" ]; then
+    # Convert PDF to SVG using pdftoppm
+    output_svg="${input_svg_file%.pdf}.svg"
+    pdf2svg "$input_svg_file" "$output_svg"
+    echo "Converted PDF to SVG: $output_svg"
+    input_svg_file="$output_svg"
+fi
+
+# Use sed to replace the color
+sed -i "s/$color_to_replace/$new_color/g" "$input_svg_file"

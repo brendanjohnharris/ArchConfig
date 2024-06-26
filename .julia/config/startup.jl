@@ -1,7 +1,7 @@
 using Pkg
 #ENV["PYTHON"] = "python3.9"
 #ENV["JULIA_PYTHONCALL_EXE"]="@PyCall"
-ENV["FORESIGHT_PATCHES"] = true
+# ENV["FORESIGHT_PATCHES"] = true
 using Revise
 using OhMyREPL
 using CUDA
@@ -23,7 +23,7 @@ function template()
                 Tests(; project=true),
                 Readme(),
                 License(),
-                Git(; ignore=["*.code-workspace", "*.mat", "*.csv", "*.parquet", "*.jld2", "data", "*.jl.cov", "*.jl.*.cov", "*.jl.mem", "docs/build/", "docs/site/", "LocalPreferences.toml", ".CondaPkg/", "Artifacts.toml", "Manifest.toml", ".vscode"]),
+                Git(; ignore=["*.code-workspace", "*.mat", "*.csv", "*.parquet", "*.jld2", "data", "*.jl.cov", "*.jl.*.cov", "*.jl.mem", "lcov*.info", "docs/build/", "docs/site/", "LocalPreferences.toml", ".CondaPkg/", "Artifacts.toml", "Manifest.toml", ".vscode"]),
                 # CompatHelper(),
                 TagBot(),
                 GitHubActions(; linux=true, osx=true, windows=true, x86=true, extra_versions=["1.9", "nightly"]),

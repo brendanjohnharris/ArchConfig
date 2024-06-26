@@ -125,10 +125,10 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="1492.8349609375"
-         height="1490.86938476562"
+         width="510.716491699219"
+         height="495.930358886719"
          ry="106.666656494141"
-         rx="106.666656494141" />
+         rx="0" />
       <eventcontext
          id="3dbox"
          style="stroke:none;stroke-linejoin:round;"
@@ -164,8 +164,8 @@
          end="209.023231337662"
          start="209.046625204438"
          usecurrent="1"
-         rx="7.82975069681805"
-         ry="7.82975069681792"
+         rx="98.5895462036133"
+         ry="77.3151779174805"
          arc_type="1" />
       <eventcontext
          id="star"
@@ -649,14 +649,14 @@
          value="layer" />
       <group
          id="defaultdpi"
-         value="100" />
+         value="96" />
     </group>
     <group
        id="save_as"
        default="org.inkscape.output.svg.inkscape"
        append_extension="1"
        enable_preview="1"
-       path="/Chambertin"
+       path="/Chambertin/Manuscripts/Criticality"
        use_current_dir="1"
        enable_svgexport="1" />
     <group
@@ -1075,10 +1075,11 @@
      org.inkscape.effect.filter.Invert.hue="0"
      org.inkscape.effect.filter.Invert.transparency="0"
      org.inkscape.effect.filter.Invert.opacify="0.030873638869117"
-     org.inkscape.color.replace_color.__live_effect__="0" />
+     org.inkscape.color.replace_color.__live_effect__="0"
+     org.inkscape.input.gdkpixbuf.png.scale="auto" />
   <group
      id="desktop"
-     style="fill:#ffffff;-inkscape-font-specification:'Cambria Math, Normal';font-family:'Cambria Math';font-size:106.66658783px;stroke-width:1.5;stroke-linecap:square;stroke:#282c34">
+     style="fill:#ffffff;-inkscape-font-specification:'Cambria Math, Normal';font-family:'Cambria Math';font-size:106.66658783px;stroke-width:1.5;stroke-linecap:square;stroke:#282c34;stroke-opacity:0.00000804">
     <group
        width="640"
        height="480"
