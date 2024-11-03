@@ -440,9 +440,19 @@ myManageHook = composeAll
      , title=? "Picture-in-Picture" --> doF copyToAll
      ] <+> namedScratchpadManageHook myScratchPads
 
+-- Index keybindings
+indexKeys :: [(String, X ())]
+indexKeys = concatMap
+        (\n ->
+            [ ("M-c " ++ show n, spawn $ "xdotool key ctrl+shift+c && xdotool key ctrl+c && cb copy" ++ show n ++ " $(xclip -selection clipboard -o)")
+            , ("M-x " ++ show n, spawn $ "xdotool key ctrl+x && cb copy" ++ show n ++ " $(xclip -selection clipboard -o)")
+            , ("M-v " ++ show n, spawn $ "cb copy0 $(cb paste" ++ show n ++ ") && xdotool key --clearmodifiers ctrl+shift+v")
+            ]
+        ) [1..9]
+
 -- START_KEYS
-myKeys :: [(String, X ())]
-myKeys =
+singleKeys :: [(String, X ())]
+singleKeys =
     -- KB_GROUP Xmonad
         [ ("M-C-r", spawn "xmonad --recompile")       -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart; feh --recursive --randomize --bg-fill $HOME/.wallpapers/")         -- Restarts xmonad
@@ -459,8 +469,8 @@ myKeys =
 
     -- KB_GROUP Run Prompt
         --, ("M-S-<Return>", spawn "dmenu_run -i -fn 'Ubuntu:weight=bold:pixelsize=26:antialias=true:hinting=true' -p \"Run: \"") -- Dmenu
-        , ("M-<Return>", spawn "rofi -show drun") -- Dmenu
-        , ("C-S-<Return>", spawn "rofi -show drun") -- Dmenu
+        , ("M-<Return>", spawn "rofi -drun-show-actions -drun-match-fields name,keywords,generic -show drun") -- Dmenu
+        , ("C-S-<Return>", spawn "rofi -drun-show-actions -drun-match-fields name,keywords,generic -show drun") -- Dmenu
 
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-S-<Return>", spawn (myTerminal))
@@ -615,6 +625,9 @@ myKeys =
           where nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
 -- END_KEYS
+
+myKeys :: [(String, X ())]
+myKeys = singleKeys ++ indexKeys
 
 main :: IO ()
 main = do

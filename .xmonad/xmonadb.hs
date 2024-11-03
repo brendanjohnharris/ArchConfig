@@ -438,8 +438,8 @@ myKeys =
 
     -- KB_GROUP Run Prompt
         --, ("M-S-<Return>", spawn "dmenu_run -i -fn 'Ubuntu:weight=bold:pixelsize=26:antialias=true:hinting=true' -p \"Run: \"") -- Dmenu
-        , ("M-<Return>", spawn "rofi -show drun") -- Dmenu
-        , ("C-S-<Return>", spawn "rofi -show drun") -- Dmenu
+        , ("M-<Return>", spawn "rofi -drun-show-actions -drun-match-fields name,keywords,generic -show drun") -- Dmenu
+        , ("C-S-<Return>", spawn "rofi -drun-show-actions -drun-match-fields name,keywords,generic -show drun") -- Dmenu
 
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-S-<Return>", spawn (myTerminal))

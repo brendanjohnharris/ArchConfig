@@ -1,6 +1,9 @@
 [Unit]
 Description=Fix Chambertin after having booted windows
+Type=idle
 [Service]
-ExecStart=sudo /home/brendan/.local/bin/fixshareddrive 664C84E94C84B579 /Chambertin
+User=brendan
+WorkingDirectory=/home/brendan/
+ExecStart=sudo /home/brendan/.local/bin/fixshareddrive 664C84E94C84B579 /Chambertin/
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target

@@ -1,14 +1,21 @@
 using Pkg
+#homeenv = Base.current_project()
+#Pkg.activate()
 #ENV["PYTHON"] = "python3.9"
 #ENV["JULIA_PYTHONCALL_EXE"]="@PyCall"
 # ENV["FORESIGHT_PATCHES"] = true
+# ENV["JULIA_CONDAPKG_EXE"] = "/opt/miniconda3/bin/conda"
+ENV["JULIA_CONDAPKG_OFFLINE"] = true
+ENV["DRWATSON_STOREPATCH"] = true
 using Revise
 using OhMyREPL
-using CUDA
+using CairoMakie
 using Infiltrator
 using Downloads
 colorscheme!("OneDark")
 enable_autocomplete_brackets(false)
+#Pkg.update()
+#Pkg.activate(homeenv)
 
 function template()
     @eval begin

@@ -125,10 +125,10 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="510.716491699219"
-         height="495.930358886719"
+         width="1448.51281738281"
+         height="1515.56811523438"
          ry="106.666656494141"
-         rx="0" />
+         rx="106.666656494141" />
       <eventcontext
          id="3dbox"
          style="stroke:none;stroke-linejoin:round;"
@@ -191,7 +191,8 @@
          average_all_sketches="1"
          pressure="0"
          dot-size="3"
-         base-simplify="24" />
+         base-simplify="24"
+         freehand-mode="0" />
       <eventcontext
          id="pen"
          mode="drag"
@@ -330,9 +331,12 @@
        font_sample="AaBbCcIiPpQq12369$€¢?.;/("
        show_sample_in_list="1"
        use_svg2="1"
-       style="line-height:1.25;font-family:sans-serif;font-size:40px;letter-spacing:0px"
+       style="line-height:1.25;font-family:sans-serif;font-size:40px;letter-spacing:0px;text-orientation:auto"
        selcue="1"
-       align_mode="0" />
+       align_mode="0"
+       writing_mode="0"
+       orientation_mode="0"
+       direction_mode="0" />
     <eventcontext
        id="nodes"
        selcue="1"
@@ -348,10 +352,10 @@
        live_outline="1"
        live_objects="1"
        show_helperpath="0"
-       x="331.1835935"
-       y="108.345703"
        edit_clipping_paths="0"
-       edit_masks="0" />
+       edit_masks="0"
+       x="1314.80348634721"
+       y="365.762051278491" />
     <eventcontext
        id="tweak"
        selcue="0"
@@ -386,7 +390,9 @@
        gradientdrag="1" />
     <eventcontext
        id="gradient"
-       selcue="1" />
+       selcue="1"
+       newgradient="1"
+       newfillorstroke="1" />
     <eventcontext
        id="mesh"
        selcue="1" />
@@ -408,7 +414,9 @@
     <eventcontext
        id="select"
        selcue="1"
-       gradientdrag="0" />
+       gradientdrag="0"
+       changelayer="1"
+       changepage="1" />
     <eventcontext
        id="paintbucket"
        style="fill:#a0a0a0;stroke:none;"
@@ -608,7 +616,7 @@
        id="align"
        align-to="1"
        align-nodes-to="0"
-       objects-align-to="first" />
+       objects-align-to="page" />
     <group
        id="xml"
        h="500"
@@ -649,14 +657,14 @@
          value="layer" />
       <group
          id="defaultdpi"
-         value="96" />
+         value="182" />
     </group>
     <group
        id="save_as"
        default="org.inkscape.output.svg.inkscape"
        append_extension="1"
        enable_preview="1"
-       path="/Chambertin/Manuscripts/Criticality"
+       path="/Chambertin/Manuscripts/SpatiotemporalMotifs.tex/figures"
        use_current_dir="1"
        enable_svgexport="1" />
     <group
@@ -735,6 +743,12 @@
        id="printing"
        asbitmap="1"
        dpi="300" />
+    <group
+       id="object-properties">
+      <group
+         id="path-panel"
+         precision="2" />
+    </group>
   </group>
   <group
      id="printing">
@@ -1012,11 +1026,22 @@
          angle_x="30.0"
          angle_z="30.0"
          empspacing="5" />
+      <group
+         id="modular"
+         units="mm"
+         origin_x="0.0"
+         origin_y="0.0"
+         spacing_x="40.0"
+         spacing_y="40.0"
+         gapx="10"
+         gapy="10"
+         marginx="0"
+         marginy="0" />
     </group>
     <group
        id="workarounds"
-       colorsontop="0"
-       partialdynamic="0" />
+       partialdynamic="0"
+       colorsontop="0" />
     <group
        id="rendering"
        update_strategy="1"
@@ -1050,7 +1075,7 @@
   <group
      id="extensions"
      org.inkscape.output.png.inkscape.png_bitdepth="100"
-     org.inkscape.output.png.inkscape.png_compression="0"
+     org.inkscape.output.png.inkscape.png_compression="6"
      org.inkscape.output.png.inkscape.png_antialias="2"
      org.inkscape.output.pdf.cairorenderer.PDFversion="PDF-1.5"
      org.inkscape.input.svg.scale="auto"
@@ -1079,7 +1104,7 @@
      org.inkscape.input.gdkpixbuf.png.scale="auto" />
   <group
      id="desktop"
-     style="fill:#ffffff;-inkscape-font-specification:'Cambria Math, Normal';font-family:'Cambria Math';font-size:106.66658783px;stroke-width:1.5;stroke-linecap:square;stroke:#282c34;stroke-opacity:0.00000804">
+     style="fill:#808080;-inkscape-font-specification:'Cambria Math, Normal';font-family:'Cambria Math';font-size:106.66658783px;stroke-width:5;stroke-linecap:square;stroke:#282c34;stroke-opacity:0.00000804;text-orientation:auto">
     <group
        width="640"
        height="480"

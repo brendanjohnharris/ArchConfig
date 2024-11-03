@@ -16,7 +16,7 @@
 # git clone --bare https://github.com/brendanjohnharris/ArchConfig.git $HOME/ArchConfig
 # git --git-dir=$HOME/ArchConfig/ --work-tree=$HOME checkout
 
-# * Now we assume the bare git repo for our config is in place. We also assume the current shell is bash. 
+# * Now we assume the bare git repo for our config is in place. We also assume the current shell is bash.
 # ? `config` now takes the place of `git` for config stuff. Should use config add -u ... to ignore new files
 echo 'source $HOME/.bashrc' | sudo tee -a /etc/profile
 source $HOME/.bashrc
@@ -62,8 +62,8 @@ git clone https://aur.archlinux.org/paru.git $HOME/Downloads/paru/
 
 # * Pretty terminal
 paru -Syu fastfetch
-sudo rm /usr/share/themes/Arc-Dark/gtk-2.0/gtkrc 
-sudo ln -s ~/.config/.gtkcolorscheme /usr/share/themes/Arc-Dark/gtk-2.0/gtkrc 
+sudo rm /usr/share/themes/Arc-Dark/gtk-2.0/gtkrc
+sudo ln -s ~/.config/.gtkcolorscheme /usr/share/themes/Arc-Dark/gtk-2.0/gtkrc
 
 # * Fonts
 sudo pacman -Syu fontconfig
@@ -114,6 +114,8 @@ paru -Syu downgrade
 # * Fish shell
 sudo pacman -Syu fish starship fisher
 
+# * Multiple clipboards
+paru -Syu clipboard-bin
 
 # # * Turn off discrete gpu
 # ! See https://github.com/Askannz/optimus-manager
@@ -142,7 +144,6 @@ python -m pip install python-mpd2
 ## TODO: Change the background colours of the Arc theme to be consistent with One Dark Pro
 ## TODO: Add dynamic icons (XMonad.Hooks.DynamicIcons) to tab names
 
-
 #  * ███    ██  ██████  ████████ ███████ ███████
 #  * ████   ██ ██    ██    ██    ██      ██
 #  * ██ ██  ██ ██    ██    ██    █████   ███████
@@ -150,11 +151,10 @@ python -m pip install python-mpd2
 #  * ██   ████  ██████     ██    ███████ ███████
 
 # ? You can change the permissions on the .local/bin/ (i.e. important scripts) to executable with:
-# config update-index --chmod=+x .local/bin/* 
-# ? Edit the dpi settings in ~/.Xresources to change the apparent size of programs and fonts. 
+# config update-index --chmod=+x .local/bin/*
+# ? Edit the dpi settings in ~/.Xresources to change the apparent size of programs and fonts.
 # ? Enable services at login with systemctl --user enable <service>, which will add that service to ....
 # ? Gnome keyring lets apps like vscode automatically login to accounts. If you want gnome keyring to automatically unlock the default account, rather than always prompting for a password, simply set the keyring password to the login password
-
 
 # ! Also need to patch the kernel to fix audio issues on the legion 7i. The relevant diff is here:
 # ? https://lkml.org/lkml/diff/2022/1/21/656/1
@@ -177,7 +177,7 @@ python -m pip install python-mpd2
 # dconf write /org/gnome/nautilus/window-state/maximized false
 
 # ! To enabel hibernate, add the kernel parameter: resume=/dev/archVolumeGroup/archLogicalVolume
-# ! via GRUB as descirbed here: https://wiki.archlinux.org/title/kernel_parameters#GRUB 
+# ! via GRUB as descirbed here: https://wiki.archlinux.org/title/kernel_parameters#GRUB
 # e.g. GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet resume=/dev/nvme0n1p5"
 
 # ! To automatically authenticate with the gnome keyring at login (and when not using a display manager), follow: https://wiki.archlinux.org/title/GNOME/Keyring#PAM_step
@@ -185,7 +185,6 @@ python -m pip install python-mpd2
 # ! Can build onedrive_tray manually, and replace the blue icon with a better white one
 
 # !  lspci -v | grep -E 'VGA|3D' to detect if descrete gpu is powered on
-
 
 # ? To temporarily disable sleep timeout:
 # https://askubuntu.com/questions/47311/how-do-i-disable-my-system-from-going-to-sleep
@@ -203,8 +202,6 @@ python -m pip install python-mpd2
 # ! To set the xset keyboard repeat rate permanently, edit /etc/X11/xinit/xserverrc witht he -ardelay and -arinterval options (https://unix.stackexchange.com/questions/408461/where-is-the-default-repeat-rate-for-xset-stored)
 
 # ! Install the AUR matlab-support package after installing matlab to make things a heck of a lot nicer
-
-
 
 # ! A neat trick is to create .desktop files for websites that open in Chrome's Kiosk mode, giving you a little isolated web-based app. The extension 'open in firefox' is useful in that case, because ayny links unrelated to the web app can be automatically opened in firefox. E.g., a list of links to exclude in 'open-in-firefox':
 # www.messenger.com, www.facebook.com, www.twitter.com, www.chess.com, www.overleaf.com, matlab.mathworks.com, unisydneyedu-my.sharepoint.com, au.mathworks.com, www.youtube.com, fourwaves.com, canvas.sydney.edu.au, www.outlook.com, login.live.com, www.spotify.com, open.spotify.com, mail.google.com

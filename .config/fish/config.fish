@@ -33,5 +33,7 @@ set fish_pager_color_description ecbe7b yellow
 set fish_pager_color_prefix normal --bold --underline
 set fish_pager_color_progress brwhite --background=cyan
 
-source /opt/anaconda/etc/fish/conf.d/conda.fish
+set -Ux CRYPTOGRAPHY_OPENSSL_NO_LEGACY 1
+
+
 
