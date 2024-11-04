@@ -444,7 +444,8 @@ myManageHook = composeAll
 indexKeys :: [(String, X ())]
 indexKeys = concatMap
         (\n ->
-            [ ("M-c " ++ show n, spawn $ "xdotool key ctrl+shift+c && xdotool key ctrl+c && cb copy" ++ show n ++ " $(xclip -selection clipboard -o)")
+            [ ("M-c " ++ show n, spawn $ "xdotool key ctrl+c && cb copy" ++ show n ++ " $(xclip -selection clipboard -o)")
+            , ("M-S-c " ++ show n, spawn $ "xdotool key ctrl+shift+c && cb copy" ++ show n ++ " $(xclip -selection clipboard -o)")
             , ("M-x " ++ show n, spawn $ "xdotool key ctrl+x && cb copy" ++ show n ++ " $(xclip -selection clipboard -o)")
             , ("M-v " ++ show n, spawn $ "cb copy0 $(cb paste" ++ show n ++ ") && xdotool key --clearmodifiers ctrl+shift+v")
             ]
@@ -483,7 +484,7 @@ singleKeys =
         , ("M-S-d", spawn "downloadpaper")
 
     -- KB_GROUP Kill windows
-        , ("M-S-c", kill)     -- Kill the currently focused client
+        , ("M-S-x", kill)     -- Kill the currently focused client
         , ("M-S-a", killAll)   -- Kill all windows on current workspace
 
     -- KB_GROUP Workspaces<Return>
