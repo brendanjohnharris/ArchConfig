@@ -749,6 +749,9 @@
          id="path-panel"
          precision="2" />
     </group>
+    <group
+       id="object-properties-widget"
+       expand-props="1" />
   </group>
   <group
      id="printing">
