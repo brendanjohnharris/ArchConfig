@@ -448,6 +448,7 @@ indexKeys = concatMap
             , ("M-S-c " ++ show n, spawn $ "xdotool key ctrl+shift+c && cb copy" ++ show n ++ " $(xclip -selection clipboard -o)")
             , ("M-x " ++ show n, spawn $ "xdotool key ctrl+x && cb copy" ++ show n ++ " $(xclip -selection clipboard -o)")
             , ("M-v " ++ show n, spawn $ "cb copy0 $(cb paste" ++ show n ++ ") && xdotool key --clearmodifiers ctrl+shift+v")
+            , ("M-S-v " ++ show n, spawn $ "cb copy0 $(cb paste" ++ show n ++ ") && xdotool key --clearmodifiers ctrl+v")
             ]
         ) [1..9]
 
