@@ -117,6 +117,9 @@ sudo pacman -Syu fish starship fisher
 # * Multiple clipboards
 paru -Syu clipboard-bin
 
+# * System backup
+sudo pacman -Syu borg
+
 # # * Turn off discrete gpu
 # ! See https://github.com/Askannz/optimus-manager
 # sudo pacman -Syu bumblebee bbswitch
