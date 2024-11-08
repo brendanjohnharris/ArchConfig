@@ -9,8 +9,8 @@ git --git-dir="$HOME/ArchConfig/" --work-tree="$HOME" push origin main
 # Initialize borg repository if it doesn't exist
 # export BORG_PASSPHRASE=$(sudo cat /etc/backups/password)
 export BORG_PASSPHRASE_FD="/etc/backups/password"
-export BORG_NEW_PASSPHRASE=$(sudo cat /etc/backups/password)
-# export BORG_PASSCOMMAND="cat /home/brendan/.borg_passphrase"
+# export BORG_NEW_PASSPHRASE=$(sudo cat /etc/backups/password)
+export BORG_PASSCOMMAND="cat /etc/backups/password"
 if [ ! -d "/home/brendan/OneDrive/systembackup/" ]; then
     sudo -E borg init --encryption=repokey /home/brendan/OneDrive/systembackup/
 fi
