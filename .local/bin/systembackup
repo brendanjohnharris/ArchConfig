@@ -6,7 +6,7 @@ git --git-dir="$HOME/ArchConfig/" --work-tree="$HOME" commit -m "System backup"
 git --git-dir="$HOME/ArchConfig/" --work-tree="$HOME" push origin main
 
 # * Create local backup of system files
-sudo rsync -aAXvlH --delete --exclude={"/bin/*","/var/*","/boot/*","/dev/*","/home/*","/lib/*","/lib32/*","/lib64/*","/media/*","/mnt/*","/proc/*","/run/*","/sbin/*","/srv/*","/sys/*","/tmp/*","/usr/bin/*","/usr/include/*","/usr/lib/*","/usr/lib32/*","/usr/libexec/*","/usr/sbin/*","/usr/share/*","/usr/src/*","/usr/local/MATLAB/*","/opt/anaconda/*","/Chambertin/*",".Trash*"} /* /home/brendan/OneDrive/systembackup/
+sudo rsync -aAXvlHz --delete --exclude={"/bin/*","/var/*","/boot/*","/dev/*","/home/*","/lib/*","/lib32/*","/lib64/*","/media/*","/mnt/*","/proc/*","/run/*","/sbin/*","/srv/*","/sys/*","/tmp/*","/usr/bin/*","/usr/include/*","/usr/lib/*","/usr/lib32/*","/usr/libexec/*","/usr/sbin/*","/usr/share/*","/usr/src/*","/usr/local/MATLAB/*","/opt/anaconda/*","/Chambertin/*",".Trash*"} /* /home/brendan/OneDrive/systembackup/
 
 # * Sync with onedrive
 if [ -d "$HOME/OneDrive/" ]; then
