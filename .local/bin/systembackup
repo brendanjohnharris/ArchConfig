@@ -61,6 +61,8 @@ if [ -d "$HOME/OneDrive/" ]; then
         --stats-file-name-length=0 \
         --checkers=16 \
         --transfers=16 \
+        --onedrive-delta \
+        --fast-list \
         "$HOME/OneDrive/" onedrive:desktop_clone/OneDrive/ \
         --exclude="/**/.CondaPkg/" \
         --exclude="/**/aux/" \
