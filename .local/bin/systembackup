@@ -61,8 +61,7 @@ if [ -d "$HOME/OneDrive/" ]; then
         --stats-file-name-length=0 \
         --checkers=16 \
         --transfers=16 \
-        --buffer-size 256M \
-        --dir-cache-time 72h \
+        --buffer-size 512M \
         --vfs-read-chunk-size 128M \
         --vfs-read-chunk-size-limit off \
         "$HOME/OneDrive/" onedrive:desktop_clone/OneDrive/ \
