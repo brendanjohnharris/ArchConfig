@@ -62,8 +62,6 @@ if [ -d "$HOME/OneDrive/" ]; then
         --checkers=16 \
         --transfers=16 \
         --buffer-size 512M \
-        --vfs-read-chunk-size 128M \
-        --vfs-read-chunk-size-limit off \
         "$HOME/OneDrive/" onedrive:desktop_clone/OneDrive/ \
         --exclude="/**/.CondaPkg/" \
         --exclude="/**/aux/" \
