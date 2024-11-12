@@ -66,5 +66,6 @@ if [ -d "$HOME/OneDrive/" ]; then
         --exclude="/**/aux/" \
         --exclude="/**/.git/" \
         --exclude="/**/.conda/" \
-        --exclude="/**/.npm/"
+        --exclude="/**/.npm/" \
+        --exclude="/**/node_modules/"
 fi
