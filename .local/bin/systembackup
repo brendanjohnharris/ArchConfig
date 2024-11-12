@@ -53,6 +53,5 @@ sudo -E borg prune -v --list /home/brendan/OneDrive/systembackup/ --keep-daily=7
 
 # * Sync with onedrive
 if [ -d "$HOME/OneDrive/" ]; then
-    export RCLONE_STATS_FILE_NAME_LENGTH=0
-    sudo rclone --config="/home/brendan/.config/rclone/rclone.conf" sync -L --progress "$HOME/OneDrive/" onedrive:desktop_clone/OneDrive/ --exclude="/**/.CondaPkg/" --exclude="/**/aux/" --exclude="/**/.git/" --exclude="/**/.conda/" --exclude="/**/.npm/"
+    sudo rclone --config="/home/brendan/.config/rclone/rclone.conf" sync -L --progress --stats-file-name-length=0 "$HOME/OneDrive/" onedrive:desktop_clone/OneDrive/ --exclude="/**/.CondaPkg/" --exclude="/**/aux/" --exclude="/**/.git/" --exclude="/**/.conda/" --exclude="/**/.npm/"
 fi
