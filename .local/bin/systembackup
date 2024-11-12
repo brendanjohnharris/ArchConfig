@@ -62,6 +62,7 @@ if [ -d "$HOME/OneDrive/" ]; then
         --checkers=16 \
         --transfers=16 \
         --buffer-size 512M \
+        --checksum \
         "$HOME/OneDrive/" onedrive:desktop_clone/OneDrive/ \
         --exclude="/**/.CondaPkg/" \
         --exclude="/**/aux/" \
