@@ -46,7 +46,7 @@ sudo -E borg create --progress --filter AME --stats --show-rc --compression zstd
     --exclude '/Chambertin/*' \
     --exclude '/etc/backup/*' \
     --exclude '/home/brendan/OneDrive/systembackup/*' \
-    /home/brendan/OneDrive/systembackup/::'{hostname}-{now:%Y-%m-%d}' /
+    /home/brendan/OneDrive/systembackup/::'{hostname}-{now:%Y-%m-%d-%H%M%S}' /
 
 # Prune old backups
 sudo -E borg prune -v --list /home/brendan/OneDrive/systembackup/ --keep-daily=7 --keep-weekly=4 --keep-monthly=6
