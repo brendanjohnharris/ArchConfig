@@ -27,13 +27,13 @@
     width = 500
 
     # The maximum height of a single notification, excluding the frame.
-    height = 300
+    height = 50
 
     # Position the notification in the bottom left corner
     origin = bottom-right
 
     # Offset from the origin
-    offset = 0x0
+    offset = (0, 0)
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
@@ -428,12 +428,12 @@
 #    summary = *says*
 #    urgency = critical
 #
-# 
-# 
+#
+#
 # [mail]
 #    appname = Betterbird
 #    icon = /usr/share/icons/Papirus/16x16/apps/betterbird.svg
-# 
+#
 #
 #[stack-volumes]
 #    appname = "some_volume_notifiers"
