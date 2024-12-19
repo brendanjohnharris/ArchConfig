@@ -1,15 +1,5 @@
 #! /bin/bash
 
-# * Backup dotfiles
-git --git-dir="$HOME/ArchConfig/" --work-tree="$HOME" add -u $HOME/
-git --git-dir="$HOME/ArchConfig/" --work-tree="$HOME" commit -m "System backup"
-git --git-dir="$HOME/ArchConfig/" --work-tree="$HOME" push origin main
-
-# * Backup bibliography
-git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" add .
-git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" commit -m "Bib backup"
-git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" push origin main
-
 # * Create local backup of system files
 # Initialize borg repository if it doesn't exist
 # export BORG_PASSPHRASE=$(sudo cat /etc/backups/password)
@@ -55,6 +45,16 @@ sudo -E borg create --progress --filter AME --stats --show-rc --compression zstd
 
 # Prune old backups
 sudo -E borg prune -v --list /home/brendan/OneDrive/systembackup/ --keep-daily=7 --keep-weekly=4 --keep-monthly=6
+
+# * Backup dotfiles
+git --git-dir="$HOME/ArchConfig/" --work-tree="$HOME" add -u $HOME/
+git --git-dir="$HOME/ArchConfig/" --work-tree="$HOME" commit -m "System backup"
+git --git-dir="$HOME/ArchConfig/" --work-tree="$HOME" push origin main
+
+# * Backup bibliography
+git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" add .
+git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" commit -m "Bib backup"
+git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" push origin main
 
 # * Sync with onedrive
 if [ -d "$HOME/OneDrive/" ]; then
