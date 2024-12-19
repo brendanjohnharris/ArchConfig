@@ -38,6 +38,9 @@ export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 # Make local binaries available
 export PATH="$HOME/.local/bin:$PATH"
 
+# Add TeXLive to path
+export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
+
 # Some programs, like mpd, need this to manually set
 export XDG_CONFIG_HOME="$HOME/.config"
 
