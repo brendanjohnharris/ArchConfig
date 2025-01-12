@@ -6,6 +6,7 @@ pkgs = [:Pkg,
     :TestEnv,
     :PkgTemplates]
 
+printout = false
 if false
     using Term
     function make_line(pkg, time)
@@ -42,12 +43,12 @@ if false
     return nothing
 else
     map(pkgs) do pkg
-        print("$pkg: ")
+        printout && print("$pkg: ")
         t = @timed eval(:(using $pkg))
         time = round(t[:time]; sigdigits=1)
         compile = round(t[:compile_time]; sigdigits=1)
         recompile = round(t[:recompile_time]; sigdigits=1)
-        print("$(time)s ($(compile)s compile, $(recompile)s recompile)\n")
+        printout && print("$(time)s ($(compile)s compile, $(recompile)s recompile)\n")
     end
     return nothing
 end
