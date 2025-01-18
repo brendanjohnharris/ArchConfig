@@ -1,5 +1,24 @@
 #! /bin/bash
 
+# * Add an empty commit to WakaWaka to refresh the 60 day timeout
+OWNER="brendanjohnharris"
+REPO="WakaWaka"
+BRANCH=main
+COMMIT_MESSAGE="Empty commit via API"
+HEAD_SHA=$(gh api repos/$OWNER/$REPO/git/ref/heads/$BRANCH -q .object.sha)
+TREE_SHA=$(gh api repos/$OWNER/$REPO/git/commits/$HEAD_SHA -q .tree.sha)
+NEW_COMMIT_SHA=$(
+  gh api repos/$OWNER/$REPO/git/commits \
+    --field message="$COMMIT_MESSAGE" \
+    --field tree="$TREE_SHA" \
+    --field parents="['$HEAD_SHA']" \
+    -q .sha
+)
+gh api repos/$OWNER/$REPO/git/refs/heads/$BRANCH \
+  --method PATCH \
+  --field sha="$NEW_COMMIT_SHA"
+echo "Pushed empty commit $NEW_COMMIT_SHA to $BRANCH in $OWNER/$REPO"
+
 # * Create local backup of system files
 # Initialize borg repository if it doesn't exist
 # export BORG_PASSPHRASE=$(sudo cat /etc/backups/password)
