@@ -3,7 +3,7 @@
 # * Add an empty commit to WakaWaka to refresh the 60 day timeout
 OWNER="brendanjohnharris"
 REPO="WakaWaka"
-BRANCH=main
+BRANCH="master"
 COMMIT_MESSAGE="Empty commit via API"
 HEAD_SHA=$(gh api repos/$OWNER/$REPO/git/ref/heads/$BRANCH -q .object.sha)
 TREE_SHA=$(gh api repos/$OWNER/$REPO/git/commits/$HEAD_SHA -q .tree.sha)
