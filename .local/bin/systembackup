@@ -11,7 +11,7 @@ NEW_COMMIT_SHA=$(
   gh api repos/$OWNER/$REPO/git/commits \
     --field message="$COMMIT_MESSAGE" \
     --field tree="$TREE_SHA" \
-    --field parents="['$HEAD_SHA']" \
+    --field parents[]="$HEAD_SHA" \
     -q .sha
 )
 gh api repos/$OWNER/$REPO/git/refs/heads/$BRANCH \
