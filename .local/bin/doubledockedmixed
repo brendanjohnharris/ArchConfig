@@ -1,0 +1,3 @@
+xrandr --output 'DP-2' --mode 1920x1080 --scale 1.4 --pos -2688x0 --output 'DP-4' --primary --pos 0x0 --output 'HDMI-0' --mode 1920x1080 --scale 1.4 --rotate left --pos 2560x-1080
+xmonad --restart
+feh --recursive --randomize --bg-fill $HOME/.wallpapers/
