@@ -1,0 +1,93 @@
+# Converted bpytop theme to match the Alacritty colors
+# (Based on Alacritty’s [colors] settings)
+# All colors are now taken directly from the Alacritty theme
+
+# Main background – using Alacritty primary background
+theme[main_bg]="#282c34"
+
+# Main text color – using Alacritty primary foreground
+theme[main_fg]="#bbc2cf"
+
+# Title color for boxes – using Alacritty bright white
+theme[title]="#dfdfdf"
+
+# Highlight color for keyboard shortcuts – using Alacritty bright blue
+theme[hi_fg]="#61afef"
+
+# Background color of selected item in processes box – using Alacritty selection background
+theme[selected_bg]="#3e4451"
+
+# Foreground color of selected item in processes box – using Alacritty bright white
+theme[selected_fg]="#dfdfdf"
+
+# Color of inactive/disabled text – using Alacritty normal black
+theme[inactive_fg]="#545a5e"
+
+# Color of text appearing on top of graphs – using Alacritty bright black
+theme[graph_text]="#5b6268"
+
+# Background color of the percentage meters – using Alacritty bright black
+theme[meter_bg]="#5b6268"
+
+# Misc colors for processes box (mini cpu graphs, etc.) – using Alacritty bright green
+theme[proc_misc]="#98c379"
+
+# Cpu box outline color – using Alacritty normal green
+theme[cpu_box]="#98be65"
+
+# Memory/disks box outline color – using Alacritty normal yellow
+theme[mem_box]="#da8548"
+
+# Net up/down box outline color – using Alacritty normal blue
+theme[net_box]="#51afef"
+
+# Processes box outline color – using Alacritty normal red
+theme[proc_box]="#ff6c6b"
+
+# Box divider line and small boxes line color – using Alacritty normal black
+theme[div_line]="#545a5e"
+
+# Temperature graph colors – gradient from blue to magenta to red
+theme[temp_start]="#51afef"  # normal blue
+theme[temp_mid]="#c678dd"    # normal magenta
+theme[temp_end]="#ff6c6b"     # normal red
+
+# CPU graph colors – gradient from green to yellow to red
+theme[cpu_start]="#98be65"   # normal green
+theme[cpu_mid]="#e5c07b"     # bright yellow
+theme[cpu_end]="#ff6c6b"      # normal red
+
+# Mem/Disk free meter – using green variants
+theme[free_start]="#98be65"   # normal green
+theme[free_mid]="#98c379"     # bright green
+theme[free_end]="#98c379"     # bright green
+
+# Mem/Disk cached meter – using blue variants
+theme[cached_start]="#51afef"  # normal blue
+theme[cached_mid]="#61afef"    # bright blue
+theme[cached_end]="#61afef"    # bright blue
+
+# Mem/Disk available meter – gradient from yellow to bright yellow
+theme[available_start]="#da8548"  # normal yellow
+theme[available_mid]="#e5c07b"      # bright yellow
+theme[available_end]="#e5c07b"      # bright yellow
+
+# Mem/Disk used meter – gradient in red tones
+theme[used_start]="#ff6c6b"   # normal red
+theme[used_mid]="#e06c75"     # bright red
+theme[used_end]="#ff6c6b"     # normal red
+
+# Download graph colors – a blue–magenta–blue gradient
+theme[download_start]="#51afef"  # normal blue
+theme[download_mid]="#c678dd"    # normal magenta
+theme[download_end]="#61afef"     # bright blue
+
+# Upload graph colors – a magenta–blue–magenta gradient
+theme[upload_start]="#c678dd"  # normal magenta
+theme[upload_mid]="#61afef"    # bright blue
+theme[upload_end]="#c678dd"    # normal magenta
+
+# Process box color gradient for threads, mem and cpu usage – using green, yellow and red
+theme[process_start]="#98be65"  # normal green
+theme[process_mid]="#e5c07b"    # bright yellow
+theme[process_end]="#ff6c6b"     # normal red
