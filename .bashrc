@@ -41,6 +41,9 @@ export PATH="$HOME/.local/bin:$PATH"
 # Add TeXLive to path
 export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
 
+# Add ruby to path
+export PATH="$HOME/.local/share/gem/ruby/3.3.0/bin:$PATH"
+
 # Some programs, like mpd, need this to manually set
 export XDG_CONFIG_HOME="$HOME/.config"
 

@@ -62,6 +62,7 @@ end
 # ENV["FORESIGHT_PATCHES"] = true
 # ENV["JULIA_CONDAPKG_EXE"] = "/opt/miniconda3/bin/conda"
 ENV["JULIA_CONDAPKG_OFFLINE"] = true
+ENV["JULIA_CONDAPKG_BACKEND"] = "MicroMamba"
 ENV["DRWATSON_STOREPATCH"] = true
 colorscheme!("OneDark")
 enable_autocomplete_brackets(false)

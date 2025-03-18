@@ -1,5 +1,4 @@
-# Converted bpytop theme to match the Alacritty colors
-# (Based on Alacritty’s [colors] settings)
+# Converted bpytop theme to match the Alacritty colors with a darker accent color
 # All colors are now taken directly from the Alacritty theme
 
 # Main background – using Alacritty primary background
@@ -11,8 +10,8 @@ theme[main_fg]="#bbc2cf"
 # Title color for boxes – using Alacritty bright white
 theme[title]="#dfdfdf"
 
-# Highlight color for keyboard shortcuts – using Alacritty bright blue
-theme[hi_fg]="#61afef"
+# Highlight color for keyboard shortcuts (accent) – now a darker version of the regular text
+theme[hi_fg]="#969ba6"
 
 # Background color of selected item in processes box – using Alacritty selection background
 theme[selected_bg]="#3e4451"
