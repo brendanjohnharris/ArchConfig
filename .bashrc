@@ -24,10 +24,6 @@ export READER=okular
 # * Jabref scaling
 export JABREF_OPTIONS="-Dglass.gtk.uiScale=144dpi -Djdk.gtk.version=2"
 export CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1
-#export GDK_SCALE=1
-#export GDK_DPI_SCALE=1.0
-#export DISPLAY=:0.0
-#alias matlab='export GTK_PATH=/usr/lib/x86_64-linux-gnu/gtk-2.0; export MESA_LOADER_DRIVER_OVERRIDE=i965; /usr/local/MATLAB/R2021a/bin/matlab'
 export DISPLAY=:0.0
 
 # Tell julia to use discrete GPU
@@ -46,9 +42,5 @@ export PATH="$HOME/.local/share/gem/ruby/3.3.0/bin:$PATH"
 
 # Some programs, like mpd, need this to manually set
 export XDG_CONFIG_HOME="$HOME/.config"
-
-alias startxa='rm $HOME/.xmonad/xmonad.hs; ln -s $HOME/.xmonad/xmonada.hs $HOME/.xmonad/xmonad.hs; xmonad --recompile; startx'
-alias startxb='rm $HOME/.xmonad/xmonad.hs; ln -s $HOME/.xmonad/xmonadb.hs $HOME/.xmonad/xmonad.hs; xmonad --recompile; startx'
-
 
 alias mamba='/home/brendan/miniforge3/bin/mamba'
