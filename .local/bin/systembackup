@@ -8,15 +8,15 @@ COMMIT_MESSAGE="Empty commit via API"
 HEAD_SHA=$(gh api repos/$OWNER/$REPO/git/ref/heads/$BRANCH -q .object.sha)
 TREE_SHA=$(gh api repos/$OWNER/$REPO/git/commits/$HEAD_SHA -q .tree.sha)
 NEW_COMMIT_SHA=$(
-  gh api repos/$OWNER/$REPO/git/commits \
-    --field message="$COMMIT_MESSAGE" \
-    --field tree="$TREE_SHA" \
-    --field parents[]="$HEAD_SHA" \
-    -q .sha
+	gh api repos/$OWNER/$REPO/git/commits \
+		--field message="$COMMIT_MESSAGE" \
+		--field tree="$TREE_SHA" \
+		--field parents[]="$HEAD_SHA" \
+		-q .sha
 )
 gh api repos/$OWNER/$REPO/git/refs/heads/$BRANCH \
-  --method PATCH \
-  --field sha="$NEW_COMMIT_SHA"
+	--method PATCH \
+	--field sha="$NEW_COMMIT_SHA"
 echo "Pushed empty commit $NEW_COMMIT_SHA to $BRANCH in $OWNER/$REPO"
 
 # * Create local backup of system files
@@ -26,41 +26,41 @@ export BORG_PASSPHRASE_FD="/etc/backups/password"
 # export BORG_NEW_PASSPHRASE=$(sudo cat /etc/backups/password)
 export BORG_PASSCOMMAND="cat /etc/backups/password"
 if [ ! -d "/home/brendan/OneDrive/systembackup/" ]; then
-    sudo -E borg init --encryption=repokey /home/brendan/OneDrive/systembackup/
+	sudo -E borg init --encryption=repokey /home/brendan/OneDrive/systembackup/
 fi
 
 # Create a new backup
 sudo -E borg create --progress --filter AME --stats --show-rc --compression zstd,9 --exclude-caches \
-    --exclude '/bin/*' \
-    --exclude '/var/*' \
-    --exclude '/boot/*' \
-    --exclude '/dev/*' \
-    --exclude '/home/*' \
-    --exclude '/lib/*' \
-    --exclude '/lib32/*' \
-    --exclude '/lib64/*' \
-    --exclude '/media/*' \
-    --exclude '/mnt/*' \
-    --exclude '/proc/*' \
-    --exclude '/run/*' \
-    --exclude '/sbin/*' \
-    --exclude '/srv/*' \
-    --exclude '/sys/*' \
-    --exclude '/tmp/*' \
-    --exclude '/usr/bin/*' \
-    --exclude '/usr/local/*' \
-    --exclude '/usr/include/*' \
-    --exclude '/usr/lib/*' \
-    --exclude '/usr/lib32/*' \
-    --exclude '/usr/libexec/*' \
-    --exclude '/usr/sbin/*' \
-    --exclude '/usr/share/*' \
-    --exclude '/usr/src/*' \
-    --exclude '/opt/anaconda/*' \
-    --exclude '/Chambertin/*' \
-    --exclude '/etc/backup/*' \
-    --exclude '/home/brendan/OneDrive/systembackup/*' \
-    /home/brendan/OneDrive/systembackup/::'{hostname}-{now:%Y-%m-%d-%H%M%S}' /
+	--exclude '/bin/*' \
+	--exclude '/var/*' \
+	--exclude '/boot/*' \
+	--exclude '/dev/*' \
+	--exclude '/home/*' \
+	--exclude '/lib/*' \
+	--exclude '/lib32/*' \
+	--exclude '/lib64/*' \
+	--exclude '/media/*' \
+	--exclude '/mnt/*' \
+	--exclude '/proc/*' \
+	--exclude '/run/*' \
+	--exclude '/sbin/*' \
+	--exclude '/srv/*' \
+	--exclude '/sys/*' \
+	--exclude '/tmp/*' \
+	--exclude '/usr/bin/*' \
+	--exclude '/usr/local/*' \
+	--exclude '/usr/include/*' \
+	--exclude '/usr/lib/*' \
+	--exclude '/usr/lib32/*' \
+	--exclude '/usr/libexec/*' \
+	--exclude '/usr/sbin/*' \
+	--exclude '/usr/share/*' \
+	--exclude '/usr/src/*' \
+	--exclude '/opt/anaconda/*' \
+	--exclude '/Chambertin/*' \
+	--exclude '/etc/backup/*' \
+	--exclude '/home/brendan/OneDrive/systembackup/*' \
+	/home/brendan/OneDrive/systembackup/::'{hostname}-{now:%Y-%m-%d-%H%M%S}' /
 
 # Prune old backups
 sudo -E borg prune -v --list /home/brendan/OneDrive/systembackup/ --keep-daily=7 --keep-weekly=4 --keep-monthly=6
@@ -77,21 +77,21 @@ git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/
 
 # * Sync with onedrive
 if [ -d "$HOME/OneDrive/" ]; then
-    sudo rclone \
-        --config="/home/brendan/.config/rclone/rclone.conf" \
-        sync \
-        -L \
-        --progress \
-        --stats-file-name-length=0 \
-        --checkers=16 \
-        --transfers=16 \
-        --buffer-size 512M \
-        --checksum \
-        "$HOME/OneDrive/" onedrive:desktop_clone/OneDrive/ \
-        --exclude="/**/.CondaPkg/" \
-        --exclude="/**/aux/" \
-        --exclude="/**/.git/" \
-        --exclude="/**/.conda/" \
-        --exclude="/**/.npm/" \
-        --exclude="/**/node_modules/"
+	sudo rclone \
+		--config="/home/brendan/.config/rclone/rclone.conf" \
+		sync \
+		-L \
+		--progress \
+		--stats-file-name-length=0 \
+		--checkers=16 \
+		--transfers=16 \
+		--buffer-size 512M \
+		--checksum \
+		"$HOME/OneDrive/" onedrive:desktop_clone/OneDrive/ \
+		--exclude="/**/.CondaPkg/" \
+		--exclude="/**/aux/" \
+		--exclude="/**/.git/" \
+		--exclude="/**/.conda/" \
+		--exclude="/**/.npm/" \
+		--exclude="/**/node_modules/"
 fi
