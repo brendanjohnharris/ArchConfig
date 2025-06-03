@@ -16,23 +16,28 @@ fi
 if [ "$ACTUAL_LABEL" = "$LABEL" ]; then
     echo "✅ The filesystem on '$MOUNTPOINT' has LABEL='$LABEL'. Backing up onedrive."
 
-    # sudo rclone \
-    #     --config="/home/brendan/.config/rclone/rclone.conf" \
-    #     sync \
-    #     -L \
-    #     --progress \
-    #     --stats-file-name-length=0 \
-    #     --checkers=16 \
-    #     --transfers=16 \
-    #     --buffer-size 512M \
-    #     --checksum \
-    #     "$HOME/OneDrive/" onedrive:desktop_clone/OneDrive/ \
-    #     --exclude="/**/.CondaPkg/" \
-    #     --exclude="/**/aux/" \
-    #     --exclude="/**/.git/" \
-    #     --exclude="/**/.conda/" \
-    #     --exclude="/**/.npm/" \
-    #     --exclude="/**/node_modules/"
+    FOLDER="OneDrive_Clone"
+    SRC="/mnt/carnival/$FOLDER"
+
+    # Take a snap before syncing
+    sudo mkdir -p "/mnt/carnival/.snapshots"
+    TIMESTAMP=$(date "+%Y-%m-%d_%H-%M-%S")
+
+    DEST="/mnt/carnival/.snapshots/snapshot-OneDrive_Clone-${TIMESTAMP}"
+    sudo btrfs subvolume snapshot -r "${SRC}" "${DEST}"
+
+    sudo rclone \
+        --config="/home/brendan/.config/rclone/rclone.conf" \
+        sync \
+        -L \
+        --progress \
+        --stats-file-name-length=0 \
+        --checkers=16 \
+        --transfers=16 \
+        --buffer-size 512M \
+        --checksum \
+        onedrive: "/mnt/carnival/$FOLDER/" \
+        --exclude="Uncategorized/"
 
     exit 0
 else
