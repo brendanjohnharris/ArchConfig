@@ -1,0 +1,41 @@
+#! /bin/bash
+LABEL="Carnival"
+MOUNTPOINT="/mnt/carnival"
+
+if [ ! -d "$MOUNTPOINT" ]; then
+    echo "❌ '$MOUNTPOINT' is not a directory."
+    exit 1
+fi
+
+ACTUAL_LABEL=$(findmnt -n -o LABEL --target "$MOUNTPOINT" 2>/dev/null)
+if [ -z "$ACTUAL_LABEL" ]; then
+    echo "❌ Nothing is mounted on '$MOUNTPOINT'."
+    exit 1
+fi
+
+if [ "$ACTUAL_LABEL" = "$LABEL" ]; then
+    echo "✅ The filesystem on '$MOUNTPOINT' has LABEL='$LABEL'. Backing up onedrive."
+
+    # sudo rclone \
+    #     --config="/home/brendan/.config/rclone/rclone.conf" \
+    #     sync \
+    #     -L \
+    #     --progress \
+    #     --stats-file-name-length=0 \
+    #     --checkers=16 \
+    #     --transfers=16 \
+    #     --buffer-size 512M \
+    #     --checksum \
+    #     "$HOME/OneDrive/" onedrive:desktop_clone/OneDrive/ \
+    #     --exclude="/**/.CondaPkg/" \
+    #     --exclude="/**/aux/" \
+    #     --exclude="/**/.git/" \
+    #     --exclude="/**/.conda/" \
+    #     --exclude="/**/.npm/" \
+    #     --exclude="/**/node_modules/"
+
+    exit 0
+else
+    echo "❌ The filesystem on '$MOUNTPOINT' has LABEL='$ACTUAL_LABEL', not '$LABEL'."
+    exit 1
+fi

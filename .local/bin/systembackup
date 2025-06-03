@@ -95,3 +95,6 @@ if [ -d "$HOME/OneDrive/" ]; then
 		--exclude="/**/.npm/" \
 		--exclude="/**/node_modules/"
 fi
+
+# * If the onedrive backup drive is mounted, sync it
+onedrive_external_backup
