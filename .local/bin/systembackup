@@ -17,7 +17,7 @@ NEW_COMMIT_SHA=$(
 gh api repos/$OWNER/$REPO/git/refs/heads/$BRANCH \
 	--method PATCH \
 	--field sha="$NEW_COMMIT_SHA"
-echo -e "\e[1;34mPushed empty commit $NEW_COMMIT_SHA to $BRANCH in $OWNER/$REPO \e[0m"
+echo -e "\e[1;31mPushed empty commit $NEW_COMMIT_SHA to $BRANCH in $OWNER/$REPO \e[0m"
 
 # * Create local backup of system files
 echo -e "\e[1;32mBacking up system files \e[0m"
