@@ -18,14 +18,16 @@ if [ "$ACTUAL_LABEL" = "$LABEL" ]; then
 
     FOLDER="OneDrive_Clone"
     SRC="/mnt/carnival/$FOLDER"
+    DESTDIR="/mnt/carnival/.snapshots"
 
     # Take a snap before syncing
-    sudo mkdir -p "/mnt/carnival/.snapshots"
+    sudo mkdir -p "$DESTDIR"
     TIMESTAMP=$(date "+%Y-%m-%d_%H-%M-%S")
 
-    DEST="/mnt/carnival/.snapshots/snapshot-OneDrive_Clone-${TIMESTAMP}"
+    DEST="$DESTDIR/snapshot-OneDrive_Clone-${TIMESTAMP}"
     sudo btrfs subvolume snapshot -r "${SRC}" "${DEST}"
 
+    echo -e "\e[1;34m Cloning OneDrive to $SRC \e[0m"
     sudo rclone \
         --config="/home/brendan/.config/rclone/rclone.conf" \
         sync \
@@ -36,7 +38,7 @@ if [ "$ACTUAL_LABEL" = "$LABEL" ]; then
         --transfers=16 \
         --buffer-size 512M \
         --checksum \
-        onedrive: "/mnt/carnival/$FOLDER/" \
+        onedrive: "$SRC" \
         --exclude="Uncategorized/"
 
     exit 0
