@@ -78,7 +78,7 @@ git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/
 # * Sync with onedrive
 if [ -d "$HOME/OneDrive/" ]; then
 	SRC="$HOME/OneDrive/"
-	echo -e "\e[1;34m Cloning $SRC to OneDrive \e[0m"
+	echo -e "\e[1;34mCloning $SRC to OneDrive \e[0m"
 	sudo rclone \
 		--config="/home/brendan/.config/rclone/rclone.conf" \
 		sync \
