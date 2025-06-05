@@ -17,9 +17,10 @@ NEW_COMMIT_SHA=$(
 gh api repos/$OWNER/$REPO/git/refs/heads/$BRANCH \
 	--method PATCH \
 	--field sha="$NEW_COMMIT_SHA"
-echo "Pushed empty commit $NEW_COMMIT_SHA to $BRANCH in $OWNER/$REPO"
+echo -e "\e[1;34mPushed empty commit $NEW_COMMIT_SHA to $BRANCH in $OWNER/$REPO \e[0m"
 
 # * Create local backup of system files
+echo -e "\e[1;32mBacking up system files \e[0m"
 # Initialize borg repository if it doesn't exist
 # export BORG_PASSPHRASE=$(sudo cat /etc/backups/password)
 export BORG_PASSPHRASE_FD="/etc/backups/password"
@@ -66,11 +67,13 @@ sudo -E borg create --progress --filter AME --stats --show-rc --compression zstd
 sudo -E borg prune -v --list /home/brendan/OneDrive/systembackup/ --keep-daily=7 --keep-weekly=4 --keep-monthly=6
 
 # * Backup dotfiles
+echo -e "\e[1;37mBacking up dotfiles to github \e[0m"
 git --git-dir="$HOME/ArchConfig/" --work-tree="$HOME" add -u $HOME/
 git --git-dir="$HOME/ArchConfig/" --work-tree="$HOME" commit -m "System backup"
 git --git-dir="$HOME/ArchConfig/" --work-tree="$HOME" push origin main
 
 # * Backup bibliography
+echo -e "\e[1;33mBacking up bibliography to github \e[0m"
 git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" add .
 git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" commit -m "Bib backup"
 git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" push origin main
@@ -78,7 +81,7 @@ git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/
 # * Sync with onedrive
 if [ -d "$HOME/OneDrive/" ]; then
 	SRC="$HOME/OneDrive/"
-	echo -e "\e[1;34mCloning $SRC to OneDrive \e[0m"
+	echo -e "\e[1;36mCloning $SRC to OneDrive \e[0m"
 	sudo rclone \
 		--config="/home/brendan/.config/rclone/rclone.conf" \
 		sync \
