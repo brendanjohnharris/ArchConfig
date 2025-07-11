@@ -93,7 +93,6 @@ if [ -d "$HOME/OneDrive/" ]; then
 		--checkers=16 \
 		--transfers=16 \
 		--buffer-size 512M \
-		--checksum \
 		"$SRC" onedrive:desktop_clone/OneDrive/ \
 		--exclude="/**/.CondaPkg/" \
 		--exclude="/**/aux/" \
@@ -103,5 +102,5 @@ if [ -d "$HOME/OneDrive/" ]; then
 		--exclude="/**/node_modules/"
 fi
 
-# # * If the onedrive backup drive is mounted, sync it
-# onedrive_external_backup
+# * If the onedrive backup drive is mounted, sync it
+onedrive_external_backup

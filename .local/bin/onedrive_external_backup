@@ -39,7 +39,6 @@ if [ "$ACTUAL_LABEL" = "$LABEL" ]; then
         --checkers=16 \
         --transfers=16 \
         --buffer-size 512M \
-        --checksum \
         onedrive: "$SRC" \
         --exclude="Uncategorized/"
 
