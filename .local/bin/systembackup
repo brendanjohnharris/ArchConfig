@@ -90,6 +90,7 @@ if [ -d "$HOME/OneDrive/" ]; then
 		--stats-file-name-length=0 \
 		--fast-list \
 		--onedrive-delta \
+		--very-verbose \
 		--checkers=16 \
 		--transfers=16 \
 		--buffer-size 512M \
