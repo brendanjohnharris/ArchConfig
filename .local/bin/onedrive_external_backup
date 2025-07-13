@@ -38,9 +38,14 @@ if [ "$ACTUAL_LABEL" = "$LABEL" ]; then
         --onedrive-delta \
         --checkers=16 \
         --transfers=16 \
-        --buffer-size 512M \
         onedrive: "$SRC" \
-        --exclude="Uncategorized/"
+        --exclude="Uncategorized/" \
+        --exclude="/**/.CondaPkg/" \
+        --exclude="/**/aux/" \
+        --exclude="/**/.git/" \
+        --exclude="/**/.conda/" \
+        --exclude="/**/.npm/" \
+        --exclude="/**/node_modules/"
 
     exit 0
 else

@@ -78,7 +78,7 @@ git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/
 git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" commit -m "Bib backup"
 git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" push origin main
 
-# * Sync with onedrive
+# * Sync with onedrive. Initial diff calculation takes about 30 mins
 if [ -d "$HOME/OneDrive/" ]; then
 	SRC="$HOME/OneDrive/"
 	echo -e "\e[1;36mCloning $SRC to OneDrive \e[0m"
