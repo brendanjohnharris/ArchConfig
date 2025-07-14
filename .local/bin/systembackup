@@ -82,7 +82,7 @@ git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/
 if [ -d "$HOME/OneDrive/" ]; then
 	SRC="$HOME/OneDrive/"
 	echo -e "\e[1;36mCloning $SRC to OneDrive \e[0m"
-	sudo rclone \
+	rclone \
 		--config="/home/brendan/.config/rclone/rclone.conf" \
 		sync \
 		-L \
@@ -99,7 +99,7 @@ if [ -d "$HOME/OneDrive/" ]; then
 		--exclude="/**/.git/" \
 		--exclude="/**/.conda/" \
 		--exclude="/**/.npm/" \
-		--exclude="/**/node_modules/"
+		--exclude="/**/node_modules/" -vv
 fi
 
 # * If the onedrive backup drive is mounted, sync it
