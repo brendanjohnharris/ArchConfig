@@ -93,6 +93,27 @@ if [ -d "$HOME/OneDrive/" ]; then
 		--checkers=16 \
 		--transfers=16 \
 		--buffer-size 512M \
+		"$SRC" onedrive:desktop_clone/OneDrive/ \
+		--exclude="/**/.CondaPkg/" \
+		--exclude="/**/aux/" \
+		--exclude="/**/.git/" \
+		--exclude="/**/.conda/" \
+		--exclude="/**/.npm/" \
+		--exclude="/**/node_modules/"
+fi
+
+if [ -d "$HOME/OneDrive/" ]; then
+	SRC="$HOME/OneDrive/"
+	echo -e "\e[1;36mCloning $SRC to OneDrive \e[0m"
+	sudo rclone \
+		--config="/home/brendan/.config/rclone/rclone.conf" \
+		sync \
+		-L \
+		--progress \
+		--stats-file-name-length=0 \
+		--checkers=4 \
+		--transfers=4 \
+		--buffer-size 512M \
 		--checksum \
 		"$SRC" onedrive:desktop_clone/OneDrive/ \
 		--exclude="/**/.CondaPkg/" \

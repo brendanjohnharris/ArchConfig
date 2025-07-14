@@ -36,8 +36,8 @@ if [ "$ACTUAL_LABEL" = "$LABEL" ]; then
         --stats-file-name-length=0 \
         --fast-list \
         --onedrive-delta \
-        --checkers=16 \
-        --transfers=16 \
+        --checkers=4 \
+        --transfers=4 \
         onedrive: "$SRC" \
         --exclude="Uncategorized/" \
         --exclude="/**/.CondaPkg/" \
