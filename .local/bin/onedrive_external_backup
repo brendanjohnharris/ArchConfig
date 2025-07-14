@@ -28,7 +28,7 @@ if [ "$ACTUAL_LABEL" = "$LABEL" ]; then
     sudo btrfs subvolume snapshot -r "${SRC}" "${DEST}"
 
     echo -e "\e[1;34mCloning OneDrive to $SRC \e[0m"
-    sudo rclone \
+    rclone \
         --config="/home/brendan/.config/rclone/rclone.conf" \
         sync \
         -L \
