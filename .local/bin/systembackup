@@ -98,7 +98,7 @@ if [ -d "$HOME/OneDrive/" ]; then
 		--exclude="/**/.git/" \
 		--exclude="/**/.conda/" \
 		--exclude="/**/.npm/" \
-		--exclude="/**/node_modules/" -vv
+		--exclude="/**/node_modules/"
 fi
 
 # * If the onedrive backup drive is mounted, sync it
