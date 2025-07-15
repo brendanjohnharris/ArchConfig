@@ -89,8 +89,8 @@ if [ -d "$HOME/OneDrive/" ]; then
 		--progress \
 		--stats-file-name-length=0 \
 		--fast-list \
-		--checkers=4 \
-		--transfers=4 \
+		--checkers=32 \
+		--transfers=32 \
 		--buffer-size 512M \
 		"$SRC" onedrive:desktop_clone/OneDrive/ \
 		--exclude="/**/.CondaPkg/" \

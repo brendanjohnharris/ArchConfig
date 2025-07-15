@@ -28,7 +28,7 @@ if [ "$ACTUAL_LABEL" = "$LABEL" ]; then
     sudo btrfs subvolume snapshot -r "${SRC}" "${DEST}"
 
     echo -e "\e[1;34mCloning OneDrive to $SRC \e[0m"
-    rclone \
+    sudo rclone \
         --config="/home/brendan/.config/rclone/rclone.conf" \
         sync \
         -L \
@@ -36,8 +36,8 @@ if [ "$ACTUAL_LABEL" = "$LABEL" ]; then
         --stats-file-name-length=0 \
         --fast-list \
         --onedrive-delta \
-        --checkers=4 \
-        --transfers=4 \
+        --checkers=32 \
+        --transfers=32 \
         onedrive: "$SRC" \
         --exclude="Uncategorized/" \
         --exclude="/**/.CondaPkg/" \
