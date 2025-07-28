@@ -1,5 +1,11 @@
 #! /bin/bash
 
+# * Sudo keep-alive
+sudo -v
+while true; do sudo -n true; sleep 600; done 2>/dev/null &
+SUDO_PID=$!
+trap "kill $SUDO_PID" EXIT
+
 # * Add an empty commit to WakaWaka to refresh the 60 day timeout
 OWNER="brendanjohnharris"
 REPO="WakaWaka"
