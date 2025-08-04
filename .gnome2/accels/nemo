@@ -19,6 +19,7 @@
 ; (gtk_accel_path "<Actions>/ShellActions/Add Bookmark" "<Primary>d")
 ; (gtk_accel_path "<Actions>/ShellActions/Preferences" "")
 ; (gtk_accel_path "<Actions>/ClipboardActions/Copy" "<Primary>c")
+; (gtk_accel_path "<Actions>/ActionsGroup/action_1154_file:\\s\\s\\susr\\sshare\\snemo\\sactions\\sset-as-background.nemo_action" "")
 ; (gtk_accel_path "<Actions>/IconViewActions/Reversed Order" "")
 ; (gtk_accel_path "<Actions>/ShellActions/TabsPrevious" "<Primary>Page_Up")
 ; (gtk_accel_path "<Actions>/DirViewActions/OpenAccel" "<Alt>Down")
