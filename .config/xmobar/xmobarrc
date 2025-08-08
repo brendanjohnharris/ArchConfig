@@ -24,22 +24,24 @@ Config { font            = "xft:Ubuntu-bold-15"
        , persistent   = True
        , iconRoot     = ".xmonad/xpm/"  -- default: "."
        , commands = [
-                        -- Echos a "penguin" icon in front of the kernel output.battery
+                        -- Echos a "penguin" icon in front of the kernel output
                       Run Com "echo" ["<fn=3>\xf17c</fn>"] "penguin" 36000
                         -- Get kernel version (script found in .local/bin)
                     , Run Com ".local/bin/kernel" [] "kernel" 36000
                         -- Cpu usage in percent
                     , Run Cpu ["-t", "<fn=2>\xf2db</fn>  <total>%","-H","50","--high","red"] 20
+                        -- Echos a "ram" icon in front of the ram output
+                    , Run Com "echo" ["<fn=1>\xf538</fn>"] "ram" 36000
                         -- Ram used number and percent
-                    , Run Memory ["-t", "<fn=2>\xf538</fn>  <used>M (<usedratio>%)"] 20
+                    , Run Memory ["-t", " <used>M (<usedratio>%)"] 20
                         -- Disk space free
                     , Run DiskU [("/", "<fn=2>\xf0c7</fn>  <free> free")] [] 60
                         -- Echos an "up arrow" icon in front of the uptime output.
                     , Run Com "echo" ["<fn=2>\xf0aa</fn>"] "uparrow" 36000
                         -- Uptime
                     , Run Uptime ["-t", "<days>d <hours>h <minutes>m"] 600
-                        -- Echos a "bell" icon in front of the pacman updates.
-                    , Run Com "echo" ["<fn=2>\xf49e</fn>"] "bell" 36000
+                        -- Echos a "box" icon in front of the pacman updates.
+                    , Run Com "echo" ["<fn=2>\xf1b2</fn>"] "bell" 36000
                         -- Echos an "expansion card" icon in front of the gpu pct.
                     , Run Com "echo" ["<fn=4>󰢮</fn>"] "expansioncard" 36000
                         -- Check for pacman updates (script found in .local/bin)
@@ -62,5 +64,5 @@ Config { font            = "xft:Ubuntu-bold-15"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <action=`xmonad --recompile && xmonad --restart`><icon=haskell_20.xpm/></action>   <fc=#666666>|</fc> %UnsafeStdinReader% }{ <box type=Bottom width=2 mb=2 color=#51afef><fc=#51afef>%penguin%  <action=`alacritty`>%kernel%</action> </fc></box>    <box type=Bottom width=2 mb=2 color=#ecbe7b><fc=#ecbe7b><action=`alacritty -e htop -s PERCENT_CPU`>%cpu%</action></fc></box>   <box type=Bottom width=2 mb=2 color=#5699af><fc=#5699af>%expansioncard% <action=`alacritty -e nvtop`>%gpu%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#ff6c6b><fc=#ff6c6b><action=`alacritty -e htop -s PERCENT_MEM`>%memory%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#a9a1e1><fc=#a9a1e1><action=`alacritty --hold -e dust`>%disku%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#98be65><fc=#98be65>%uparrow%  <action=`alacritty -e htop`>%uptime%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#c678dd><fc=#c678dd>%bell%  <action=`alacritty -e ~/.local/bin/sysupgrade`>%pacupdate%</action></fc></box>   <box type=Bottom width=2 mb=2 color=#da8548><fc=#da8548> %baticon% <action=`alacritty -e ~/.local/bin/togglebatteryprotect`> %battery% %batteryprotect% </action></fc></box>    <box type=Bottom width=2 mb=2 color=#46d9ff><fc=#46d9ff><action=`gtk-launch outlook`>%date%</action></fc></box>  %trayerpad%"
+       , template = " <action=`xmonad --recompile && xmonad --restart`><icon=haskell_20.xpm/></action>   <fc=#666666>|</fc> %UnsafeStdinReader% }{ <box type=Bottom width=2 mb=2 color=#51afef><fc=#51afef>%penguin%  <action=`alacritty`>%kernel%</action> </fc></box>    <box type=Bottom width=2 mb=2 color=#ecbe7b><fc=#ecbe7b><action=`alacritty -e htop -s PERCENT_CPU`>%cpu%</action></fc></box>   <box type=Bottom width=2 mb=2 color=#5699af><fc=#5699af>%expansioncard% <action=`alacritty -e nvtop`>%gpu%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#ff6c6b><fc=#ff6c6b>%ram%<action=`alacritty -e htop -s PERCENT_MEM`>%memory%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#a9a1e1><fc=#a9a1e1><action=`alacritty --hold -e dust`>%disku%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#98be65><fc=#98be65>%uparrow%  <action=`alacritty -e htop`>%uptime%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#c678dd><fc=#c678dd>%bell%  <action=`alacritty -e ~/.local/bin/sysupgrade`>%pacupdate%</action></fc></box>   <box type=Bottom width=2 mb=2 color=#da8548><fc=#da8548> %baticon% <action=`alacritty -e ~/.local/bin/togglebatteryprotect`> %battery% %batteryprotect% </action></fc></box>    <box type=Bottom width=2 mb=2 color=#46d9ff><fc=#46d9ff><action=`gtk-launch outlook`>%date%</action></fc></box>  %trayerpad%"
        }
