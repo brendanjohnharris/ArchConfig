@@ -425,6 +425,7 @@ myManageHook = composeAll
      , className =? "splash"          --> doFloat
      , className =? "toolbar"         --> doFloat
      , className =? "GLWindow"           --> doFloat
+     , className =? "ksnip"             --> doCenterFloat
      , className =? "Yad"             --> doCenterFloat
      , title =? "CairoMakie"          --> doFloat
      , title =? "languid"             --> doRectFloat (W.RationalRect (1 % 6) (1 % 6) (2 % 3) (2 % 3))
@@ -478,8 +479,8 @@ singleKeys =
         , ("M-S-<Return>", spawn (myTerminal))
         , ("M-b", spawn (myBrowser)) -- , ("M-b", spawn (myBrowser) >> moveTo Prev (WSIs $ return (('w' `elem`) . W.tag)))
         , ("M-S-f", spawn "nemo --name=files --class=files")
-        , ("M-<Print>", spawn "flameshot gui")
-        , ("M-S-<Print>", spawn "TMPFILE=/tmp/$RANDOM.png; flameshot gui -p $TMPFILE; pix2tex $TMPFILE | xclip; notify-send 'Copied LaTeX to clipboard'")
+        , ("M-<Print>", spawn "ksnip --rectarea")
+        , ("M-S-<Print>", spawn "TMPFILE=/tmp/$RANDOM.png; ksnip --rectarea -p $TMPFILE; pix2tex $TMPFILE | xclip; notify-send 'Copied LaTeX to clipboard'")
         , ("M-S-l", spawn "$HOME/.config/Languid/languid.sh")
         , ("M-d", spawn "downloadbibinfo")
         , ("M-S-d", spawn "downloadpaper")
