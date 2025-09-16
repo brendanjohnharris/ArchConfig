@@ -2,6 +2,7 @@
 ; this file is an automated accelerator map dump
 ;
 ; (gtk_accel_path "<Actions>/ShellActions/Toolbar Always Show Pathbar" "")
+; (gtk_accel_path "<Actions>/ActionsGroup/action_6235_file:\\s\\s\\susr\\sshare\\snemo\\sactions\\sset-as-background.nemo_action" "")
 ; (gtk_accel_path "<Actions>/ShellActions/New Window" "<Primary>n")
 ; (gtk_accel_path "<Actions>/ShellActions/Sidebar List" "")
 ; (gtk_accel_path "<Actions>/ShellActions/File" "")
@@ -31,6 +32,7 @@
 ; (gtk_accel_path "<Actions>/DirViewActions/Location Eject Volume" "")
 ; (gtk_accel_path "<Actions>/DirViewActions/Stop Volume" "")
 ; (gtk_accel_path "<Actions>/DirViewActions/LocationRestoreFromTrash" "")
+; (gtk_accel_path "<Actions>/NemoPlacesSidebarActionActions/action_5814_file:\\s\\s\\susr\\sshare\\snemo\\sactions\\sset-as-background.nemo_action" "")
 ; (gtk_accel_path "<Actions>/ShellActions/Tab9" "<Alt>0")
 ; (gtk_accel_path "<Actions>/DirViewActions/Location Unmount Volume" "")
 ; (gtk_accel_path "<Actions>/DirViewActions/OpenAsRoot" "")
@@ -70,7 +72,6 @@
 ; (gtk_accel_path "<Actions>/DirViewActions/Move to Desktop" "")
 ; (gtk_accel_path "<Actions>/NemoPlacesSidebarBookmarkActions/Stop Volume" "")
 ; (gtk_accel_path "<Actions>/DirViewActions/Reset to Defaults" "")
-; (gtk_accel_path "<Actions>/ActionsGroup/action_8752_file:\\s\\s\\susr\\sshare\\snemo\\sactions\\sset-as-background.nemo_action" "")
 ; (gtk_accel_path "<Actions>/NemoPlacesSidebarBookmarkActions/Mount Volume" "")
 ; (gtk_accel_path "<Actions>/DirViewActions/LocationOpenInNewTab" "")
 ; (gtk_accel_path "<Actions>/ShellActions/Tab4" "<Alt>5")
@@ -81,7 +82,6 @@
 ; (gtk_accel_path "<Actions>/NemoPlacesSidebarBookmarkActions/Empty Trash Conditional" "")
 ; (gtk_accel_path "<Actions>/ShellActions/Tab3" "<Alt>4")
 ; (gtk_accel_path "<Actions>/ShellActions/About Nemo" "")
-; (gtk_accel_path "<Actions>/NemoPlacesSidebarActionActions/action_4526_file:\\s\\s\\susr\\sshare\\snemo\\sactions\\sset-as-background.nemo_action" "")
 ; (gtk_accel_path "<Actions>/DirViewActions/Open" "<Primary>o")
 ; (gtk_accel_path "<Actions>/ShellActions/TabsMoveRight" "<Primary><Shift>Page_Down")
 ; (gtk_accel_path "<Actions>/ShellActions/IconView" "<Primary>1")
