@@ -51,7 +51,7 @@ mkfs.ext4 /dev/sda3 # root
 mount /dev/sda3 /mnt
 
 # * ... the EFI volume...
-mkdir -p /mnt/boot/efi
+mkdir -p /mnt/efi
 # mount /dev/sda1 /mnt/boot # Replaced below?
 
 # * ...and turn on the swap
@@ -103,10 +103,10 @@ arch-chroot /mnt /bin/bash
 # ? BIOS only
 pacman -S grub
 grub-install --target=i386-pc /dev/sda
-# ? EFI: careful here. /boot/efi should already be made
+# ? EFI: careful here. /efi should already be made
 pacman -S grub efibootmgr
-mount /dev/sda1 /boot/efi
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+mount /dev/sda1 /efi
+grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
 
 # * Make grub config
 grub-mkconfig -o /boot/grub/grub.cfg
