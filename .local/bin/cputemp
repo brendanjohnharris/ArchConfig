@@ -1,3 +1,19 @@
 #! /bin/bash
 
-sensors | awk '/^Core /{++r; gsub(/[^[:digit:]]+/, "", $3); s+=$3} END{print int(s/(10*r)  + 0.5) "°C"}'
+sensors | awk 'BEGIN{IGNORECASE=1} /core|package|tdie|tctl|cpu/ && /°C/{
+  if (match($0, /[+-]?[0-9]+(\.[0-9]+)?°C/)) {
+    temp = substr($0, RSTART, RLENGTH)
+    gsub(/[+°C]/, "", temp)
+    if (temp ~ /\./) {
+      split(temp, a, ".")
+      num = a[1]*10 + a[2]
+    } else {
+      num = temp*10
+    }
+    s += num
+    r++
+  }
+} END {
+  if (r>0) printf "%d°C\n", int(s/(10*r) + 0.5)
+  else print "N/A"
+}'

@@ -7,7 +7,7 @@ config() {
 chmod u+x $HOME/.xmonad/xmonad_keys.sh
 
 # * Set qt theme
-export QT_QPA_PLATFORMTHEME=qt5ct # Then select kvantum
+export QT_QPA_PLATFORMTHEME=qt6ct # Then select kvantum
 export QT_QPA_PLATFORM=xcb
 export XDG_SESSION_TYPE=x11
 export GDK_BACKEND=x11
@@ -28,9 +28,6 @@ export READER=okular
 export JABREF_OPTIONS="-Dglass.gtk.uiScale=144dpi -Djdk.gtk.version=2"
 export CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1
 export DISPLAY=:0.0
-
-# Tell julia to use discrete GPU
-export DRI_PRIME=1
 
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 

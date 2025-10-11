@@ -486,7 +486,7 @@ mods = "Control"
 history = 100000
 
 [terminal.shell]
-args = ["-c", "(neofetch --disable gpu); exec fish"]
+args = ["-c", "(fastfetch); exec fish"]
 program = "/bin/bash"
 
 [window]

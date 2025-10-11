@@ -96,40 +96,23 @@ ${color2}${goto 12}${membar 8,264}${color}
 ${goto 12}${voffset 5}${color1}${top_mem name 1}$alignr$color${top_mem mem_res 1}
 ${goto 12}${color1}${top_mem name 2}$alignr$color${top_mem mem_res 2}
 ${goto 12}${color1}${top_mem name 3}$alignr$color${top_mem mem_res 3}
-${voffset 14}${goto 12}${color3}GPU${goto 50}${exec $HOME/.local/bin/gpupct}: ${exec $HOME/.local/bin/gputemp}
-${color2}${goto 12}${execbar $HOME/.local/bin/gpupct}${color}
 ${color1}${hr}${color}
 ${cpugraph cpu0 80,264 282c34 c678dd}
 ${color1}${hr}${color}
 ${color1}[S]+[SHIFT]+/${alignr}${color2}view shortcuts${color}
-${color1}[S]+[SHIFT]+[RET]${alignr}${color2}open terminal${color}
-${color1}[S]+b${alignr}${color2}open browser${color}
-${color1}[S]+[SHIFT]+f${alignr}${color2}open file browser${color}
 ${color1}[S]+m jk${alignr}${color2}next/prev track${color}
 ${color1}[S]+m [SPACE]${alignr}${color2}toggle play/pause${color}
 ${color1}[S]+s+bcefmnp[RET]${alignr}${color2}toggle scratch${color}
 ${color1}[S]+[PRTSC]${alignr}${color2}take screenshot${color}
-${color1}[S]+{SHIFT]+l${alignr}${color2}language tool${color}
-${color1}[S]+[RET]${alignr}${color2}run prompt${color}
-${color1}[S]+n${alignr}${color2}close alert${color}
 ${color1}[S]+[SHIFT]+n${alignr}${color2}close all alerts${color}
 ${color1}[S]+[ALT]+n${alignr}${color2}reopen alert${color}
 ${color1}[S]+c/x/v 1-9${alignr}${color2}multi-clipboard${color}
 ${color1}${hr}${color}
-${color1}[S]+[SHIFT]+c${alignr}${color2}close window${color}
 ${color1}[S]+[SHIFT]+a${alignr}${color2}close all windows${color}
 ${color1}[S]+hjkl${alignr}${color2}move win. focus${color}
-${color1}[S]+[1-9]${alignr}${color2}switch workspace${color}
-${color1}[S]+←→${alignr}${color2}cycle workspace${color}
-${color1}[S]+[SHIFT]+[1-9]${alignr}${color2}send window${color}
-${color1}[S]+[SHIFT]+←→${alignr}${color2}cycle send window${color}
 ${color1}[S]+h/l${alignr}${color2}adjust size horz.${color}
 ${color1}[S]+[ALT]+h/l${alignr}${color2}adjust size vert.${color}
 ${color1}[C]+[ALT]+hjkl${alignr}${color2}adjust spacing${color}
-${color1}[S]+[SHIFT]+t${alignr}${color2}transparency on${color}
-${color1}[S]+[SHIFT]+o${alignr}${color2}transparency off${color}
-${color1}[S]+[SHIFT]+b${alignr}${color2}change background${color}
-${color1}[S]+[SHIFT]+r${alignr}${color2}restart xmonad${color}
 ${color1}[S]+[SHIFT]+q${alignr}${color2}quit xmonad${color}
 ${color1}[C]+[ALT]+[BKSP]${alignr}${color2}quit X${color}
 ]];
