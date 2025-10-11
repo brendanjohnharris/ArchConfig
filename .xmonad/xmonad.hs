@@ -608,10 +608,10 @@ singleKeys =
         , ("<XF86AudioPlay>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Play")
         , ("<XF86AudioPrev>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous")
         , ("<XF86AudioNext>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next")
-        , ("<XF86AudioMute>", spawn "amixer set Master toggle")
-        , ("<XF86AudioMicMute>", spawn "amixer set Capture toggle")
-        , ("<XF86AudioLowerVolume>", spawn "amixer -M set Master 2%- unmute")
-        , ("<XF86AudioRaiseVolume>", spawn "amixer -M set Master 2%+ unmute")
+        , ("<XF86AudioMute>", spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+        , ("<XF86AudioMicMute>", spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle")
+        , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ -2%")
+        , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ +2%")
         , ("<XF86HomePage>", spawn "firefox -P default-release https://www.google.com/")
         , ("<XF86Search>", spawn "qutebrowser")
         , ("<XF86Mail>", runOrRaise "evolution" (resource =? "evolution"))
@@ -621,8 +621,8 @@ singleKeys =
 
 
     -- Function keys
-        , ("<XF86MonBrightnessDown>", spawn "xbacklight -ctrl intel_backlight -dec 10 & xbacklight -ctrl nvidia_0 -dec 10") -- Backlight down for intel integrated graphics
-        , ("<XF86MonBrightnessUp>", spawn "xbacklight -ctrl intel_backlight -inc 10 & xbacklight -ctrl nvidia_0 -inc 10") -- Backlight up for intel integrated graphics
+        , ("<XF86MonBrightnessDown>", spawn "xbacklight -ctrl amdgpu_bl1 -dec 10") -- Backlight down for AMD graphics
+        , ("<XF86MonBrightnessUp>", spawn "xbacklight -ctrl amdgpu_bl1 -inc 10") -- Backlight up for AMD graphics
         ]
     -- The following lines are needed for named scratchpads.
           where nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
