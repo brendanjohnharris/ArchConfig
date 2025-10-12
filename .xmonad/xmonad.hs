@@ -143,22 +143,22 @@ myShowWNameTheme = def
 myStartupHook :: X ()
 myStartupHook = do
     spawn "/usr/bin/prime-offload"
-    spawn "killall conky"   -- kill current conky on each restart
+    -- spawn "killall conky"   -- kill current conky on each restart
     -- spawn "killall trayer"  -- kill current trayer on each restart
 
     spawnOnce "lxsession"
-    spawnOnce "picom"
+    -- spawnOnce "picom"
     spawnOnce "dunst"
 
     setWMName "LG3D"
     setDefaultCursor xC_left_ptr
 
     spawn ("trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor primary --transparent true --alpha 0 " ++ colorTrayer ++ " --height 30 --distance 1") -- Effective height is height + 2*distance
-    spawn ("conky -c $HOME/.config/.conkyrc")
+    -- spawn ("conky -c $HOME/.config/.conkyrc")
 
     spawnOnce "nm-applet"
-    spawnOnce "blueman-applet"
-    spawnOnce "volumeicon"
+    -- spawnOnce "blueman-applet"
+    spawnOnce "retrovol"
     spawnOnce "xsettingsd"
 
     -- spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
@@ -171,9 +171,10 @@ myStartupHook = do
     spawnOnce "export SSH_AUTH_SOCK"
 
     spawnOnce "xset r rate 300 50"
+    xinput --set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Speed" -0.25
     spawnOnce "xrandr --output 'eDP-1' --primary"
 
-    spawnOnce "watch -n 600 'feh --recursive --randomize --bg-fill $HOME/.wallpapers/'"
+    spawnOnce "feh --bg-fill $HOME/.wallpapers/trees.webp"
 
     -- Spawn workspace-specific apps
     -- spawnOn "mail" "evolution"
