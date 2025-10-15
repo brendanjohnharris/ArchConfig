@@ -170,8 +170,8 @@ myStartupHook = do
     spawnOnce "eval $(gnome-keyring-daemon --start)"
     spawnOnce "export SSH_AUTH_SOCK"
 
-    spawnOnce "xset r rate 300 50"
-    xinput --set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Speed" -0.25
+    spawnOnce "xset r rate 200 50"
+    spawnOnce "xinput --set-prop 'TPPS/2 Elan TrackPoint' 'libinput Accel Speed' -0.5"
     spawnOnce "xrandr --output 'eDP-1' --primary"
 
     spawnOnce "feh --bg-fill $HOME/.wallpapers/trees.webp"

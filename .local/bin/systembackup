@@ -36,47 +36,47 @@ if [ ! -d "/home/brendan/OneDrive/systembackup/" ]; then
 	sudo -E borg init --encryption=repokey /home/brendan/OneDrive/systembackup/
 fi
 
-# Create a new backup
-sudo -E borg create --progress --filter AME --stats --show-rc --compression zstd,9 --exclude-caches \
-	--exclude '/bin/*' \
-	--exclude '/var/*' \
-	--exclude '/boot/*' \
-	--exclude '/dev/*' \
-	--exclude '/home/*' \
-	--exclude '/lib/*' \
-	--exclude '/lib32/*' \
-	--exclude '/lib64/*' \
-	--exclude '/media/*' \
-	--exclude '/mnt/*' \
-	--exclude '/proc/*' \
-	--exclude '/run/*' \
-	--exclude '/sbin/*' \
-	--exclude '/srv/*' \
-	--exclude '/sys/*' \
-	--exclude '/tmp/*' \
-	--exclude '/usr/bin/*' \
-	--exclude '/usr/local/*' \
-	--exclude '/usr/include/*' \
-	--exclude '/usr/lib/*' \
-	--exclude '/usr/lib32/*' \
-	--exclude '/usr/libexec/*' \
-	--exclude '/usr/sbin/*' \
-	--exclude '/usr/share/*' \
-	--exclude '/usr/src/*' \
-	--exclude '/opt/anaconda/*' \
-	--exclude '/Chambertin/*' \
-	--exclude '/etc/backup/*' \
-	--exclude '/home/brendan/OneDrive/systembackup/*' \
-	/home/brendan/OneDrive/systembackup/::'{hostname}-{now:%Y-%m-%d-%H%M%S}' /
+# # Create a new backup
+# sudo -E borg create --progress --filter AME --stats --show-rc --compression zstd,9 --exclude-caches \
+# 	--exclude '/bin/*' \
+# 	--exclude '/var/*' \
+# 	--exclude '/boot/*' \
+# 	--exclude '/dev/*' \
+# 	--exclude '/home/*' \
+# 	--exclude '/lib/*' \
+# 	--exclude '/lib32/*' \
+# 	--exclude '/lib64/*' \
+# 	--exclude '/media/*' \
+# 	--exclude '/mnt/*' \
+# 	--exclude '/proc/*' \
+# 	--exclude '/run/*' \
+# 	--exclude '/sbin/*' \
+# 	--exclude '/srv/*' \
+# 	--exclude '/sys/*' \
+# 	--exclude '/tmp/*' \
+# 	--exclude '/usr/bin/*' \
+# 	--exclude '/usr/local/*' \
+# 	--exclude '/usr/include/*' \
+# 	--exclude '/usr/lib/*' \
+# 	--exclude '/usr/lib32/*' \
+# 	--exclude '/usr/libexec/*' \
+# 	--exclude '/usr/sbin/*' \
+# 	--exclude '/usr/share/*' \
+# 	--exclude '/usr/src/*' \
+# 	--exclude '/opt/anaconda/*' \
+# 	--exclude '/Chambertin/*' \
+# 	--exclude '/etc/backup/*' \
+# 	--exclude '/home/brendan/OneDrive/systembackup/*' \
+# 	/home/brendan/OneDrive/systembackup/::'{hostname}-{now:%Y-%m-%d-%H%M%S}' /
 
-# Prune old backups
-sudo -E borg prune -v --list /home/brendan/OneDrive/systembackup/ --keep-daily=7 --keep-weekly=4 --keep-monthly=6
+# # Prune old backups
+# sudo -E borg prune -v --list /home/brendan/OneDrive/systembackup/ --keep-daily=7 --keep-weekly=4 --keep-monthly=6
 
 # * Backup dotfiles
 echo -e "\e[1;37mBacking up dotfiles to github \e[0m"
 git --git-dir="$HOME/ArchConfig/" --work-tree="$HOME" add -u $HOME/
 git --git-dir="$HOME/ArchConfig/" --work-tree="$HOME" commit -m "System backup"
-git --git-dir="$HOME/ArchConfig/" --work-tree="$HOME" push origin main
+git --git-dir="$HOME/ArchConfig/" --work-tree="$HOME" push origin t14s
 
 # * Backup bibliography
 echo -e "\e[1;33mBacking up bibliography to github \e[0m"
@@ -84,28 +84,28 @@ git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/
 git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" commit -m "Bib backup"
 git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" push origin main
 
-# * Sync with onedrive. Initial diff calculation takes about 30 mins
-if [ -d "$HOME/OneDrive/" ]; then
-	SRC="$HOME/OneDrive/"
-	echo -e "\e[1;36mCloning $SRC to OneDrive \e[0m"
-	sudo rclone \
-		--config="/home/brendan/.config/rclone/rclone.conf" \
-		sync \
-		-L \
-		--progress \
-		--stats-file-name-length=0 \
-		--fast-list \
-		--checkers=32 \
-		--transfers=32 \
-		--buffer-size 512M \
-		"$SRC" onedrive:desktop_clone/OneDrive/ \
-		--exclude="/**/.CondaPkg/" \
-		--exclude="/**/aux/" \
-		--exclude="/**/.git/" \
-		--exclude="/**/.conda/" \
-		--exclude="/**/.npm/" \
-		--exclude="/**/node_modules/"
-fi
+# # * Sync with onedrive. Initial diff calculation takes about 30 mins
+# if [ -d "$HOME/OneDrive/" ]; then
+# 	SRC="$HOME/OneDrive/"
+# 	echo -e "\e[1;36mCloning $SRC to OneDrive \e[0m"
+# 	sudo rclone \
+# 		--config="/home/brendan/.config/rclone/rclone.conf" \
+# 		sync \
+# 		-L \
+# 		--progress \
+# 		--stats-file-name-length=0 \
+# 		--fast-list \
+# 		--checkers=32 \
+# 		--transfers=32 \
+# 		--buffer-size 512M \
+# 		"$SRC" onedrive:desktop_clone/OneDrive/ \
+# 		--exclude="/**/.CondaPkg/" \
+# 		--exclude="/**/aux/" \
+# 		--exclude="/**/.git/" \
+# 		--exclude="/**/.conda/" \
+# 		--exclude="/**/.npm/" \
+# 		--exclude="/**/node_modules/"
+# fi
 
-# * If the onedrive backup drive is mounted, sync it
-onedrive_external_backup
+# # * If the onedrive backup drive is mounted, sync it
+# onedrive_external_backup
