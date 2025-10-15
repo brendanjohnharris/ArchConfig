@@ -80,9 +80,9 @@ git --git-dir="$HOME/ArchConfig/" --work-tree="$HOME" push origin t14s
 
 # * Backup bibliography
 echo -e "\e[1;33mBacking up bibliography to github \e[0m"
-git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" add .
-git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" commit -m "Bib backup"
-git --git-dir="$HOME/OneDrive/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" push origin main
+git --git-dir="$HOME/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" add .
+git --git-dir="$HOME/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" commit -m "Bib backup"
+git --git-dir="$HOME/Notebook/Papers/.git" --work-tree="$HOME/OneDrive/Notebook/Papers/" push origin main
 
 # # * Sync with onedrive. Initial diff calculation takes about 30 mins
 # if [ -d "$HOME/OneDrive/" ]; then
