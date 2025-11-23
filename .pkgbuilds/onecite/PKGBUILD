@@ -1,0 +1,33 @@
+# Maintainer: Your Name <your.email@example.com>
+pkgname=python-onecite
+pkgver=0.0.11
+pkgrel=1
+pkgdesc="A Python tool for citation management and bibliography generation"
+arch=('any')
+url="https://pypi.org/project/onecite/"
+license=('unknown')
+depends=(
+    'python'
+    'python-requests'
+    'python-beautifulsoup4'
+    'python-lxml'
+    'python-bibtexparser'
+    'python-yaml'
+    'python-thefuzz'
+    'python-levenshtein'
+    'python-scholarly'
+    'python-pypdf2'
+    'python-httpx'
+    'python-deprecated'
+    'python-mcp'
+)
+makedepends=(
+    'python-installer'
+)
+# Note: PyPI only provides a wheel for this package, not a source tarball
+source=("https://files.pythonhosted.org/packages/py3/o/onecite/onecite-${pkgver}-py3-none-any.whl")
+sha256sums=('fa1ecd605676903ededa11b0d0dac8528c24c7d55e746ff77c8774b5c070d1f9')
+
+package() {
+    python -m installer --destdir="$pkgdir" "${srcdir}/onecite-${pkgver}-py3-none-any.whl"
+}

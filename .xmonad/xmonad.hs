@@ -429,6 +429,7 @@ myManageHook = composeAll
      , className =? "ksnip"             --> doCenterFloat
      , className =? "Yad"             --> doCenterFloat
      , title =? "CairoMakie"          --> doFloat
+     , title =? "'downloadbibinfo'"     --> doCenterFloat
      , title =? "languid"             --> doRectFloat (W.RationalRect (1 % 6) (1 % 6) (2 % 3) (2 % 3))
      , title =? "Oracle VM VirtualBox Manager"  --> doFloat
     --  , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 2 )
