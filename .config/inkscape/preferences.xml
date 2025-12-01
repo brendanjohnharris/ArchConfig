@@ -650,7 +650,7 @@
        defaultopts="0">
       <group
          id="exportarea"
-         value="page" />
+         value="drawing" />
       <group
          id="defaultxdpi"
          value="400" />
@@ -663,7 +663,7 @@
     </group>
     <group
        id="save_as"
-       default="org.inkscape.output.svg.inkscape"
+       default="org.inkscape.output.pdf.cairorenderer"
        append_extension="1"
        enable_preview="1"
        path="/run/user/1000/gvfs/sftp:host=gateway/import/taiji1/bhar9988/Figures"
