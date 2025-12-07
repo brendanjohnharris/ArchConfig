@@ -183,7 +183,7 @@ main() {
     fi
 
     # Trim whitespace
-    input=$(echo "$input" | xargs)
+    input=$(echo "$input" | xargs -0)
 
     # Detect input type
     local input_type
