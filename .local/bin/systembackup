@@ -98,7 +98,7 @@ if [ -d "$HOME/" ]; then
 		--checkers=32 \
 		--transfers=32 \
 		--buffer-size 512M \
-		"$SRC" onedrive:laptop_clone/home/ \
+		"$SRC" onedrive:laptop_clone/home/brendan/ \
 		--exclude="/**/.CondaPkg/" \
 		--exclude="/**/aux/" \
 		--exclude="/**/.git/" \
