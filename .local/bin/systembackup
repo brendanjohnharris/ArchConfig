@@ -105,6 +105,8 @@ if [ -d "$HOME/" ]; then
 		--exclude="/**/.conda/" \
 		--exclude="/**/.npm/" \
 		--exclude="/**/node_modules/" \
+		--exclude="/Downloads/" \
+		--exclude="/ArchConfig/" \
         --exclude="/.*/"
 fi
 
