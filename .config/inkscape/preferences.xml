@@ -661,16 +661,16 @@
          value="layer" />
       <group
          id="defaultdpi"
-         value="300" />
+         value="400" />
     </group>
     <group
        id="save_as"
-       default="org.inkscape.output.pdf.cairorenderer"
+       default="org.inkscape.output.svg.inkscape"
        append_extension="1"
        enable_preview="1"
        path="/run/user/1000/gvfs/sftp:host=gateway/import/taiji1/bhar9988/Figures"
        use_current_dir="1"
-       enable_svgexport="1" />
+       enable_svgexport="0" />
     <group
        id="save_copy"
        default="org.inkscape.output.pdf.cairorenderer"
@@ -1143,7 +1143,7 @@
      org.inkscape.input.gdkpixbuf.png.scale="auto" />
   <group
      id="desktop"
-     style="fill:#7a4493;-inkscape-font-specification:'Arial, Bold';font-family:Arial;font-size:59.42750168px;stroke-width:1.7;stroke-linecap:square;stroke:#282c34;stroke-opacity:0.00000804;text-orientation:auto;font-weight:bold">
+     style="fill:#050505;-inkscape-font-specification:'Arial, Bold';font-family:Arial;font-size:59.42750168px;stroke-width:1.7;stroke-linecap:square;stroke:#282c34;stroke-opacity:0.00000804;text-orientation:auto;font-weight:bold">
     <group
        width="640"
        height="480"
