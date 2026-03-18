@@ -80,7 +80,7 @@ allowUpscale = false
 
 # Animation duration in ms
 # Set = 0 to switch off animations
-animationDuration = 200
+animationDuration = 0
 
 # Animation refresh rate in fps
 animationRefresh = 60
@@ -92,7 +92,7 @@ animationRefresh = 60
 #   background = #00000055
 # For transparent background:
 #   background = None
-background = #00000055
+background = None
 
 # During paging, do not apply background to individual desktops
 preservePages = true
@@ -105,22 +105,22 @@ cornerRadius = 0
 
 # Windows that were never shown before
 [filler]
-opacity = 160
+opacity = 255 # 160
 color = #333333
 iconPlace = top left
-iconSize = 48
+iconSize = 32
 
 # Live window previews
 [livepreview]
 opacity = 255
 icon = true
 iconPlace = top left
-iconSize = 48
+iconSize = 32
 
 # Currently highlighted window
 [highlight]
 tint = #FFFFFF
-tintOpacity = 128
+tintOpacity = 50
 
 # Highlighted in multi-select mode
 [multiselect]

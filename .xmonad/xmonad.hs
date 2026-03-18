@@ -176,6 +176,8 @@ myStartupHook = do
 
     spawnOnce "feh --bg-fill $HOME/.wallpapers/trees.webp"
 
+    spawn "killall skippy-xd; skippy-xd --start-daemon &"
+
     -- Spawn workspace-specific apps
     -- spawnOn "mail" "evolution"
 
@@ -231,6 +233,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "peek" spawnPeek findPeek managePeek
                 , NS "files" spawnFiles findFiles manageFiles
                 , NS "reader" spawnReader findReader manageReader
+                , NS "ai" spawnAI findAI manageAI
                 ]
   where
     spawnTerm  = myTerminal ++ " -t scratchpad"
@@ -268,6 +271,14 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
     spawnBrowser  = "firefox -P scratchpad --class browserscratchpad --no-remote --new-window"
     findBrowser   = className =? "browserscratchpad"
     manageBrowser = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 -h
+                 l = 0.95 -w
+    spawnAI  = "chromium --app=https://claude.ai --profile-directory=AI"
+    findAI  = appName =? "claude.ai"
+    manageAI = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
                  w = 0.9
@@ -426,7 +437,7 @@ myManageHook = composeAll
      , className =? "splash"          --> doFloat
      , className =? "toolbar"         --> doFloat
      , className =? "GLWindow"           --> doFloat
-     , className =? "ksnip"             --> doCenterFloat
+    --  , className =? "ksnip"             --> doCenterFloat
      , className =? "Yad"             --> doCenterFloat
      , title =? "CairoMakie"          --> doFloat
      , title =? "'downloadbibinfo'"     --> doCenterFloat
@@ -480,9 +491,8 @@ singleKeys =
         , ("M-S-<Return>", spawn (myTerminal))
         , ("M-b", spawn (myBrowser)) -- , ("M-b", spawn (myBrowser) >> moveTo Prev (WSIs $ return (('w' `elem`) . W.tag)))
         , ("M-S-f", spawn "nemo --name=files --class=files")
-        , ("M-<Print>", spawn "ksnip --rectarea")
-        , ("M-S-<Print>", spawn "TMPFILE=/tmp/$RANDOM.png; ksnip --rectarea -p $TMPFILE; pix2tex $TMPFILE | xclip; notify-send 'Copied LaTeX to clipboard'")
-        , ("M-S-l", spawn "$HOME/.config/Languid/languid.sh")
+        , ("M-<Print>", spawn "flameshot gui")
+        , ("M-S-<Print>", spawn "TMPFILE=/tmp/$RANDOM.png; flameshot gui -p $TMPFILE; pix2tex $TMPFILE | xclip; notify-send 'Copied LaTeX to clipboard'")
         , ("M-d", spawn "downloadbibinfo")
         , ("M-S-d", spawn "downloadpaper")
 
@@ -499,6 +509,10 @@ singleKeys =
         , ("M-,", prevScreen)  -- Switch focus to prev monitor
         , ("M-S-<Left>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
         , ("M-S-<Right>", shiftTo Next nonNSP >> moveTo Next nonNSP) -- Shifts focused window to next ws
+
+    -- KB_GROUP Skippy-xd workspace switching
+        , ("M-w", spawn "skippy-xd --expose")  -- Page windows
+        , ("M-S-w", spawn "skippy-xd --paging")  -- Page windows
 
     -- KB_GROUP Floating windows
         , ("M-f", sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
@@ -580,6 +594,7 @@ singleKeys =
         , ("M-s p", namedScratchpadAction myScratchPads "peek")
         , ("M-s f", namedScratchpadAction myScratchPads "files")
         , ("M-s r", namedScratchpadAction myScratchPads "reader")
+        , ("M-s l", namedScratchpadAction myScratchPads "ai")
         -- Arbitrary scratchpad with XMonad.Util.WindowState?
 
     -- Dunst (notification) controls
