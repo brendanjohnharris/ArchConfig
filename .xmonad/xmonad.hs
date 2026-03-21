@@ -16,6 +16,7 @@ import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Actions.WithAll (sinkAll, killAll)
 import qualified XMonad.Actions.Search as S
 import XMonad.Actions.CopyWindow (copyToAll)
+import XMonad.Util.WorkspaceCompare
 
     -- Data
 import Data.Char (isSpace, toUpper)
@@ -88,6 +89,8 @@ import XMonad.Util.Cursor
       -- SolarizedLight
       -- TomorrowNight
 import Colors.DoomOne
+
+myHiddenWorkspace = filterOutWs ["NSP"]
 
 myFont :: String
 myFont = "xft:SauceCodePro Nerd Font:regular:size=9:antialias=true:hinting=true"
@@ -276,8 +279,8 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.9
                  t = 0.95 -h
                  l = 0.95 -w
-    spawnAI  = "chromium --app=https://claude.ai --profile-directory=AI"
-    findAI  = appName =? "claude.ai"
+    spawnAI  = "chromium --app=https://claude.ai/code --profile-directory=AI"
+    findAI  = appName =? "claude.ai__code"
     manageAI = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
@@ -656,7 +659,7 @@ main = do
     xmproc1 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ (if nScreens > 1 then "dual_xmobarrc" else "xmobarrc"))
     xmproc2 <- spawnPipe ("xmobar -x 2 $HOME/.config/xmobar/" ++ (if nScreens > 2 then "dual_xmobarrc" else "xmobarrc"))
     -- the xmonad, ya know...what the WM is named after!
-    xmonad $ docks $ ewmh def
+    xmonad $ addEwmhWorkspaceSort (pure myHiddenWorkspace) $ ewmh $ docks $ def
         { manageHook         = myManageHook <+> manageDocks
         -- , handleEventHook    = myManageHook <> events def
                                -- Uncomment this line to enable fullscreen support on things like YouTube/Netflix.

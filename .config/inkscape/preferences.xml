@@ -125,9 +125,9 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="1448.51281738281"
-         height="1515.56811523438"
-         ry="106.666656494141"
+         width="25.1095066070557"
+         height="253.692596435547"
+         ry="9.25909328460693"
          rx="106.666656494141" />
       <eventcontext
          id="3dbox"
@@ -164,8 +164,8 @@
          end="209.023231337662"
          start="209.046625204438"
          usecurrent="1"
-         rx="98.5895462036133"
-         ry="77.3151779174805"
+         rx="11.173469543457"
+         ry="11.173469543457"
          arc_type="1" />
       <eventcontext
          id="star"
@@ -548,7 +548,7 @@
   </group>
   <group
      id="colorselector"
-     page="0"
+     page="HSL"
      switcher="1">
     <group
        id="RGB"
@@ -639,7 +639,7 @@
     <group
        id="preferences"
        state="1"
-       page="51" />
+       page="33" />
     <group
        id="gradienteditor" />
     <group
@@ -1143,7 +1143,7 @@
      org.inkscape.input.gdkpixbuf.png.scale="auto" />
   <group
      id="desktop"
-     style="fill:#050505;-inkscape-font-specification:'Arial, Bold';font-family:Arial;font-size:59.42750168px;stroke-width:1.7;stroke-linecap:square;stroke:#282c34;stroke-opacity:0.00000804;text-orientation:auto;font-weight:bold">
+     style="fill:#dc143c;-inkscape-font-specification:'Arial, Bold';font-family:Arial;font-size:16px;stroke-width:2;stroke-linecap:square;stroke:#6495ed;text-orientation:auto;font-weight:bold">
     <group
        width="640"
        height="480"

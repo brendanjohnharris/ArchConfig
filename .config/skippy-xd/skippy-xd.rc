@@ -56,7 +56,7 @@ showOnlyCurrentScreen = true
 # xd: row-to-row layout
 # cosmos: position preserving layout
 switchLayout = xd
-exposeLayout = cosmos
+exposeLayout = xd
 
 # Wait time in ms before displaying switch previews
 # Set = 0 to veto live previews completely
