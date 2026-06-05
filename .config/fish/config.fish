@@ -47,3 +47,7 @@ else
     end
 end
 # <<< conda initialize <<<
+
+
+# Added by Antigravity CLI installer
+set -gx PATH "/home/brendan/.local/bin" $PATH

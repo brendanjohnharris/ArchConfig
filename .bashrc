@@ -30,7 +30,7 @@ export READER=okular
 # * Jabref scaling
 export JABREF_OPTIONS="-Dglass.gtk.uiScale=144dpi -Djdk.gtk.version=2"
 export CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1
-export DISPLAY=:0.0
+# export DISPLAY=:0.0
 
 # Tell julia to use discrete GPU
 export DRI_PRIME=1
@@ -39,6 +39,7 @@ export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 
 # Make local binaries available
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.julia/bin:$PATH"
 
 # Add TeXLive to path
 export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
@@ -50,3 +51,7 @@ export PATH="$HOME/.local/share/gem/ruby/3.3.0/bin:$PATH"
 export XDG_CONFIG_HOME="$HOME/.config"
 
 alias mamba='/home/brendan/miniforge3/bin/mamba'
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/brendan/.local/bin:$PATH"

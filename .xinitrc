@@ -51,4 +51,6 @@ source /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
 # ? Type accents
 setxkbmap -option compose:ralt
 
+(sleep 2 && udiskie > ~/.udiskie-startup.log 2>&1) &
+
 exec xmonad
