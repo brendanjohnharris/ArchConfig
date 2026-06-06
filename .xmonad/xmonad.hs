@@ -33,9 +33,11 @@ import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcompo
 import XMonad.Hooks.ManageDocks (avoidStruts, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat, doCenterFloat, doRectFloat)
+import XMonad.Hooks.InsertPosition (insertPosition, Position(..), Focus(..))
 import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory
+import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP (filterOutWsPP)
 
     -- Layouts
@@ -88,7 +90,7 @@ import XMonad.Util.Cursor
       -- SolarizedDark
       -- SolarizedLight
       -- TomorrowNight
-import Colors.DoomOne
+import Colors.Fathom
 
 myHiddenWorkspace = filterOutWs ["NSP"]
 
@@ -110,7 +112,7 @@ myEditor :: String
 myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor
 
 myMusic :: String
-myMusic = "spotify"
+myMusic = "spotify-launcher"
 
 myBorderWidth :: Dimension
 myBorderWidth = 2           -- Sets border width for windows
@@ -119,7 +121,7 @@ myNormColor :: String       -- Border color of normal windows
 myNormColor   = colorBack   -- This variable is imported from Colors.THEME
 
 myFocusColor :: String      -- Border color of focused windows
-myFocusColor  = colorFore -- color15     -- This variable is imported from Colors.THEME
+myFocusColor  = colorFore   -- This variable is imported from Colors.THEME
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
@@ -131,7 +133,7 @@ myTabTheme = def { XMonad.Layout.Tabbed.fontName            = "xft:Ubuntu:bold:s
                  , XMonad.Layout.Tabbed.activeBorderColor   = colorFore
                  , XMonad.Layout.Tabbed.inactiveBorderColor = colorBack
                  , XMonad.Layout.Tabbed.activeTextColor     = colorBack
-                 , XMonad.Layout.Tabbed.inactiveTextColor   = color16
+                 , XMonad.Layout.Tabbed.inactiveTextColor   = colorInactiveText
                  }
 
 -- Theme for showWName which prints current workspace when you change workspaces.
@@ -613,7 +615,7 @@ singleKeys =
         , ("M-m <Space>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
         , ("M-m p", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
         , ("M-m s", spawn "mpc stop")
-        -- , ("M-m <Backspace>", spawn "mpc stop && dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Play")
+        -- , ("M-m <Backspace>", spawn "mpc stop && dbus-sends --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Play")
         -- , ("M-m <Delete>", spawn "mpc del 0")
         , ("M-m f", spawn "mpc seek +10%")
         , ("M-m b", spawn "mpc seek -10%")
@@ -651,22 +653,50 @@ singleKeys =
 myKeys :: [(String, X ())]
 myKeys = singleKeys ++ indexKeys
 
+-- The pretty-printer that builds the workspace/layout string written to the
+-- _XMONAD_LOG X property.  Note: no ppOutput here -- the StatusBar machinery
+-- writes the property for us, so a wedged xmobar can never block xmonad.
+myXmobarPP :: PP
+myXmobarPP = filterOutWsPP [scratchpadWorkspaceTag] $ xmobarPP
+      -- Current workspace
+    { ppCurrent = xmobarColor colorCurrent "" . wrap
+                  ("<box type=Bottom width=2 mb=2 color=" ++ colorCurrent ++ ">") "</box>"
+      -- Visible but not current workspace
+    , ppVisible = xmobarColor colorVisible "" . clickable
+      -- Hidden workspace
+    , ppHidden = xmobarColor colorHidden "" . wrap
+                 ("<box type=Top width=2 mt=2 color=" ++ colorHidden ++ ">") "</box>" . clickable
+      -- Hidden workspaces (no windows)
+    , ppHiddenNoWindows = xmobarColor colorHidden "" . clickable
+      -- Title of active window
+    , ppTitle = const " "
+      -- Separator character
+    , ppSep =  "<fc=" ++ colorSeparator ++ "> <fn=1>|</fn> </fc>"
+      -- Urgent workspace
+    , ppUrgent = xmobarColor colorUrgent "" . wrap "!" "!"
+      -- Adding # of windows on current workspace to the bar
+    , ppExtras  = [windowCount]
+      -- order of things in xmobar
+    , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+    }
+
+-- One xmobar per physical screen, spawned/killed automatically as monitors
+-- come and go.  All bars read the same _XMONAD_LOG property (Run XMonadLog).
+barSpawner :: ScreenId -> X StatusBarConfig
+barSpawner 0 = pure $ statusBarProp
+                 "xmobar -x 0 $HOME/.config/xmobar/xmobarrc" (pure myXmobarPP)
+barSpawner n = pure $ statusBarProp
+                 ("xmobar -x " ++ show (fromIntegral n :: Int)
+                                ++ " $HOME/.config/xmobar/dual_xmobarrc") (pure myXmobarPP)
+
 main :: IO ()
-main = do
-    nScreens <- countScreens
-    -- Launching three instances of xmobar on their monitors.
-    xmproc0 <- spawnPipe ("xmobar -x 0 $HOME/.config/xmobar/" ++ "xmobarrc")
-    xmproc1 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ (if nScreens > 1 then "dual_xmobarrc" else "xmobarrc"))
-    xmproc2 <- spawnPipe ("xmobar -x 2 $HOME/.config/xmobar/" ++ (if nScreens > 2 then "dual_xmobarrc" else "xmobarrc"))
-    -- the xmonad, ya know...what the WM is named after!
-    xmonad $ addEwmhWorkspaceSort (pure myHiddenWorkspace) $ ewmh $ docks $ def
-        { manageHook         = myManageHook <+> manageDocks
-        -- , handleEventHook    = myManageHook <> events def
-                               -- Uncomment this line to enable fullscreen support on things like YouTube/Netflix.
-                               -- This works perfect on SINGLE monitor systems. On multi-monitor systems,
-                               -- it adds a border around the window if screen does not have focus. So, my solution
-                               -- is to use a keybinding to toggle fullscreen noborders instead.  (M-<Space>)
-                               -- <+> fullscreenEventHook
+main = xmonad
+     . addEwmhWorkspaceSort (pure myHiddenWorkspace)
+     . ewmh
+     . docks
+     . dynamicSBs barSpawner
+     $ def
+        { manageHook         = insertPosition Below Newer <+> myManageHook <+> manageDocks
         , modMask            = myModMask
         , terminal           = myTerminal
         , startupHook        = myStartupHook
@@ -675,31 +705,4 @@ main = do
         , borderWidth        = myBorderWidth
         , normalBorderColor  = myNormColor
         , focusedBorderColor = myFocusColor
-        , logHook = dynamicLogWithPP $ filterOutWsPP [scratchpadWorkspaceTag] $ xmobarPP
-              -- XMOBAR SETTINGS
-              { ppOutput = \x -> hPutStrLn xmproc0 x   -- xmobar on monitor 1
-                              >> hPutStrLn xmproc1 x   -- xmobar on monitor 2
-                              >> hPutStrLn xmproc2 x   -- xmobar on monitor 3
-                -- Current workspace
-              , ppCurrent = xmobarColor color06 "" . wrap
-                            ("<box type=Bottom width=2 mb=2 color=" ++ color06 ++ ">") "</box>"
-                -- Visible but not current workspace
-              , ppVisible = xmobarColor color06 "" . clickable
-                -- Hidden workspace
-              , ppHidden = xmobarColor color05 "" . wrap
-                           ("<box type=Top width=2 mt=2 color=" ++ color05 ++ ">") "</box>" . clickable
-                -- Hidden workspaces (no windows)
-              , ppHiddenNoWindows = xmobarColor color05 "" . clickable
-                -- Title of active window
-              , ppTitle = const " "
-                -- Separator character
-              , ppSep =  "<fc=" ++ color09 ++ "> <fn=1>|</fn> </fc>"
-                -- Urgent workspace
-              , ppUrgent = xmobarColor color02 "" . wrap "!" "!"
-                -- Adding # of windows on current workspace to the bar
-              , ppExtras  = [windowCount]
-                -- order of things in xmobar
-              , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
-              }
-
         } `additionalKeysP` myKeys

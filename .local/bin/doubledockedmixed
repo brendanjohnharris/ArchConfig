@@ -1,5 +1,5 @@
 xrandr \
---output 'DisplayPort-0' --mode 1920x1080 --scale 1.4 --pos -1920x0 --rotate normal \
+--output 'DisplayPort-0' --mode 1920x1080 --scale 1.4 --pos -2688x-300 --rotate normal \
 --output 'eDP' --primary --pos 0x0 --rotate normal \
 --output 'HDMI-A-0' --scale 1.4 --mode 1920x1080 --rotate left --pos 1920x-1080
 

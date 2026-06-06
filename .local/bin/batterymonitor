@@ -1,18 +1,21 @@
-#! /bin/bash 
+#!/bin/bash
+# Warn once when the battery drops to/below the threshold while discharging.
+# The 5% hibernate is handled by UPower (CriticalPowerAction=Hibernate),
+# not here -- see /etc/UPower/UPower.conf.d/99-local.conf.
 
-read -r battery < /sys/class/power_supply/BAT0/capacity
-read -r charging < /sys/class/power_supply/BAT0/status
-if [ $battery -lt 15 ] && [ "$charging" = "Discharging" ]
-then
-    notify-send -u critical -i battery-level-10-symbolic "Low battery" "Hibernating at 5%"
-fi
-# if [ $battery -lt 5 ] && [ "$charging" = "Discharging" ]
-# then
-#     notify-send -u critical -i battery-level-0-symbolic "Extremely low battery" "Hibernating now"
-#     systemctl hibernate
-# fi
-if [ $battery -lt 5 ] && [ "$charging" = "Discharging" ]
-then
-    notify-send -u critical -i battery-level-0-symbolic "Critically low battery" "Powering down"
-    systemctl poweroff
+THRESHOLD=10
+STATE="${XDG_RUNTIME_DIR:-/tmp}/batterymonitor.warned"
+
+read -r capacity < /sys/class/power_supply/BAT0/capacity
+read -r status   < /sys/class/power_supply/BAT0/status
+
+if [ "$status" = "Discharging" ] && [ "$capacity" -le "$THRESHOLD" ]; then
+    if [ ! -f "$STATE" ]; then
+        notify-send -u critical -i battery-level-10-symbolic \
+            "Low battery" "${capacity}% remaining — will hibernate at 5%."
+        : > "$STATE"
+    fi
+else
+    # Charging or back above the threshold: clear the flag so it can warn again.
+    rm -f "$STATE"
 fi

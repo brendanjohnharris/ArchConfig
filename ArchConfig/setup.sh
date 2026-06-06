@@ -67,7 +67,7 @@ sudo ln -s ~/.config/.gtkcolorscheme /usr/share/themes/Arc-Dark/gtk-2.0/gtkrc
 
 # * Fonts
 sudo pacman -Syu fontconfig
-paru -Sy ttf-juliamono ttf-mononoki nerd-fonts-source-code-pro ttf-font-awesome ttf-ms-win10-auto
+paru -Sy ttf-juliamono ttf-mononoki ttf-sourcecodepro-nerd ttf-font-awesome ttf-caladea ttf-carlito noto-fonts adobe-source-sans-fonts adobe-source-code-pro-fonts
 
 # * Printing
 sudo pacman -Syu cups cups-pdf avahi nss-mdns samba

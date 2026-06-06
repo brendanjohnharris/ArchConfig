@@ -5,6 +5,9 @@ usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
+# Set xauth cookie so the desktop remains functional after hibernate
+xauth add :0.0 MIT-MAGIC-COOKIE-1 "$(xauth list | grep "$(hostname)/unix:0" | head -1 | awk '{print $3}')"
+
 # merge in defaults and keymaps
 
 if [ -f $sysresources ]; then

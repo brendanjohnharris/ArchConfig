@@ -3,6 +3,9 @@ config() {
     git --git-dir="$HOME/ArchConfig" --work-tree="$HOME" "$@"
 }
 
+# * Secrets (not published)
+[ -f ~/.secrets ] && source ~/.secrets
+
 # * Permissions for OS scripts
 chmod u+x $HOME/.xmonad/xmonad_keys.sh
 

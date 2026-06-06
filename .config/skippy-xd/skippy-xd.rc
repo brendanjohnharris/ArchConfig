@@ -46,7 +46,9 @@ pseudoTrans = true
 [multimonitor]
 
 # Filter windows by Xinerama monitor
-showOnlyCurrentMonitor = false
+showOnlyCurrentMonitor = true
+
+[filter]
 
 # Display only windows on the current XScreen
 showOnlyCurrentScreen = true

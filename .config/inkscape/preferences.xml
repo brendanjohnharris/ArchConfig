@@ -32,7 +32,7 @@
        state="0" />
     <group
        id="scrollbars"
-       state="0" />
+       state="1" />
   </group>
   <group
      id="fullscreen">
@@ -125,10 +125,10 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="25.1095066070557"
-         height="253.692596435547"
-         ry="9.25909328460693"
-         rx="106.666656494141" />
+         width="900.225646972656"
+         height="371.482330322266"
+         ry="15"
+         rx="15" />
       <eventcontext
          id="3dbox"
          style="stroke:none;stroke-linejoin:round;"
@@ -164,8 +164,8 @@
          end="209.023231337662"
          start="209.046625204438"
          usecurrent="1"
-         rx="11.173469543457"
-         ry="11.173469543457"
+         rx="63.208251953125"
+         ry="63.208251953125"
          arc_type="1" />
       <eventcontext
          id="star"
@@ -331,7 +331,7 @@
        font_sample="AaBbCcIiPpQq12369$€¢?.;/("
        show_sample_in_list="1"
        use_svg2="1"
-       style="line-height:1.25;font-family:Arial;font-size:59.42750168px;letter-spacing:0px;text-orientation:auto;-inkscape-font-specification:'Arial, Bold';font-weight:bold"
+       style="line-height:1.25;font-family:sans-serif;font-size:18.66666667px;letter-spacing:0px;text-orientation:auto;-inkscape-font-specification:'sans-serif, Normal'"
        selcue="1"
        align_mode="0"
        writing_mode="0"
@@ -639,7 +639,7 @@
     <group
        id="preferences"
        state="1"
-       page="33" />
+       page="51" />
     <group
        id="gradienteditor" />
     <group
@@ -652,7 +652,7 @@
        defaultopts="0">
       <group
          id="exportarea"
-         value="drawing" />
+         value="selection" />
       <group
          id="defaultxdpi"
          value="400" />
@@ -661,22 +661,23 @@
          value="layer" />
       <group
          id="defaultdpi"
-         value="400" />
+         value="100" />
     </group>
     <group
        id="save_as"
-       default="org.inkscape.output.svg.inkscape"
+       default="org.inkscape.output.pdf.cairorenderer"
        append_extension="1"
        enable_preview="1"
-       path="/run/user/1000/gvfs/sftp:host=gateway/import/taiji1/bhar9988/Figures"
+       path="/home/brendan/Notebook/Admin/Applications/McKenzie/EOI"
        use_current_dir="1"
        enable_svgexport="0" />
     <group
        id="save_copy"
-       default="org.inkscape.output.pdf.cairorenderer"
+       default="org.inkscape.output.svg.inkscape"
        append_extension="1"
        enable_preview="1"
-       path="/home/brendan/Downloads" />
+       path="/home/brendan/Documents/MiB_2026"
+       enable_svgexport="0" />
     <group
        id="open"
        enable_preview="1"
@@ -684,13 +685,17 @@
     <group
        id="import"
        enable_preview="1"
-       path="/home/brendan/OneDrive/Masters/Code/Features/Criticality/paper/"
+       path="/home/brendan/Downloads/"
        ask="1"
        ask_svg="1"
        link="embed"
        scale="auto"
        import_mode_svg="include"
-       forcexdpi="0" />
+       forcexdpi="0">
+      <group
+         id="defaultxdpi"
+         value="600" />
+    </group>
     <group
        id="debug"
        redirect="0" />
@@ -929,7 +934,7 @@
        gradient="1" />
     <group
        id="dash"
-       scale="1" />
+       scale="0" />
     <group
        id="kbselection"
        inlayer="1"
@@ -940,7 +945,7 @@
        layerdeselect="1" />
     <group
        id="createbitmap"
-       resolution="100" />
+       resolution="400" />
     <group
        id="compassangledisplay"
        value="0" />
@@ -1140,10 +1145,30 @@
      org.inkscape.effect.filter.Invert.transparency="0"
      org.inkscape.effect.filter.Invert.opacify="0.030873638869117"
      org.inkscape.color.replace_color.__live_effect__="0"
-     org.inkscape.input.gdkpixbuf.png.scale="auto" />
+     org.inkscape.input.gdkpixbuf.png.scale="auto"
+     org.inkscape.input.pdf.fontRendering="keep-missing"
+     org.inkscape.input.ai.fontRendering="keep-missing"
+     org.inkscape.input.pdf.embedImages="1"
+     org.inkscape.input.svg.import_mode_svg="include"
+     org.inkscape.input.pdf.importPages="0"
+     org.inkscape.output.scour_inkscape.indent="space"
+     org.inkscape.output.scour_inkscape.group-collapsing="0"
+     org.inkscape.output.scour_inkscape.create-groups="0"
+     org.inkscape.output.scour_inkscape.simplify-colors="0"
+     org.inkscape.output.scour_inkscape.style-to-xml="0"
+     org.inkscape.output.scour_inkscape.tab="About"
+     org.inkscape.output.scour_inkscape.keep-editor-data="1"
+     org.inkscape.output.scour_inkscape.embed-rasters="0"
+     org.inkscape.replace_font.scope="entire_document"
+     org.inkscape.replace_font.fr_find="&quot;Liberation Sans&quot;"
+     org.inkscape.replace_font.fr_replace="&quot;Source Sans 3&quot;"
+     org.inkscape.replace_font.action="find_replace"
+     org.inkscape.effect.filter.Blur.vblur="21.3471340402249"
+     org.inkscape.effect.filter.Blur.hblur="21.2328337998035"
+     org.inkscape.effect.filter.Blur.__live_effect__="0" />
   <group
      id="desktop"
-     style="fill:#dc143c;-inkscape-font-specification:'Arial, Bold';font-family:Arial;font-size:16px;stroke-width:2;stroke-linecap:square;stroke:#6495ed;text-orientation:auto;font-weight:bold">
+     style="fill:none;-inkscape-font-specification:'STIX Two Text Italic';font-family:'STIX Two Text';font-size:18.66666667px;stroke-linecap:square;text-orientation:auto;line-height:1;stroke-width:3;letter-spacing:0px;fill-opacity:0;stroke:#6495ed;font-style:italic">
     <group
        width="640"
        height="480"
@@ -1178,7 +1203,7 @@
        icononly="1"
        small="0"
        iconsize="48"
-       width="74">
+       width="58">
       <group
          id="buttons"
          showLPETool="0" />

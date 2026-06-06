@@ -1,22 +1,22 @@
 -- "xft:Ubuntu:weight=bold:pixelsize=20:antialias=true:hinting=true"
-Config { font            = "xft:Ubuntu-bold-15"
+Config { font            = "xft:Source Sans 3-bold-16"
        , additionalFonts = [ "xft:Mononoki-bold-14"
-                           , "xft:Font Awesome 6 Free Solid-14"
-                           , "xft:Font Awesome 6 Brands-14"
+                           , "xft:Font Awesome 7 Free Solid-14"
+                           , "xft:Font Awesome 7 Brands-14"
                            , "xft:Material Design Icons-20"
                            ]
-       , bgColor      = "#282c34"
-       , fgColor      = "#ff6c6b"
+       , bgColor      = "#282C34"
+       , fgColor      = "#FF787E"
        , position       = TopSize L 100 32
        , lowerOnStart = True
        , hideOnStart  = False
        , allDesktops  = True
        , persistent   = True
-       , iconRoot     = ".xmonad/xpm/" 
+       , iconRoot     = ".xmonad/xpm/"
        , commands = [Run Com ".config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 20
-                    , Run UnsafeStdinReader
+                    , Run UnsafeXMonadLog
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <action=`xmonad --recompile && xmonad --restart`><icon=haskell_20.xpm/></action>   <fc=#666666>|</fc> %UnsafeStdinReader% }{   "
+       , template = " <action=`xmonad --recompile && xmonad --restart`><icon=haskell_20.xpm/></action>   <fc=#959595>|</fc> %UnsafeXMonadLog% }{   "
        }

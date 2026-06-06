@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -eu
+
+"${HOME}/.xmonad/bin/gen-fathom-colors.sh"
+
+exec ghc --make xmonad.hs -i -ilib -fforce-recomp -main-is main -dynamic -o "$1"

@@ -11,7 +11,7 @@
     text-color:                 #bbc2cf;
     height:                     34px;
     font:                       "SauceCodePro Nerd Font Medium 17";
-    prompt-font:                "Ubuntu Bold 17";
+    prompt-font:                "Source Sans 3 Bold 18";
     prompt-background:          #51afef;
     prompt-foreground:          #282c34;
     prompt-padding:             2px;
