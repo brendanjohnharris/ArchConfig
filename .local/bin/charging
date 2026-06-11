@@ -4,8 +4,8 @@
 read -r charging < /sys/class/power_supply/BAT0/status
 if [ "$charging" = "Discharging" ]
 then
-    printf "<fn=1>\uf242</fn>"
+    printf "<fn=2>\uf242</fn>"
 else
-    printf "<fn=1>\uf1e6</fn>"
+    printf "<fn=2>\uf1e6</fn>"
 fi
 

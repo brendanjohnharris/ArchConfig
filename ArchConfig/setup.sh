@@ -45,6 +45,18 @@ sudo pacman -Syu xorg-xinit xorg-server xorg-xinput xmonad xterm xmonad-contrib 
 # echo "exec xmonad" >> $HOME/.xinitrc
 xmonad --recompile
 
+# * Static hostname  (DO NOT SKIP)
+# ? Without a static hostname, NetworkManager sets a transient hostname from
+# ? reverse-DNS on every (re)connect — including on resume from suspend/hibernate.
+# ? That changes gethostname(), which invalidates the hostname-keyed X11
+# ? MIT-MAGIC-COOKIE: xmonad's existing connection survives (windows keep
+# ? working) but every NEWLY spawned X client fails at openDisplay, so all
+# ? program-launching keyboard shortcuts silently stop working after sleep.
+# ? Pinning the hostname (and telling NM to leave it alone) fixes it for good.
+sudo hostnamectl set-hostname archlinux
+printf '[main]\nhostname-mode=none\n' | sudo tee /etc/NetworkManager/conf.d/no-hostname.conf
+sudo systemctl reload NetworkManager
+
 # * File manager
 sudo pacman -Syu nemo nemo-preview
 

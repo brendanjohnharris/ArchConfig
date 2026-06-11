@@ -5,9 +5,6 @@ usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
-# Set xauth cookie so the desktop remains functional after hibernate
-xauth add :0.0 MIT-MAGIC-COOKIE-1 "$(xauth list | grep "$(hostname)/unix:0" | head -1 | awk '{print $3}')"
-
 # merge in defaults and keymaps
 
 if [ -f $sysresources ]; then
@@ -54,4 +51,7 @@ source /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
 # ? Type accents
 setxkbmap -option compose:ralt
 
-exec xmonad
+# Capture xmonad's stderr so resume-time exceptions/hook errors are recorded
+# (was previously discarded to the tty). See ~/.xmonad/xmonad.log.
+echo "=== xmonad session start $(date '+%Y-%m-%d %H:%M:%S') ===" >> "$HOME/.xmonad/xmonad.log"
+exec xmonad >> "$HOME/.xmonad/xmonad.log" 2>&1

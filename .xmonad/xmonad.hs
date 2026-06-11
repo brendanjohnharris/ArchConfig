@@ -91,6 +91,7 @@ import XMonad.Util.Cursor
       -- SolarizedLight
       -- TomorrowNight
 import Colors.Fathom
+import Colors.FathomColors (qinghai, bermejo, baikal)  -- raw palette: green / red / blue
 
 myHiddenWorkspace = filterOutWs ["NSP"]
 
@@ -123,6 +124,46 @@ myNormColor   = colorBack   -- This variable is imported from Colors.THEME
 myFocusColor :: String      -- Border color of focused windows
 myFocusColor  = colorFore   -- This variable is imported from Colors.THEME
 
+-- i3lock-color themed lock screen.  Background = colorBack; the indicator
+-- ring/text uses the Fathom green (qinghai) / red (bermejo) / blue (baikal),
+-- following the default i3lock-color state scheme:
+--   idle ring = blue, keypress + verifying = green, wrong + backspace = red.
+-- Color flags want RRGGBBAA, so strip the '#' and append "ff" (opaque).
+myLockOpaque :: String -> String
+myLockOpaque c = drop 1 c ++ "ff"
+
+-- NOTE: the i3lock-color (Raymo111) fork installs its binary as `i3lock` and
+-- uses hyphenated flag names (--ring-color, not --ringcolor).  --blur is
+-- built in: it captures and blurs the screen itself, so no compositor needed.
+myLockCmd :: String
+myLockCmd = unwords
+    [ "i3lock"
+    , "--blur=12"                                           -- built-in gaussian blur (sigma); no compositor
+    , "--inside-color="      ++ myLockOpaque colorBack
+    , "--ring-color="        ++ myLockOpaque baikal        -- idle ring: blue
+    , "--insidever-color="   ++ myLockOpaque colorBack
+    , "--ringver-color="     ++ myLockOpaque qinghai       -- verifying: green
+    , "--insidewrong-color=" ++ myLockOpaque colorBack
+    , "--ringwrong-color="   ++ myLockOpaque bermejo       -- wrong: red
+    , "--keyhl-color="       ++ myLockOpaque qinghai       -- keypress highlight: green
+    , "--bshl-color="        ++ myLockOpaque bermejo       -- backspace highlight: red
+    , "--separator-color="   ++ myLockOpaque colorBack
+    , "--verif-color="       ++ myLockOpaque qinghai       -- "verifying" text: green
+    , "--wrong-color="       ++ myLockOpaque bermejo       -- "wrong" text: red
+    , "--verif-text=''"                                  -- hide verifying text to avoid clock overlap
+    , "--wrong-text=''"                                  -- hide wrong text to avoid clock overlap
+    , "--line-uses-inside"
+    , "--radius=120"                                       -- bigger indicator ring
+    , "--ring-width=8"
+    , "--force-clock"                                      -- always show clock + indicator
+    , "--time-str=%H:%M"
+    , "--date-str='%A %d %B'"                              -- quoted: contains spaces
+    , "--time-color="        ++ myLockOpaque colorFore
+    , "--date-color="        ++ myLockOpaque colorFore
+    , "--pass-media-keys"                                  -- Spotify keys work while locked
+    , "--pass-volume-keys"                                 -- volume keys work while locked
+    ]
+
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
@@ -154,11 +195,14 @@ myStartupHook = do
     spawnOnce "lxsession"
     -- spawnOnce "picom"
     spawnOnce "dunst"
+    spawnOnce "greenclip daemon"   -- Clipboard history daemon (M-C-v to browse)
 
     setWMName "LG3D"
     setDefaultCursor xC_left_ptr
 
-    spawn ("trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor primary --transparent true --alpha 0 " ++ colorTrayer ++ " --height 30 --distance 1") -- Effective height is height + 2*distance
+    -- killall first so each xmonad restart REPLACES trayer instead of stacking
+    -- another copy (trayer uses spawn, not spawnOnce, so it runs every restart).
+    spawn ("killall trayer; trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor primary --transparent true --alpha 0 " ++ colorTrayer ++ " --height 30 --distance 1") -- Effective height is height + 2*distance
     -- spawn ("conky -c $HOME/.config/.conkyrc")
 
     spawnOnce "nm-applet"
@@ -425,6 +469,23 @@ myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y 
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
     where i = fromJust $ M.lookup ws myWorkspaceIndices
 
+-- New *tiled* windows go to the bottom of the stack (Below Newer), preserving
+-- the master pane.  New *floating* windows instead open on top (Above Newer) so
+-- dialogs/floats/scratchpads don't appear behind already-open windows.  This runs
+-- after myManageHook so doFloat/doCenterFloat/etc. have already registered the
+-- window in the floating map, which is what we test here.
+myInsertPosition :: ManageHook
+myInsertPosition = do
+    w         <- ask
+    floatEndo <- insertPosition Master Newer  -- head of W.index => top of the float stack
+    tileEndo  <- insertPosition Below Newer
+    -- Decide against the *threaded* windowset (which earlier hooks have already
+    -- mutated with doFloat/customFloating), NOT the live X state -- at manage
+    -- time the X state still holds the pre-manage windowset, so a `gets
+    -- windowset` here would never see the new window as floating.
+    pure $ Endo $ \ws ->
+        appEndo (if w `M.member` W.floating ws then floatEndo else tileEndo) ws
+
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
      -- 'doFloat' forces a window to float.  Useful for dialog boxes and such.
@@ -486,6 +547,10 @@ singleKeys =
 
     -- KB_GROUP Get Help
         , ("M-S-/", spawn "~/.xmonad/xmonad_keys.sh") -- Get list of keybindings
+
+    -- KB_GROUP Lock & Clipboard
+        , ("M-S-l", spawn myLockCmd)  -- Lock screen, themed via i3lock-color (password to unlock; processes keep running)
+        , ("M-C-v", spawn "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'") -- Clipboard history
 
     -- KB_GROUP Run Prompt
         --, ("M-S-<Return>", spawn "dmenu_run -i -fn 'Ubuntu:weight=bold:pixelsize=26:antialias=true:hinting=true' -p \"Run: \"") -- Dmenu
@@ -696,7 +761,7 @@ main = xmonad
      . docks
      . dynamicSBs barSpawner
      $ def
-        { manageHook         = insertPosition Below Newer <+> myManageHook <+> manageDocks
+        { manageHook         = myInsertPosition <+> myManageHook <+> manageDocks
         , modMask            = myModMask
         , terminal           = myTerminal
         , startupHook        = myStartupHook
