@@ -92,6 +92,13 @@ render_template "${HOME}/.config/rofi/themes/fathom.rasi.template"  "${HOME}/.co
 render_template "${HOME}/.config/gtk-3.0/gtk.css.template"          "${HOME}/.config/gtk-3.0/gtk.css"
 render_template "${HOME}/.config/gtk-4.0/gtk.css.template"          "${HOME}/.config/gtk-4.0/gtk.css"
 
+# fish: colours live in an auto-sourced conf.d snippet. fish wants hex WITHOUT a
+# leading '#', so strip it from the rendered values (leaves '#' comments intact).
+fish_colors_out="${HOME}/.config/fish/conf.d/fathom_colors.fish"
+mkdir -p "$(dirname "$fish_colors_out")"
+render_template "${HOME}/.config/fish/conf.d/fathom_colors.fish.template" "$fish_colors_out"
+sed -E -i 's/#([0-9A-Fa-f]{6})\b/\1/g' "$fish_colors_out"
+
 # 3. Live-reload running apps when invoked inside an X session (no-op headless).
 if [ -n "${DISPLAY:-}" ]; then
     [ -f "${HOME}/.Xresources" ] && xrdb -merge "${HOME}/.Xresources" >/dev/null 2>&1 || true

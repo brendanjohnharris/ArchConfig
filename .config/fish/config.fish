@@ -6,32 +6,8 @@ end
 
 set fish_greeting ""
 
-# Color scheme
-set fish_color_command 6EA0F9
-set fish_color_normal normal
-set fish_color_quote 88BD69
-set fish_color_redirection 4D9393
-set fish_color_end FFA829
-set fish_color_error F93D53
-set fish_color_param B97AD7
-set fish_color_comment 777777
-set fish_color_match normal
-set fish_color_selection F5F5F5
-set fish_color_search_match FFCE79
-set fish_color_history_current normal
-set fish_color_operator 4D9393
-set fish_color_escape 4D9393
-set fish_color_cwd 88BD69
-set fish_color_cwd_root 5081D9
-set fish_color_valid_path normal
-set fish_color_autosuggestion 5E6167
-set fish_color_user 88BD69
-set fish_color_host normal
-set fish_color_cancel normal
-set fish_pager_color_completion normal
-set fish_pager_color_description FFCE79 yellow
-set fish_pager_color_prefix normal --bold --underline
-set fish_pager_color_progress brwhite --background=cyan
+# Fish prompt colours are generated from the Fathom palette into
+# conf.d/fathom_colors.fish by ~/.xmonad/bin/gen-fathom-colors.sh (auto-sourced).
 
 set -Ux CRYPTOGRAPHY_OPENSSL_NO_LEGACY 1
 
