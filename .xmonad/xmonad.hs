@@ -16,6 +16,10 @@ import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Actions.WithAll (sinkAll, killAll)
 import qualified XMonad.Actions.Search as S
 import XMonad.Actions.CopyWindow (copyToAll)
+import XMonad.Actions.TiledWindowDragging (dragWindow)
+import XMonad.Actions.Warp (warpToScreen, warpToWindow)
+import XMonad.Actions.WindowBringer (gotoMenuConfig, bringMenuConfig, WindowBringerConfig(..))
+import XMonad.Actions.TreeSelect (TSConfig(..), TSNode(..), treeselectAction)
 import XMonad.Util.WorkspaceCompare
 
     -- Data
@@ -24,8 +28,11 @@ import Data.Maybe (fromJust)
 import Data.Monoid
 import Data.Maybe (isJust)
 import Data.Tree
+import Data.Bits ((.|.))
+import Data.Word (Word8)
 import qualified Data.Map as M
 import Data.Ratio
+import Numeric (readHex)
 
     -- Hooks
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
@@ -42,6 +49,7 @@ import XMonad.Hooks.StatusBar.PP (filterOutWsPP)
 
     -- Layouts
 import XMonad.Layout.Accordion
+import XMonad.Layout.DraggingVisualizer (draggingVisualizer)
 import XMonad.Layout.GridVariants (Grid(Grid))
 import XMonad.Layout.SimplestFloat
 import XMonad.Layout.Spiral
@@ -68,8 +76,8 @@ import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
 import XMonad.Layout.IndependentScreens (countScreens)
 
    -- Utilities
-import XMonad.Util.Dmenu
-import XMonad.Util.EZConfig (additionalKeysP)
+import XMonad.Util.Dmenu hiding (menuArgs)  -- menuArgs clashes with WindowBringerConfig's field
+import XMonad.Util.EZConfig (additionalKeysP, additionalMouseBindings)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
@@ -91,14 +99,15 @@ import XMonad.Util.Cursor
       -- SolarizedLight
       -- TomorrowNight
 import Colors.Fathom
-import Colors.FathomColors (qinghai, bermejo, baikal)  -- raw palette: green / red / blue
+import Colors.FathomColors (qinghai, bermejo, baikal, chernoe_light)  -- raw palette: green / red / blue / dark-grey
+import GridSelectColumns (goToSelectedColumns, bringSelectedColumns)  -- one column per workspace
 
 myHiddenWorkspace = filterOutWs ["NSP"]
 
 myFont :: String
 myFont = "xft:SauceCodePro Nerd Font:regular:size=9:antialias=true:hinting=true"
 myGridFont :: String
-myGridFont = "xft:SauceCodePro Nerd Font:regular:size=18:antialias=true:hinting=true"
+myGridFont = "xft:Ubuntu:bold:size=12:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask        -- Sets modkey to super/windows key
@@ -230,13 +239,21 @@ myStartupHook = do
     -- Spawn workspace-specific apps
     -- spawnOn "mail" "evolution"
 
+-- colorRangeFromClassName wants (Word8,Word8,Word8) triples, but the palette is
+-- exposed as "#RRGGBB" strings -- bridge the two so the colorizer tracks the theme
+-- (semantic aliases from Colors.Fathom) instead of hardcoding bytes.
+hexRGB :: String -> (Word8, Word8, Word8)
+hexRGB ('#':r1:r2:g1:g2:b1:b2:_) = (h r1 r2, h g1 g2, h b1 b2)
+  where h a b = fst . head $ readHex [a, b]
+hexRGB _ = (0, 0, 0)
+
 myColorizer :: Window -> Bool -> X (String, String)
 myColorizer = colorRangeFromClassName
-                  (0x28,0x2c,0x34) -- lowest inactive bg
-                  (0x28,0x2c,0x34) -- highest inactive bg
-                  (0xc7,0x92,0xea) -- active bg
-                  (0xc0,0xa7,0x9a) -- inactive fg
-                  (0x28,0x2c,0x34) -- active fg
+                  (hexRGB colorBack)      -- lowest inactive bg  -> chernoe
+                  (hexRGB chernoe_light)  -- highest inactive bg -> subtle per-app gradient
+                  (hexRGB colorCurrent)   -- active bg           -> ianthina
+                  (hexRGB colorFore)      -- inactive fg         -> abyad_light
+                  (hexRGB colorBack)      -- active fg           -> chernoe
 
 -- gridSelect menu layout
 mygridConfig :: p -> GSConfig Window
@@ -247,6 +264,17 @@ mygridConfig colorizer = (buildDefaultGSConfig myColorizer)
     , gs_originFractX = 0.1
     , gs_originFractY = 0.5
     , gs_font         = myGridFont
+    , gs_bordercolor  = "#42464D"           -- chernoe_light: subtle Fathom cell border
+    , gs_navigate     = navNSearch          -- start typing to filter immediately (no '/' needed)
+    }
+
+-- Config for the per-workspace column grid (C-g t / C-g b).  Reuses the Fathom
+-- colorizer/border but with much smaller cells, since there's now one column per
+-- open workspace and they all have to fit across the screen at once.
+myColGridConfig :: GSConfig Window
+myColGridConfig = (mygridConfig myColorizer)
+    { gs_cellwidth  = 230
+    , gs_cellheight = 64
     }
 
 spawnSelected' :: [(String, String)] -> X ()
@@ -258,6 +286,8 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
                    , gs_originFractX = 0.1
                    , gs_originFractY = 0.5
                    , gs_font         = myGridFont
+                   , gs_bordercolor  = "#42464D"    -- chernoe_light: subtle Fathom cell border
+                   , gs_navigate     = navNSearch   -- start typing to filter immediately (no '/' needed)
                    }
 
 myAppGrid = [ ("Nemo", "nemo")
@@ -380,6 +410,7 @@ mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 -- mySpacing n sets the gap size around the windows.
 tall     = renamed [Replace "tall"]
            $ smartBorders
+           $ draggingVisualizer
            $ windowNavigation
            $ addTabsBottom shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
@@ -410,6 +441,7 @@ floats   = renamed [Replace "floats"]
            $ limitWindows 20 simplestFloat
 grid     = renamed [Replace "grid"]
            $ smartBorders
+           $ draggingVisualizer
            $ windowNavigation
            $ addTabsBottom shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
@@ -426,6 +458,7 @@ grid     = renamed [Replace "grid"]
 --            $ spiral (6/7)
 threeCol = renamed [Replace "threeCol"]
            $ smartBorders
+           $ draggingVisualizer
            $ windowNavigation
            $ addTabsBottom shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
@@ -433,6 +466,7 @@ threeCol = renamed [Replace "threeCol"]
            $ ThreeCol 1 (3/100) (1/2)
 threeRow = renamed [Replace "threeRow"]
            $ smartBorders
+           $ draggingVisualizer
            $ windowNavigation
            $ addTabsBottom shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
@@ -519,6 +553,64 @@ myManageHook = composeAll
      , title=? "Picture-in-Picture" --> doF copyToAll
      ] <+> namedScratchpadManageHook myScratchPads
 
+-- Search-and-navigate to any window by name, rendered through rofi (so it
+-- matches the rest of my rofi-driven launchers).  gotoMenuConfig jumps to the
+-- chosen window; bringMenuConfig drags it onto the current workspace instead.
+myWindowBringer :: WindowBringerConfig
+myWindowBringer = def
+    { menuCommand = "rofi"
+    , menuArgs    = ["-dmenu", "-i", "-p", "window"]
+    }
+
+-- TreeSelect: a hierarchical pop-up menu of actions, themed to match Fathom.
+-- Colours here are 0xAARRGGBB Pixels -- TreeSelect draws its own X window, so it
+-- wants raw pixels, not the "#rrggbb" strings the rest of the config passes around.
+myTSConfig :: TSConfig (X ())
+myTSConfig = def
+    { ts_background  = 0xee282c34                 -- chernoe, slightly translucent
+    , ts_font        = "xft:Source Sans 3-bold-16"  -- match xmobar's system font (bold)
+    , ts_node        = (0xffd4d4d4, 0xff282c34)   -- fg abyad_light / bg chernoe
+    , ts_nodealt     = (0xffd4d4d4, 0xff42464d)   -- alt row bg chernoe_light
+    , ts_highlight   = (0xff282c34, 0xffb97ad7)   -- selected: chernoe on ianthina
+    , ts_extra       = 0xff88bd69                 -- description text: qinghai green
+    , ts_node_width  = 1080                       -- 3x wider so long window titles fit
+    , ts_node_height = 36
+    , ts_originX     = 100
+    , ts_originY     = 100
+    , ts_indent      = 80
+    }
+
+-- Strip the padding spaces I keep in myWorkspaces (" chat " -> "chat") for display.
+cleanWS :: String -> String
+cleanWS = unwords . words
+
+-- A *flat* picker of every open window across all (non-scratchpad) workspaces.
+-- TreeSelect can't actually render an expanded multi-level tree -- ts_hidechildren
+-- is a documented no-op and it only ever draws one level at a time -- so instead of
+-- a workspace->window tree that needs manual descent, we put every window in a
+-- single level that's fully visible the moment the menu opens.  Entries are ordered
+-- by workspace so they read as grouped; the green descriptor shows "[workspace]
+-- class".  Selecting one focuses its window, which pulls in the workspace too, so
+-- it works across monitors.  Labels fall back to the class name when a client
+-- reports an empty title.
+myTreeSelect :: X ()
+myTreeSelect = windowNodes >>= treeselectAction myTSConfig
+
+windowNodes :: X [Tree (TSNode (X ()))]
+windowNodes = do
+    wset <- gets windowset
+    concat <$> mapM wsWindows (filter ((/= "NSP") . W.tag) (W.workspaces wset))
+  where
+    wsWindows w = mapM (winNode (cleanWS (W.tag w))) (W.integrate' (W.stack w))
+    winNode tag win = do
+        t <- runQuery title win
+        c <- runQuery className win
+        let label = if null (cleanWS t) then c else t
+        -- Clip to 60 chars so the label always fits inside ts_node_width (1080px)
+        -- even after the indent -- TreeSelect doesn't clip text to the box itself.
+        pure $ Node (TSNode (shorten 60 label) ("[" ++ tag ++ "] " ++ c)
+                            (windows (W.focusWindow win))) []
+
 -- Index keybindings
 indexKeys :: [(String, X ())]
 indexKeys = concatMap
@@ -597,8 +689,18 @@ singleKeys =
 
     -- KB_GROUP Grid Select (CTR-g followed by a key)
         , ("C-g g", spawnSelected' myAppGrid)                 -- grid select favorite apps
-        , ("C-g t", goToSelected $ mygridConfig myColorizer)  -- goto selected window
-        , ("C-g b", bringSelected $ mygridConfig myColorizer) -- bring selected window
+        , ("C-g t", goToSelectedColumns myColGridConfig myWorkspaces)   -- goto window: one column per workspace
+        , ("M-g", goToSelectedColumns myColGridConfig myWorkspaces)     -- same as C-g t
+        , ("C-g b", bringSelectedColumns myColGridConfig myWorkspaces)  -- bring window: one column per workspace
+
+    -- KB_GROUP Search windows by name (rofi) + tree menu
+        , ("M-/", gotoMenuConfig myWindowBringer)    -- search ALL windows by name, jump to it
+        , ("C-g r", bringMenuConfig myWindowBringer) -- search a window by name, bring it here
+        , ("M-a", myTreeSelect)                      -- hierarchical action menu (TreeSelect)
+
+    -- KB_GROUP Pointer warping
+        , ("M-S-<Space>", warpToScreen 0 0.5 0.5)    -- warp pointer to centre of primary screen
+        , ("M-S-z", warpToWindow 0.5 0.5)            -- warp pointer to centre of focused window
 
     -- KB_GROUP Windows navigation
         , ("M-i", windows W.focusMaster)  -- Move focus to the master window
@@ -718,6 +820,13 @@ singleKeys =
 myKeys :: [(String, X ())]
 myKeys = singleKeys ++ indexKeys
 
+-- Mouse: Mod+Shift+drag picks up a *tiled* window and drops it into a new slot
+-- in the layout (paired with draggingVisualizer for the live preview rectangle).
+-- The default Mod+Button1 still floats/moves a window, so this doesn't clash.
+myMouseBindings :: [((KeyMask, Button), Window -> X ())]
+myMouseBindings =
+    [ ((myModMask .|. shiftMask, button1), dragWindow) ]
+
 -- The pretty-printer that builds the workspace/layout string written to the
 -- _XMONAD_LOG X property.  Note: no ppOutput here -- the StatusBar machinery
 -- writes the property for us, so a wedged xmobar can never block xmonad.
@@ -771,3 +880,4 @@ main = xmonad
         , normalBorderColor  = myNormColor
         , focusedBorderColor = myFocusColor
         } `additionalKeysP` myKeys
+          `additionalMouseBindings` myMouseBindings
