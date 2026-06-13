@@ -124,6 +124,15 @@ pacman -Sy intel-ucode
 
 grub-mkconfig -o /boot/grub/grub.cfg
 
+# * AMD power management (Ryzen + amd-pstate)
+# ! On this machine, amd_pstate defaults to "active" (EPP) mode, which exposes
+# ! only performance/powersave governors and breaks auto-cpufreq's boost control
+# ! (OSError EINVAL), pinning the CPU to "performance" on battery. Switching to
+# ! "passive" mode exposes the generic governors and lets auto-cpufreq apply its
+# ! battery profile. Append amd_pstate=passive to GRUB_CMDLINE_LINUX_DEFAULT:
+# sed -i 's/\(^GRUB_CMDLINE_LINUX_DEFAULT="[^"]*\)"/\1 amd_pstate=passive"/' /etc/default/grub
+# grub-mkconfig -o /boot/grub/grub.cfg   # then reboot
+
 # * Should now:
 # - Install graphics card drivers
 
