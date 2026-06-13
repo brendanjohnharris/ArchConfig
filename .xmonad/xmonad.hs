@@ -131,7 +131,7 @@ myNormColor :: String       -- Border color of normal windows
 myNormColor   = colorBack   -- This variable is imported from Colors.THEME
 
 myFocusColor :: String      -- Border color of focused windows
-myFocusColor  = colorFore   -- This variable is imported from Colors.THEME
+myFocusColor  = colorBorder -- playa: the general white accent/border (Colors.Fathom)
 
 -- i3lock-color themed lock screen.  Background = colorBack; the indicator
 -- ring/text uses the Fathom green (qinghai) / red (bermejo) / blue (baikal),
@@ -180,7 +180,7 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myTabTheme = def { XMonad.Layout.Tabbed.fontName            = "xft:Ubuntu:bold:size=9:antialias=true:hinting=true"
                  , XMonad.Layout.Tabbed.activeColor         = colorFore
                  , XMonad.Layout.Tabbed.inactiveColor       = colorBack
-                 , XMonad.Layout.Tabbed.activeBorderColor   = colorFore
+                 , XMonad.Layout.Tabbed.activeBorderColor   = colorBorder
                  , XMonad.Layout.Tabbed.inactiveBorderColor = colorBack
                  , XMonad.Layout.Tabbed.activeTextColor     = colorBack
                  , XMonad.Layout.Tabbed.inactiveTextColor   = colorInactiveText
