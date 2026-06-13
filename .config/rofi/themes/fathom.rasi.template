@@ -1,0 +1,62 @@
+/**
+ * ROFI Color theme
+ * NAME: fathom.rasi
+ * DESCRIPTION: Horizontal dmenu-style prompt, Fathom palette.
+ * Auto-rendered from fathom.rasi.template by ~/.xmonad/bin/gen-fathom-colors.sh.
+ * Do not edit fathom.rasi directly; edit this template and recompile xmonad (M-C-r).
+ */
+
+* {
+    background-color:           {{chernoe}};
+    border-color:               {{chernoe}};
+    text-color:                 {{abyad_light}};
+    height:                     34px;
+    font:                       "SauceCodePro Nerd Font Medium 17";
+    prompt-font:                "Source Sans 3 Bold 18";
+    prompt-background:          {{baikal}};
+    prompt-foreground:          {{chernoe}};
+    prompt-padding:             2px;
+    selected-normal-background: {{ianthina}};
+    selected-normal-foreground: {{chernoe}};
+}
+#window {
+    anchor: north;
+    location: north;
+    width: 100%;
+    padding: 0px;
+    children: [ horibox ];
+}
+#horibox {
+    orientation: horizontal;
+    children: [ prompt, entry, listview ];
+}
+#prompt {
+    padding:          @prompt-padding;
+    background-color: @prompt-background;
+    text-color:       @prompt-foreground;
+    font:             @prompt-font;
+}
+#listview {
+    layout: horizontal;
+    lines: 100;
+}
+#entry {
+    padding: 2px;
+    expand: false;
+    width: 10em;
+}
+#element {
+    padding: 2px 8px;
+}
+#element selected {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+element-icon {
+    background-color: transparent;
+    margin: 0 10px 0 0;
+}
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
+}

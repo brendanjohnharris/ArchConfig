@@ -1,0 +1,8 @@
+/* Auto-rendered from gtk.css.template by ~/.xmonad/bin/gen-fathom-colors.sh.
+ * Do not edit gtk.css directly; edit this template and recompile xmonad (M-C-r).
+ * libadwaita/GTK4 accent + selection retinted to the Fathom palette. */
+@define-color accent_color #6EA0F9;
+@define-color accent_bg_color #6EA0F9;
+@define-color accent_fg_color #282C34;
+@define-color theme_selected_bg_color #6EA0F9;
+@define-color theme_selected_fg_color #282C34;

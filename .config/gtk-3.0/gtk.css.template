@@ -1,0 +1,10 @@
+/* Auto-rendered from gtk.css.template by ~/.xmonad/bin/gen-fathom-colors.sh.
+ * Do not edit gtk.css directly; edit this template and recompile xmonad (M-C-r).
+ * Keeps the Arc-Dark base theme but retints accent/selection to the Fathom palette. */
+@define-color theme_selected_bg_color {{baikal}};
+@define-color selected_bg_color {{baikal}};
+@define-color theme_selected_fg_color {{chernoe}};
+@define-color selected_fg_color {{chernoe}};
+@define-color accent_color {{baikal}};
+@define-color accent_bg_color {{baikal}};
+@define-color accent_fg_color {{chernoe}};

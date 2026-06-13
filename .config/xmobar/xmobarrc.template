@@ -1,0 +1,66 @@
+-- Xmobar (<http://projects.haskell.org/xmobar/>)
+-- Dependencies: otf-font-awesome ttf-mononoki ttf-ubuntu-font-family trayer
+-- Also depends on scripts from dtos-local-bin from the dtos-core-repo.
+-- "xft:Ubuntu:weight=bold:pixelsize=20:antialias=true:hinting=true"
+Config { font            = "xft:Source Sans 3-bold-16"
+       , additionalFonts = [ "xft:Mononoki-bold-14"
+                           , "xft:Font Awesome 7 Free Solid-14"
+                           , "xft:Font Awesome 7 Brands-14"
+                           , "xft:Material Design Icons-20"
+                           ]
+       , bgColor      = "{{chernoe}}"
+       , fgColor      = "{{bermejo}}"
+       -- Position TopSize and BottomSize take 3 arguments:
+       --   an alignment parameter (L/R/C) for Left, Right or Center.
+       --   an integer for the percentage width, so 100 would be 100%.
+       --   an integer for the minimum pixel height for xmobar, so 24 would force a height of at least 24 pixels.
+       --   NOTE: The height should be the same as the trayer (system tray) height.
+       , position       = TopSize L 100 32
+       , lowerOnStart = True
+       , hideOnStart  = False
+       , allDesktops  = True
+       , persistent   = True
+       , iconRoot     = ".xmonad/xpm/"  -- default: "."
+       , commands = [
+                        -- Echos a "penguin" icon in front of the kernel output
+                      Run Com "echo" ["<fn=3>\xf17c</fn>"] "penguin" 36000
+                        -- Get kernel version (script found in .local/bin)
+                    , Run Com ".local/bin/kernel" [] "kernel" 36000
+                        -- Cpu usage in percent
+                    , Run Cpu ["-t", "<fn=2>\xf2db</fn>  <total>%","-H","50","--high","red"] 20
+                        -- Echos a "ram" icon in front of the ram output
+                    , Run Com "echo" ["<fn=2>\xf538</fn>"] "ram" 36000
+                        -- Ram used number and percent
+                    , Run Memory ["-t", " <used>M (<usedratio>%)"] 30
+                        -- Disk space free
+                    , Run DiskU [("/", "<fn=2>\xf0c7</fn>  <free> free")] [] 60
+                        -- Echos an "up arrow" icon in front of the uptime output.
+                    , Run Com "echo" ["<fn=2>\xf0aa</fn>"] "uparrow" 36000
+                        -- Uptime
+                    , Run Uptime ["-t", "<days>d <hours>h <minutes>m"] 600
+                        -- Echos a "box" icon in front of the pacman updates.
+                    , Run Com "echo" ["<fn=2>\xf1b2</fn>"] "bell" 36000
+                        -- Echos an "expansion card" icon in front of the gpu pct. --
+                    -- , Run Com "echo" ["<fn=4>󰢮</fn>"] "expansioncard" 36000 --
+                        -- Check for pacman updates (script found in .local/bin)
+                    , Run Com ".local/bin/pacupdate" [] "pacupdate" 1200
+                        -- Echo "Battery" icon in front ofthe battery status.
+                    --, Run Com "echo" ["<fn=2>\xf242</fn> "] "baticon" 36000
+                    , Run Com ".local/bin/charging" [] "baticon" 60
+                        -- Battery
+                    , Run BatteryP ["BAT0"] ["-t", " <watts>W | <left>% | <timeleft>"] 60
+                        -- Echos the status of the battery saver mode.
+                    , Run Com ".local/bin/batteryprotect" [] "batteryprotect" 60
+                        -- Echos the gpu utilization
+                    -- , Run Com ".local/bin/gpupct" [] "gpu" 10 --
+                        -- Time and date
+                    , Run Date "<fn=2>\xf073</fn>   %a %d/%m/%y %H:%M " "date" 60
+                        -- Script that dynamically adjusts xmobar padding depending on number of trayer icons.
+                    , Run Com ".config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 30
+                        -- Prints out the left side items such as workspaces, layout, etc.
+                    , Run UnsafeXMonadLog
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " <action=`xmonad --recompile && xmonad --restart`><icon=haskell_20.xpm/></action>   <fc={{abyad_dark}}>|</fc> %UnsafeXMonadLog% }{    <box type=Bottom width=2 mb=2 color={{seohae}}><fc={{seohae}}><action=`alacritty -e htop -s PERCENT_CPU`>%cpu%</action></fc></box>    <box type=Bottom width=2 mb=2 color={{bermejo}}><fc={{bermejo}}>%ram%<action=`alacritty -e htop -s PERCENT_MEM`>%memory%</action></fc></box>    <box type=Bottom width=2 mb=2 color={{ianthina}}><fc={{ianthina}}><action=`alacritty --hold -e dust`>%disku%</action></fc></box>    <box type=Bottom width=2 mb=2 color={{qinghai}}><fc={{qinghai}}>%uparrow%  <action=`alacritty -e htop`>%uptime%</action></fc></box>    <box type=Bottom width=2 mb=2 color={{abyad}}><fc={{abyad}}>%bell%  <action=`alacritty -e ~/.local/bin/sysupgrade`>%pacupdate%</action></fc></box>   <box type=Bottom width=2 mb=2 color={{mesopelagic_light}}><fc={{mesopelagic_light}}> %baticon% %battery% </fc></box>    <box type=Bottom width=2 mb=2 color={{baikal}}><fc={{baikal}}><action=`gtk-launch outlook`>%date%</action></fc></box>  %trayerpad%"
+       }

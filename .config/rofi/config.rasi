@@ -4,4 +4,4 @@ configuration {
  show-icons:                true;
  icon-theme: "Papirus-Dark";
  }
-@theme "~/.config/rofi/themes/dt-dmenu.rasi"
+@theme "~/.config/rofi/themes/fathom.rasi"

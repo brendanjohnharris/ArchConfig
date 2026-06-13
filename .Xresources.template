@@ -43,7 +43,7 @@ URxvt.cursorColor: white
 
 !! Extensions
 URxvt.perl-ext-common: default,matcher,resize-font,url-select,keyboard-select,clipboard
-URxvt.colorUL: #6EA0F9
+URxvt.colorUL: {{baikal}}
 !! url-select
 URxvt.keysym.M-u: perl:url-select:select_next
 URxvt.url-select.launcher: urxvt -e lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss
@@ -62,45 +62,45 @@ URxvt.keysym.M-v: perl:clipboard:paste
 URxvt*depth: 32
 
 ! COLORS FOR SXIV
-Sxiv.foreground:   #D4D4D4
-Sxiv.background:   #282C34
+Sxiv.foreground:   {{abyad_light}}
+Sxiv.background:   {{chernoe}}
 Sxiv.font: Ubuntu:style=bold:size=11
 
 
 ! FOR ALL OTHER PROGRAMS USE XRESOURCES
 ! This includes xterm and urxvt
-*.foreground:   #D4D4D4
-*.background:   #282C34
-*.cursorColor:  #D4D4D4
+*.foreground:   {{abyad_light}}
+*.background:   {{chernoe}}
+*.cursorColor:  {{abyad_light}}
 
 ! black
-*.color0:       #11141C
-*.color8:       #5E6167
+*.color0:       {{chernoe_dark}}
+*.color8:       {{chernoe_lighter}}
 
 ! red
-*.color1:       #F93D53
-*.color9:       #FF787E
+*.color1:       {{bermejo}}
+*.color9:       {{bermejo_light}}
 
 ! green
-*.color2:       #88BD69
-*.color10:      #AEDA97
+*.color2:       {{qinghai}}
+*.color10:      {{qinghai_light}}
 
 ! yellow
-*.color3:       #FFA829
-*.color11:      #FFCE79
+*.color3:       {{seohae}}
+*.color11:      {{seohae_light}}
 
 ! blue
-*.color4:       #6EA0F9
-*.color12:      #98C1FF
+*.color4:       {{baikal}}
+*.color12:      {{baikal_light}}
 
 ! magenta
-*.color5:       #B97AD7
-*.color13:      #D3A1EC
+*.color5:       {{ianthina}}
+*.color13:      {{ianthina_light}}
 
 ! cyan
-*.color6:       #007878
-*.color14:      #4D9393
+*.color6:       {{mesopelagic}}
+*.color14:      {{mesopelagic_light}}
 
 ! white
-*.color7:       #B4B4B4
-*.color15:      #F5F5F5
+*.color7:       {{abyad}}
+*.color15:      {{abyad_lighter}}

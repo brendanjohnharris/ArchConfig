@@ -1,0 +1,8 @@
+/* Auto-rendered from gtk.css.template by ~/.xmonad/bin/gen-fathom-colors.sh.
+ * Do not edit gtk.css directly; edit this template and recompile xmonad (M-C-r).
+ * libadwaita/GTK4 accent + selection retinted to the Fathom palette. */
+@define-color accent_color {{baikal}};
+@define-color accent_bg_color {{baikal}};
+@define-color accent_fg_color {{chernoe}};
+@define-color theme_selected_bg_color {{baikal}};
+@define-color theme_selected_fg_color {{chernoe}};
