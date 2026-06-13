@@ -15,10 +15,10 @@ export QT_QPA_PLATFORM=xcb
 export XDG_SESSION_TYPE=x11
 export GDK_BACKEND=x11
 
-# Stop matlab from shouting
-export MATLAB_LOG_DIR="$HOME/.matlab/logs"
-export LD_PRELOAD=/usr/lib/libstdc++.so
-export LD_LIBRARY_PATH=/usr/lib/xorg/modules/dri/
+# # Stop matlab from shouting
+# export MATLAB_LOG_DIR="$HOME/.matlab/logs"
+# export LD_PRELOAD=/usr/lib/libstdc++.so
+# export LD_LIBRARY_PATH=/usr/lib/xorg/modules/dri/
 
 # The default browser for xdg-open doesn't seem to be applied everywhere, and keeps getting overwritten, so:
 xdg-mime default okularApplication_pdf.desktop application/pdf
