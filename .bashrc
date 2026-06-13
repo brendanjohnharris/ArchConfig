@@ -62,3 +62,15 @@ case ":$PATH:" in
 esac
 
 # <<< juliaup initialize <<<
+
+# * Modern CLI tools (bat/eza/fd/zoxide)
+# zoxide: smart dir jumping via `z`/`zi` (cd left untouched in bash; fish uses --cmd cd)
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init bash)"
+# eza/bat exposed under distinct names; ls/cat stay as the real coreutils binaries
+if command -v eza >/dev/null 2>&1; then
+    alias ll='eza -l --git --group-directories-first'
+    alias la='eza -la --git --group-directories-first'
+    alias lt='eza --tree --level=2'
+    alias l='eza'
+fi
+command -v bat >/dev/null 2>&1 && alias batp='bat'

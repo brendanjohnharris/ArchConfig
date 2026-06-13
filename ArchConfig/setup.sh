@@ -126,6 +126,13 @@ paru -Syu downgrade
 # * Fish shell
 sudo pacman -Syu fish starship fisher
 
+# * Modern CLI tools (bat/eza/fd/zoxide); shell integration lives in ~/.bashrc and ~/.config/fish/config.fish
+sudo pacman -Syu --needed bat eza fd zoxide
+
+# * Compressed zram swap (hibernate-safe: added on top of the existing disk swap)
+# ! Config lives at /etc/systemd/zram-generator.conf and /etc/sysctl.d/99-zram.conf
+sudo pacman -Syu --needed zram-generator
+
 # * Multiple clipboards
 paru -Syu clipboard-bin
 

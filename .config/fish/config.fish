@@ -37,6 +37,15 @@ set -Ux CRYPTOGRAPHY_OPENSSL_NO_LEGACY 1
 
 zoxide init fish --cmd cd | source
 
+# Modern CLI tools: eza/bat under distinct names (ls/cat stay as coreutils)
+if type -q eza
+    alias ll 'eza -l --git --group-directories-first'
+    alias la 'eza -la --git --group-directories-first'
+    alias lt 'eza --tree --level=2'
+    alias l 'eza'
+end
+type -q bat; and alias batp 'bat'
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 if test -f /home/brendan/miniconda3/bin/conda
