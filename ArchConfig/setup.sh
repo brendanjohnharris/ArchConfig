@@ -133,6 +133,29 @@ sudo pacman -Syu --needed bat eza fd zoxide
 # ! Config lives at /etc/systemd/zram-generator.conf and /etc/sysctl.d/99-zram.conf
 sudo pacman -Syu --needed zram-generator
 
+# * Modern CLI tools, round 2: shell history (atuin), file manager (yazi),
+# ? multiplexer (zellij), git UI (lazygit), tldr (tealdeer), disk usage (dua).
+# ? Shell integration is in ~/.bashrc + ~/.config/fish/config.fish; fathom theming
+# ? lives in the *.template files rendered by ~/.xmonad/bin/gen-fathom-colors.sh.
+# ? ffmpegthumbnailer/7zip/poppler/jq/ripgrep are yazi preview+search helpers.
+sudo pacman -Syu --needed atuin yazi zellij lazygit tealdeer dua-cli \
+    ffmpegthumbnailer 7zip poppler jq ripgrep
+tldr --update   # prime the tealdeer page cache
+
+# * sioyek PDF reader (now the default; okular kept installed as an annotation fallback)
+# ? The AUR build is compiled with Arch's -D_GLIBCXX_ASSERTIONS and HARD-ABORTS on search
+# ? (upstream ahrm/sioyek#1401). We keep it for its .desktop/icon/assets, then shadow its
+# ? binary with the official prebuilt build (search works), via a ~/.local/bin/sioyek wrapper.
+paru -S --needed sioyek
+~/.local/bin/sioyek-official-update
+# ? Optional highlight-embedding helper used by sioyek's `_embed_annotations` command:
+# paru -S python-sioyek
+
+# * pake web apps (replace the old `chromium --app` .desktop launchers).
+# ? Manifest: ~/.config/webapps/apps.tsv ; injected fathom CSS rendered by gen-fathom-colors.sh.
+# ? Build/migrate (slow, Rust compiles) with ~/.local/bin/build-webapps.sh ; --restore to undo.
+sudo npm install -g pake-cli
+
 # * Multiple clipboards
 paru -Syu clipboard-bin
 

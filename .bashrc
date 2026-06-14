@@ -21,11 +21,11 @@ export GDK_BACKEND=x11
 # export LD_LIBRARY_PATH=/usr/lib/xorg/modules/dri/
 
 # The default browser for xdg-open doesn't seem to be applied everywhere, and keeps getting overwritten, so:
-xdg-mime default okularApplication_pdf.desktop application/pdf
+xdg-mime default sioyek.desktop application/pdf
 xdg-mime default firefox.desktop x-scheme-handler/https
 xdg-mime default firefox.desktop x-scheme-handler/http
 export BROWSER=firefox
-export READER=okular
+export READER=sioyek
 
 # * Jabref scaling
 export JABREF_OPTIONS="-Dglass.gtk.uiScale=144dpi -Djdk.gtk.version=2"
@@ -74,3 +74,21 @@ if command -v eza >/dev/null 2>&1; then
     alias l='eza'
 fi
 command -v bat >/dev/null 2>&1 && alias batp='bat'
+
+# * More modern CLI tools (atuin/yazi/zellij/lazygit/dua), guarded on presence
+# atuin: shell history (Ctrl-R / Up). For full command capture in bash it wants
+# bash-preexec, but keybindings work without it; fish is the primary interactive shell.
+command -v atuin   >/dev/null 2>&1 && eval "$(atuin init bash)"
+command -v lazygit >/dev/null 2>&1 && alias lg='lazygit'
+command -v zellij  >/dev/null 2>&1 && alias zj='zellij'
+command -v dua     >/dev/null 2>&1 && alias dui='dua interactive'
+# yazi: `y` opens the file manager and cd's to wherever you quit.
+if command -v yazi >/dev/null 2>&1; then
+    y() {
+        local tmp; tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+        yazi "$@" --cwd-file="$tmp"
+        local cwd; cwd="$(command cat -- "$tmp")"
+        [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+        rm -f -- "$tmp"
+    }
+fi

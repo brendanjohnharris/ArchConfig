@@ -1,0 +1,29 @@
+# Web-app manifest for build-webapps.sh (pake / Tauri standalone web apps).
+# Tab-separated columns:  name <TAB> url <TAB> wm_class <TAB> flags
+#   name     : pake --name; also the binary name, the .desktop basename, and
+#              (usually) the X11 WM_CLASS. Keep it == the old chromium .desktop
+#              basename so `gtk-launch <name>` (e.g. the xmobar date click) keeps working.
+#   url      : the site to wrap.
+#   wm_class : expected WM_CLASS for the built app (verify post-build with xprop;
+#              correct it here if it differs, then re-run for that app).
+#   flags    : extra space-separated pake flags, or "TEST" to mark apps that may
+#              not work under WebKitGTK (heavy SPA/WASM, or possibly-dead service).
+#              "-" means no extra flags.
+# spotify is intentionally absent: it needs Widevine DRM, which pake/WebKitGTK lacks
+# (stay on the native spotify-launcher). claude.ai is also separate (profile-scoped scratchpad).
+#
+# name	url	wm_class	flags
+Chess	https://www.chess.com/	chess	-
+Facebook	https://www.facebook.com/	facebook	-
+Github	https://github.com/brendanjohnharris	github	-
+Gitlab	https://gitlab.com/	gitlab	-
+Gmail	https://mail.google.com/mail/u/0/#inbox	gmail	-
+Google-Docs	https://docs.google.com	google-docs	-
+Google-Sheets	https://sheets.google.com	google-sheets	-
+Messenger	https://www.messenger.com/	messenger	-
+Onedrive-Online	https://unisydneyedu-my.sharepoint.com/	onedrive-online	-
+Outlook	https://outlook.office.com/mail/	outlook	-
+Overleaf	https://www.overleaf.com/	overleaf	-
+Twitter	https://twitter.com/	twitter	-
+Whatsapp	https://web.whatsapp.com/	whatsapp	-
+Matlab-Online	https://matlab.mathworks.com/	matlab-online	TEST

@@ -292,7 +292,7 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
 
 myAppGrid = [ ("Nemo", "nemo")
                  , ("Firefox", "firefox -P default-release")
-                 , ("Okular", "okular")
+                 , ("Sioyek", "sioyek")
                  , ("Spotify", myMusic)
                  , ("Inkscape", "inkscape")
                  , ("Gimp", "gimp")
@@ -387,8 +387,10 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.9
                  t = 0.95 -h
                  l = 0.95 -w
-    spawnReader   = "okular --qwindowtitle reader-scratchpad"
-    findReader    = className =? "okular"
+    -- sioyek is the reader scratchpad (M-s r). It has no okular-style title flag,
+    -- so we match on its WM_CLASS (verify post-install: xprop WM_CLASS -> "sioyek").
+    spawnReader   = "sioyek"
+    findReader    = className =? "sioyek"
     manageReader  = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
@@ -789,7 +791,7 @@ singleKeys =
         , ("M-m u", spawn "mpc volume +20")
         , ("M-m d", spawn "mpc volume -20")
         , ("<XF86AudioStop>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
-        , ("<XF86AudioPause>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
+        , ("<XF86AudioPause>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.PlayTer.PlayPause")
         , ("<XF86AudioToggle>", spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
 
     -- KB_GROUP Multimedia Keys

@@ -1,0 +1,35 @@
+// zellij — terminal multiplexer. https://zellij.dev/documentation/
+// Auto-rendered from config.kdl.template by ~/.xmonad/bin/gen-fathom-colors.sh.
+// Do not edit config.kdl directly; edit this template and recompile xmonad (M-C-r).
+
+theme "fathom"
+
+// X11 clipboard so y/copy in zellij lands in the system clipboard (not OSC52).
+copy_command "xclip -selection clipboard"
+copy_clipboard "system"
+copy_on_select true
+
+pane_frames true
+default_layout "compact"
+mouse_mode true
+scroll_buffer_size 50000
+
+// Don't persist sessions across reboots by default.
+session_serialization false
+
+// The 8+2 colour spec; zellij maps these onto its UI roles automatically.
+themes {
+    fathom {
+        fg     "#D4D4D4"
+        bg     "#282C34"
+        black  "#11141C"
+        red    "#F93D53"
+        green  "#88BD69"
+        yellow "#FFA829"
+        blue   "#6EA0F9"
+        magenta "#B97AD7"
+        cyan   "#007878"
+        white  "#F5F1E8"
+        orange "#FA9F42"
+    }
+}

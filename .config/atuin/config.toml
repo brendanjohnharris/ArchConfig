@@ -1,0 +1,29 @@
+## atuin — magical shell history. https://docs.atuin.sh/configuration/config/
+## Local-only on this machine: no sync account is configured, so all network
+## calls are disabled (no telemetry, no version check, no sync).
+auto_sync     = false
+update_check  = false
+
+## Search
+search_mode = "fuzzy"
+filter_mode = "global"
+
+## Inline UI that draws above the prompt (not a full-screen takeover).
+style         = "compact"
+inline_height = 12
+show_preview  = true
+show_help     = true
+
+## Enter runs the highlighted command (matches a native Ctrl-R); Tab edits it.
+enter_accept = true
+
+## Never record obvious secrets into history.
+history_filter = [
+  "^\\s*export .*(KEY|TOKEN|SECRET|PASSWORD)",
+  "^\\s*secret",
+]
+
+## Colours come from themes/fathom.toml, rendered from fathom.toml.template
+## by ~/.xmonad/bin/gen-fathom-colors.sh.
+[theme]
+name = "fathom"

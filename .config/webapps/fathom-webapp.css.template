@@ -1,0 +1,28 @@
+/* fathom web-app polish (injected into every pake app by build-webapps.sh).
+ * Auto-rendered from fathom-webapp.css.template by ~/.xmonad/bin/gen-fathom-colors.sh.
+ * Do not edit fathom-webapp.css directly; edit this template and recompile xmonad (M-C-r).
+ * Per-site full re-skinning is impractical, so this only unifies the chrome that
+ * WebKitGTK lets us reach: scrollbars and the text-selection accent. */
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-track {
+    background: {{chernoe}};
+}
+::-webkit-scrollbar-thumb {
+    background: {{chernoe_light}};
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: {{baikal}};
+}
+::-webkit-scrollbar-corner {
+    background: {{chernoe}};
+}
+
+::selection {
+    background: {{baikal}};
+    color: {{chernoe}};
+}

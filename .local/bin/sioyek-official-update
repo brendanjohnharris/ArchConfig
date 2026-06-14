@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# Install/refresh the OFFICIAL prebuilt sioyek binary into ~/.local, shadowing the
+# AUR `sioyek` package via a ~/.local/bin/sioyek wrapper (which precedes /usr/bin in PATH).
+#
+# Why: the AUR `sioyek` is compiled with Arch's -D_GLIBCXX_ASSERTIONS hardening, which
+# turns upstream's latent empty-vector read (ahrm/sioyek#1401) into a HARD ABORT the
+# moment you search. The official release binary isn't built with that flag, so search
+# works. Same ~/.config/sioyek + ~/.local/share/sioyek are used, so the fathom theming
+# and your highlights are preserved.
+#
+# No sudo and no fuse2: the AppImage is *extracted*, not mounted. The AUR `sioyek`
+# package is kept installed only for its .desktop, icon, and /usr/share/sioyek assets;
+# its binary is never invoked because the wrapper wins on PATH.
+set -euo pipefail
+
+VERSION="v2.0.0"   # bump when a newer sioyek release ships
+URL="https://github.com/ahrm/sioyek/releases/download/${VERSION}/sioyek-release-linux-portable.zip"
+OPT="${HOME}/.local/opt/sioyek-official"
+WRAP="${HOME}/.local/bin/sioyek"
+
+tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT
+
+echo "==> downloading official sioyek ${VERSION}..."
+curl -fSL "$URL" -o "$tmp/s.zip"
+( cd "$tmp" && unzip -q s.zip && chmod +x Sioyek-x86_64.AppImage \
+    && ./Sioyek-x86_64.AppImage --appimage-extract >/dev/null )
+
+bin="$tmp/squashfs-root/usr/bin/sioyek"
+[ -x "$bin" ] || { echo "ERROR: sioyek binary not found in the AppImage" >&2; exit 1; }
+
+echo "==> installing to $OPT"
+rm -rf "$OPT"; mkdir -p "$(dirname "$OPT")"
+mv "$tmp/squashfs-root" "$OPT"
+
+echo "==> writing wrapper $WRAP"
+mkdir -p "${HOME}/.local/bin"
+cat > "$WRAP" <<EOF
+#!/bin/sh
+# Shadows /usr/bin/sioyek (AUR build) with the official prebuilt binary, which does
+# not hard-abort on search (upstream bug ahrm/sioyek#1401 + Arch _GLIBCXX_ASSERTIONS).
+# Regenerate with ~/.local/bin/sioyek-official-update.
+exec "$OPT/usr/bin/sioyek" "\$@"
+EOF
+chmod +x "$WRAP"
+
+hash -r 2>/dev/null || true
+echo "==> done: $(command -v sioyek) -> $("$WRAP" --version 2>&1 | head -1)"

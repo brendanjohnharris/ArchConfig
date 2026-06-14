@@ -22,6 +22,24 @@ if type -q eza
 end
 type -q bat; and alias batp 'bat'
 
+# More modern CLI tools (atuin/yazi/zellij/lazygit/dua), guarded on presence.
+type -q atuin; and atuin init fish | source
+type -q lazygit; and alias lg 'lazygit'
+type -q zellij; and alias zj 'zellij'
+type -q dua; and alias dui 'dua interactive'
+
+# yazi: `y` opens the file manager and cd's to wherever you quit (q to exit).
+if type -q yazi
+    function y
+        set -l tmp (mktemp -t "yazi-cwd.XXXXXX")
+        yazi $argv --cwd-file="$tmp"
+        if set -l cwd (command cat -- "$tmp"); and test -n "$cwd"; and test "$cwd" != "$PWD"
+            builtin cd -- "$cwd"
+        end
+        rm -f -- "$tmp"
+    end
+end
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 if test -f /home/brendan/miniconda3/bin/conda

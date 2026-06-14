@@ -1,0 +1,28 @@
+# tealdeer — fast tldr client. https://tealdeer-rs.github.io/tealdeer/config.html
+# Auto-rendered from config.toml.template by ~/.xmonad/bin/gen-fathom-colors.sh.
+# Do not edit config.toml directly; edit this template and recompile xmonad (M-C-r).
+# Colours are 0-255 RGB triples produced by the gen-script's :r/:g/:b suffixes.
+
+[display]
+compact   = false
+use_pager = false
+
+[updates]
+auto_update                = true
+auto_update_interval_hours = 720   # refresh the cached pages monthly
+
+[style.command_name]
+foreground = { rgb = { r = {{baikal:r}}, g = {{baikal:g}}, b = {{baikal:b}} } }
+
+[style.example_text]
+foreground = { rgb = { r = {{abyad_light:r}}, g = {{abyad_light:g}}, b = {{abyad_light:b}} } }
+
+[style.example_code]
+foreground = { rgb = { r = {{qinghai:r}}, g = {{qinghai:g}}, b = {{qinghai:b}} } }
+
+[style.example_variable]
+foreground = { rgb = { r = {{seohae:r}}, g = {{seohae:g}}, b = {{seohae:b}} } }
+italic     = true
+
+[style.description]
+foreground = { rgb = { r = {{ianthina:r}}, g = {{ianthina:g}}, b = {{ianthina:b}} } }

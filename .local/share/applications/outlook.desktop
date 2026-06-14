@@ -1,15 +1,9 @@
 [Desktop Entry]
-Version=1.0
-Name=Outlook
-GenericName=Mail-Client
-Comment=Open Outlook in the web browser
-Keywords=Email;Calendar
-Exec=chromium --app="https://outlook.office.com/mail/"
-Icon=outlook
-Terminal=false
-X-MultipleArgs=false
 Type=Application
-MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
-StartupNotify=true
-StartupWMClass=outlook-chromium
-Categories=Mail
+Name=outlook
+Comment=Web app (https://outlook.office.com/mail/) built with pake
+Exec=/home/brendan/.local/bin/webapps/outlook %U
+Icon=/home/brendan/.local/share/icons/outlook.png
+Terminal=false
+Categories=Network;
+StartupWMClass=outlook

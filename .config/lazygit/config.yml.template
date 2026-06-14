@@ -1,0 +1,31 @@
+# lazygit — terminal git UI. https://github.com/jesseduffield/lazygit
+# Auto-rendered from config.yml.template by ~/.xmonad/bin/gen-fathom-colors.sh.
+# Do not edit config.yml directly; edit this template and recompile xmonad (M-C-r).
+gui:
+  nerdFontsVersion: "3"
+  theme:
+    activeBorderColor:
+      - "{{baikal}}"
+      - bold
+    inactiveBorderColor:
+      - "{{abyad_dark}}"
+    searchingActiveBorderColor:
+      - "{{seohae}}"
+      - bold
+    optionsTextColor:
+      - "{{baikal}}"
+    selectedLineBgColor:
+      - "{{chernoe_light}}"
+    cherryPickedCommitBgColor:
+      - "{{chernoe_light}}"
+    cherryPickedCommitFgColor:
+      - "{{baikal}}"
+    markedBaseCommitBgColor:
+      - "{{chernoe_light}}"
+    markedBaseCommitFgColor:
+      - "{{seohae}}"
+    unstagedChangesColor:
+      - "{{bermejo}}"
+    defaultFgColor:
+      - "{{abyad_light}}"
+  authorColorDefault: "{{ianthina}}"

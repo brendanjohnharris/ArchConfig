@@ -1,0 +1,44 @@
+# sioyek — PDF reader for papers. https://sioyek.info/
+# Auto-rendered from prefs_user.config.template by ~/.xmonad/bin/gen-fathom-colors.sh.
+# Do not edit prefs_user.config directly; edit this template and recompile xmonad (M-C-r).
+# sioyek colours are space-separated 0-1 RGB floats, produced by the :rgbf suffix.
+
+# --- Page / document colours ----------------------------------------------
+background_color           {{chernoe:rgbf}}
+text_highlight_color       {{playa:rgbf}}
+visual_mark_color          {{baikal:rgbf}} 0.20
+search_highlight_color     {{seohae:rgbf}}
+link_highlight_color       {{baikal:rgbf}}
+synctex_highlight_color    {{ianthina:rgbf}}
+
+# Custom colour mode (toggled with `f`): dark fathom background, light text.
+custom_background_color    {{chernoe:rgbf}}
+custom_text_color          {{abyad_light:rgbf}}
+
+# --- UI chrome -------------------------------------------------------------
+ui_text_color              {{abyad_light:rgbf}}
+ui_background_color        {{chernoe:rgbf}}
+ui_selected_text_color     {{chernoe:rgbf}}
+ui_selected_background_color {{playa:rgbf}}
+status_bar_color           {{chernoe_dark:rgbf}}
+status_bar_text_color      {{abyad_light:rgbf}}
+
+# --- Highlight type colours (keys a-e map to the highlight palette) ---------
+highlight_color_a          {{seohae:rgbf}}    # a -> orange
+highlight_color_b          {{qinghai:rgbf}}   # b -> green
+highlight_color_c          {{baikal:rgbf}}    # c -> blue
+highlight_color_d          {{bermejo:rgbf}}   # d -> red
+highlight_color_e          {{ianthina:rgbf}}  # e -> purple
+
+# --- SyncTeX: jump PDF -> source in VSCode (Ctrl-click / 'inverse search') --
+# %1 = file path, %2 = line number.
+inverse_search_command     code -g %1:%2
+
+# --- Embed highlights into the PDF on demand --------------------------------
+# sioyek stores highlights in its own SQLite DB, NOT in the PDF, so they are
+# invisible in other readers until "burned in". This manual command rewrites
+# the file with the highlights embedded (needs the AUR `python-sioyek` package).
+# NOTE: sioyek parses the value as a sequence of its own commands UNLESS the whole
+# external command is wrapped in one pair of double quotes -- without that wrapper
+# it mis-parses and aborts on startup. Inner paths use single quotes for safety.
+new_command _embed_annotations "python -m sioyek.embed_annotations '%{file_path}' '%{file_path}' --sioyek-path /usr/bin/sioyek"

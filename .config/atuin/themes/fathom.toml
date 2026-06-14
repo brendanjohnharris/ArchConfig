@@ -1,0 +1,15 @@
+# atuin theme: fathom (Fathom palette).
+# Auto-rendered from fathom.toml.template by ~/.xmonad/bin/gen-fathom-colors.sh.
+# Do not edit fathom.toml directly; edit this template and recompile xmonad (M-C-r).
+[theme]
+name = "fathom"
+
+[colors]
+AlertInfo  = "#88BD69"      # info  -> green
+AlertWarn  = "#FFA829"       # warn  -> orange
+AlertError = "#F93D53"      # error -> red
+Annotation = "#959595"   # timestamps / dimmed metadata
+Base       = "#D4D4D4"  # primary text
+Guidance   = "#6EA0F9"       # help / key hints
+Important  = "#F5F1E8"        # emphasised text -> the white accent
+Title      = "#6EA0F9"       # titles -> blue

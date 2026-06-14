@@ -60,6 +60,24 @@ render_template() {
         return 1
     fi
     awk -v palette="$palette" '
+        # Convert a "#RRGGBB" hex string to a requested numeric format.
+        #   :r  :g  :b   -> a single 0-255 channel int
+        #   :rgb         -> "R G B" as space-separated 0-255 ints
+        #   :rgbf        -> "r g b" as space-separated 0-1 floats (4 dp)
+        function fmtcolor(hexval, fmt,   h, r, g, b) {
+            h = hexval
+            sub(/^#/, "", h)
+            r = strtonum("0x" substr(h, 1, 2))
+            g = strtonum("0x" substr(h, 3, 2))
+            b = strtonum("0x" substr(h, 5, 2))
+            if (fmt == "r")    return r
+            if (fmt == "g")    return g
+            if (fmt == "b")    return b
+            if (fmt == "rgb")  return r " " g " " b
+            if (fmt == "rgbf") return sprintf("%.4f %.4f %.4f", r/255, g/255, b/255)
+            print "gen-fathom-colors: unknown format :" fmt " in " FILENAME > "/dev/stderr"
+            exit 1
+        }
         BEGIN {
             n = split(palette, lines, "\n")
             for (i = 1; i <= n; i++) {
@@ -69,10 +87,17 @@ render_template() {
         }
         {
             line = $0
-            while (match(line, /\{\{[a-zA-Z_][a-zA-Z0-9_]*\}\}/)) {
+            while (match(line, /\{\{[a-zA-Z_][a-zA-Z0-9_]*(:[a-z]+)?\}\}/)) {
                 token = substr(line, RSTART + 2, RLENGTH - 4)
+                fmt = ""
+                ci = index(token, ":")
+                if (ci > 0) {
+                    fmt = substr(token, ci + 1)
+                    token = substr(token, 1, ci - 1)
+                }
                 if (token in colors) {
-                    line = substr(line, 1, RSTART - 1) colors[token] substr(line, RSTART + RLENGTH)
+                    repl = (fmt == "") ? colors[token] : fmtcolor(colors[token], fmt)
+                    line = substr(line, 1, RSTART - 1) repl substr(line, RSTART + RLENGTH)
                 } else {
                     print "gen-fathom-colors: unknown token {{" token "}} in " FILENAME > "/dev/stderr"
                     exit 1
@@ -91,6 +116,22 @@ render_template "${HOME}/.config/dunst/dunstrc.template"            "${HOME}/.co
 render_template "${HOME}/.config/rofi/themes/fathom.rasi.template"  "${HOME}/.config/rofi/themes/fathom.rasi"
 render_template "${HOME}/.config/gtk-3.0/gtk.css.template"          "${HOME}/.config/gtk-3.0/gtk.css"
 render_template "${HOME}/.config/gtk-4.0/gtk.css.template"          "${HOME}/.config/gtk-4.0/gtk.css"
+
+# CLI tools (atuin/yazi/zellij/lazygit/tealdeer/sioyek). mkdir for a fresh
+# machine where the tool hasn't created its config dir yet.
+mkdir -p "${HOME}/.config/atuin/themes" "${HOME}/.config/yazi" \
+         "${HOME}/.config/zellij" "${HOME}/.config/lazygit" \
+         "${HOME}/.config/tealdeer" "${HOME}/.config/sioyek"
+render_template "${HOME}/.config/atuin/themes/fathom.toml.template"  "${HOME}/.config/atuin/themes/fathom.toml"
+render_template "${HOME}/.config/yazi/theme.toml.template"           "${HOME}/.config/yazi/theme.toml"
+render_template "${HOME}/.config/zellij/config.kdl.template"         "${HOME}/.config/zellij/config.kdl"
+render_template "${HOME}/.config/lazygit/config.yml.template"        "${HOME}/.config/lazygit/config.yml"
+render_template "${HOME}/.config/tealdeer/config.toml.template"      "${HOME}/.config/tealdeer/config.toml"
+render_template "${HOME}/.config/sioyek/prefs_user.config.template"  "${HOME}/.config/sioyek/prefs_user.config"
+
+# pake web-apps: CSS injected into every wrapped site for fathom-consistent chrome.
+mkdir -p "${HOME}/.config/webapps"
+render_template "${HOME}/.config/webapps/fathom-webapp.css.template" "${HOME}/.config/webapps/fathom-webapp.css"
 
 # fish: colours live in an auto-sourced conf.d snippet. fish wants hex WITHOUT a
 # leading '#', so strip it from the rendered values (leaves '#' comments intact).
