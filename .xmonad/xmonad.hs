@@ -232,7 +232,7 @@ myStartupHook = do
     spawnOnce "xinput --set-prop 'TPPS/2 Elan TrackPoint' 'libinput Accel Speed' -0.5"
     spawnOnce "xrandr --output 'eDP-1' --primary"
 
-    spawnOnce "feh --bg-fill $HOME/.wallpapers/trees.webp"
+    spawnOnce "feh --recursive --randomize --bg-fill $HOME/.wallpapers/"
 
     spawn "killall skippy-xd; skippy-xd --start-daemon &"
 
@@ -251,7 +251,7 @@ myColorizer :: Window -> Bool -> X (String, String)
 myColorizer = colorRangeFromClassName
                   (hexRGB colorBack)      -- lowest inactive bg  -> chernoe
                   (hexRGB chernoe_light)  -- highest inactive bg -> subtle per-app gradient
-                  (hexRGB colorCurrent)   -- active bg           -> ianthina
+                  (hexRGB colorBorder)    -- active/selected bg  -> playa (white accent)
                   (hexRGB colorFore)      -- inactive fg         -> abyad_light
                   (hexRGB colorBack)      -- active fg           -> chernoe
 
@@ -571,7 +571,7 @@ myTSConfig = def
     , ts_font        = "xft:Source Sans 3-bold-16"  -- match xmobar's system font (bold)
     , ts_node        = (0xffd4d4d4, 0xff282c34)   -- fg abyad_light / bg chernoe
     , ts_nodealt     = (0xffd4d4d4, 0xff42464d)   -- alt row bg chernoe_light
-    , ts_highlight   = (0xff282c34, 0xffb97ad7)   -- selected: chernoe on ianthina
+    , ts_highlight   = (0xff282c34, 0xfff5f1e8)   -- selected: chernoe on playa (white accent)
     , ts_extra       = 0xff88bd69                 -- description text: qinghai green
     , ts_node_width  = 1080                       -- 3x wider so long window titles fit
     , ts_node_height = 36
