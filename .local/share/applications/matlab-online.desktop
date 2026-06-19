@@ -1,15 +1,9 @@
 [Desktop Entry]
-Version=1.0
-Name=Matlab-online
-GenericName=Matlab-online-client
-Comment=Open Matlab-online in the web browser
-Keywords=Editor;LaTeX;Writing
-Exec=chromium --app="https://matlab.mathworks.com/"
-Icon=matlab
-Terminal=false
-X-MultipleArgs=false
 Type=Application
-MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
-StartupNotify=true
-StartupWMClass=Matlab-online-chromium
-Categories=IDE
+Name=Matlab-Online
+Comment=https://matlab.mathworks.com/  (isolated Chromium web app)
+Exec=/usr/bin/chromium --app="https://matlab.mathworks.com/" --user-data-dir=/home/brendan/.local/share/webapps-chromium --class=matlab-online --load-extension=/home/brendan/.local/share/webapps-chromium-ext
+Icon=/home/brendan/.local/share/icons/webapp-matlab-online.png
+Terminal=false
+Categories=Network;
+StartupWMClass=matlab-online

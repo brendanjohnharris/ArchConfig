@@ -1,15 +1,9 @@
 [Desktop Entry]
-Version=1.0
-Name=Google Sheets
-GenericName=Spreadsheet editor
-Comment=Open Google Sheets in the web browser
-Keywords=Google Sheets;Code;Developer
-Exec=chromium --app="https://sheets.google.com"
-Icon=libreoffice-calc
-Terminal=false
-X-MultipleArgs=false
 Type=Application
-MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
-StartupNotify=true
-StartupWMClass=Google Sheets-chromium
-Categories=Developer
+Name=Google-Sheets
+Comment=https://sheets.google.com  (isolated Chromium web app)
+Exec=/usr/bin/chromium --app="https://sheets.google.com" --user-data-dir=/home/brendan/.local/share/webapps-chromium --class=google-sheets --load-extension=/home/brendan/.local/share/webapps-chromium-ext
+Icon=/home/brendan/.local/share/icons/webapp-google-sheets.png
+Terminal=false
+Categories=Network;
+StartupWMClass=google-sheets

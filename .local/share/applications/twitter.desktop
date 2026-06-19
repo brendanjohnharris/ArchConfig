@@ -1,15 +1,9 @@
 [Desktop Entry]
-Version=1.0
-Name=twitter
-GenericName=social-media-client
-Comment=Open Twitter in the web browser
-Keywords=Chat;Twitter;Social;Messages
-Exec=chromium --app="https://www.twitter.com/"
-Icon=twitter
-Terminal=false
-X-MultipleArgs=false
 Type=Application
-MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
-StartupNotify=true
-StartupWMClass=twitter-chromium
-Categories=Chat
+Name=Twitter
+Comment=https://twitter.com/  (isolated Chromium web app)
+Exec=/usr/bin/chromium --app="https://twitter.com/" --user-data-dir=/home/brendan/.local/share/webapps-chromium --class=twitter --load-extension=/home/brendan/.local/share/webapps-chromium-ext
+Icon=/home/brendan/.local/share/icons/webapp-twitter.png
+Terminal=false
+Categories=Network;
+StartupWMClass=twitter

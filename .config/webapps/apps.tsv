@@ -1,5 +1,5 @@
 # Web-app manifest for build-webapps.sh (pake / Tauri standalone web apps).
-# Tab-separated columns:  name <TAB> url <TAB> wm_class <TAB> flags
+# Whitespace-separated columns (spaces OR tabs both work):  name  url  wm_class  flags
 #   name     : pake --name; also the binary name, the .desktop basename, and
 #              (usually) the X11 WM_CLASS. Keep it == the old chromium .desktop
 #              basename so `gtk-launch <name>` (e.g. the xmobar date click) keeps working.
@@ -27,3 +27,5 @@ Overleaf	https://www.overleaf.com/	overleaf	-
 Twitter	https://twitter.com/	twitter	-
 Whatsapp	https://web.whatsapp.com/	whatsapp	-
 Matlab-Online	https://matlab.mathworks.com/	matlab-online	TEST
+Youtube	https://www.youtube.com/	youtube	-
+Google-Drive    https://drive.google.com/   google-drive   -

@@ -125,10 +125,10 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="900.225646972656"
-         height="371.482330322266"
-         ry="15"
-         rx="15" />
+         width="864"
+         height="648"
+         ry="0"
+         rx="0" />
       <eventcontext
          id="3dbox"
          style="stroke:none;stroke-linejoin:round;"

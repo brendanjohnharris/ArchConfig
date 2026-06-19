@@ -1,15 +1,9 @@
 [Desktop Entry]
-Version=1.0
-Name=Chess
-GenericName=Chess-client
-Comment=Open Chess in the web browser
-Keywords=Game;Chess;Social
-Exec=chromium --app="https://www.chess.com/"
-Icon=3dchess
-Terminal=false
-X-MultipleArgs=false
 Type=Application
-MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
-StartupNotify=true
-StartupWMClass=Chess-chromium
-Categories=Game
+Name=Chess
+Comment=https://www.chess.com/  (isolated Chromium web app)
+Exec=/usr/bin/chromium --app="https://www.chess.com/" --user-data-dir=/home/brendan/.local/share/webapps-chromium --class=chess --load-extension=/home/brendan/.local/share/webapps-chromium-ext
+Icon=/home/brendan/.local/share/icons/webapp-chess.png
+Terminal=false
+Categories=Network;
+StartupWMClass=chess

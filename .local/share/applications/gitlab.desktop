@@ -1,15 +1,9 @@
 [Desktop Entry]
-Version=1.0
-Name=GitLab
-GenericName=Git Hosting Service
-Comment=Open GitLab in the web browser
-Keywords=GitLab;Code;Developer
-Exec=chromium --app="https://gitlab.com/"
-Icon=gitlab
-Terminal=false
-X-MultipleArgs=false
 Type=Application
-MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
-StartupNotify=true
-StartupWMClass=GitLab-chromium
-Categories=Developer
+Name=Gitlab
+Comment=https://gitlab.com/  (isolated Chromium web app)
+Exec=/usr/bin/chromium --app="https://gitlab.com/" --user-data-dir=/home/brendan/.local/share/webapps-chromium --class=gitlab --load-extension=/home/brendan/.local/share/webapps-chromium-ext
+Icon=/home/brendan/.local/share/icons/webapp-gitlab.png
+Terminal=false
+Categories=Network;
+StartupWMClass=gitlab

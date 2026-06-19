@@ -76,9 +76,14 @@ fi
 command -v bat >/dev/null 2>&1 && alias batp='bat'
 
 # * More modern CLI tools (atuin/yazi/zellij/lazygit/dua), guarded on presence
-# atuin: shell history (Ctrl-R / Up). For full command capture in bash it wants
-# bash-preexec, but keybindings work without it; fish is the primary interactive shell.
-command -v atuin   >/dev/null 2>&1 && eval "$(atuin init bash)"
+# atuin: shell history (Ctrl-R / Up). Init only when readline line-editing is on
+# (emacs/vi mode) -- otherwise atuin's `bind` keybindings warn "line editing not
+# enabled". That fires in interactive-but-no-readline shells (IDE shell integration,
+# `bash -i` without a tty), where $- still contains 'i', so testing interactivity
+# alone is not enough; the line-editing test is the exact condition `bind` needs.
+if { shopt -oq emacs || shopt -oq vi; } && command -v atuin >/dev/null 2>&1; then
+    eval "$(atuin init bash --disable-up-arrow)"  # Up = native shell history; Ctrl-R = atuin
+fi
 command -v lazygit >/dev/null 2>&1 && alias lg='lazygit'
 command -v zellij  >/dev/null 2>&1 && alias zj='zellij'
 command -v dua     >/dev/null 2>&1 && alias dui='dua interactive'

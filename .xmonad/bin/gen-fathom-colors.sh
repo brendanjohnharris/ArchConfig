@@ -129,10 +129,6 @@ render_template "${HOME}/.config/lazygit/config.yml.template"        "${HOME}/.c
 render_template "${HOME}/.config/tealdeer/config.toml.template"      "${HOME}/.config/tealdeer/config.toml"
 render_template "${HOME}/.config/sioyek/prefs_user.config.template"  "${HOME}/.config/sioyek/prefs_user.config"
 
-# pake web-apps: CSS injected into every wrapped site for fathom-consistent chrome.
-mkdir -p "${HOME}/.config/webapps"
-render_template "${HOME}/.config/webapps/fathom-webapp.css.template" "${HOME}/.config/webapps/fathom-webapp.css"
-
 # fish: colours live in an auto-sourced conf.d snippet. fish wants hex WITHOUT a
 # leading '#', so strip it from the rendered values (leaves '#' comments intact).
 fish_colors_out="${HOME}/.config/fish/conf.d/fathom_colors.fish"

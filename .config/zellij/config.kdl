@@ -10,9 +10,14 @@ copy_clipboard "system"
 copy_on_select true
 
 pane_frames true
-default_layout "compact"
+// "compact" swaps the full status-bar (which shows the keybinding hints) for the
+// minimal compact-bar, which omits them. Use the default layout to keep the hints.
+default_layout "default"
 mouse_mode true
 scroll_buffer_size 50000
+
+// Open panes in fish (zellij otherwise inherits $SHELL, which is bash here).
+default_shell "fish"
 
 // Don't persist sessions across reboots by default.
 session_serialization false

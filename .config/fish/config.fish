@@ -23,7 +23,8 @@ end
 type -q bat; and alias batp 'bat'
 
 # More modern CLI tools (atuin/yazi/zellij/lazygit/dua), guarded on presence.
-type -q atuin; and atuin init fish | source
+# --disable-up-arrow: keep fish's native Up-arrow history; atuin stays on Ctrl-R only.
+type -q atuin; and atuin init fish --disable-up-arrow | source
 type -q lazygit; and alias lg 'lazygit'
 type -q zellij; and alias zj 'zellij'
 type -q dua; and alias dui 'dua interactive'

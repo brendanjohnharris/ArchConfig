@@ -43,5 +43,31 @@ exec "$OPT/usr/bin/sioyek" "\$@"
 EOF
 chmod +x "$WRAP"
 
+# Desktop integration. The AUR package used to own sioyek.desktop + the icon; with
+# the manual install we provide our own so PDFs open and sioyek shows in launchers.
+echo "==> installing .desktop + icon and setting the PDF default"
+ICON_SRC="$OPT/sioyek-icon-linux.png"
+ICON_DST="${HOME}/.local/share/icons/sioyek.png"
+DESKTOP="${HOME}/.local/share/applications/sioyek.desktop"
+mkdir -p "${HOME}/.local/share/icons" "${HOME}/.local/share/applications"
+[ -f "$ICON_SRC" ] && install -Dm644 "$ICON_SRC" "$ICON_DST"
+cat > "$DESKTOP" <<EOF
+[Desktop Entry]
+Name=Sioyek
+Comment=PDF viewer for reading research papers and technical books
+Keywords=pdf;viewer;reader;research;
+TryExec=$WRAP
+Exec=$WRAP %f
+StartupNotify=true
+Terminal=false
+Type=Application
+Icon=$ICON_DST
+Categories=Office;Viewer;
+MimeType=application/pdf;
+EOF
+command -v update-desktop-database >/dev/null 2>&1 && \
+    update-desktop-database "${HOME}/.local/share/applications" >/dev/null 2>&1 || true
+command -v xdg-mime >/dev/null 2>&1 && xdg-mime default sioyek.desktop application/pdf || true
+
 hash -r 2>/dev/null || true
 echo "==> done: $(command -v sioyek) -> $("$WRAP" --version 2>&1 | head -1)"

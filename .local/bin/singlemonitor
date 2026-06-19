@@ -1,0 +1,24 @@
+#!/bin/sh
+# Single-monitor reset (bound to M-C-0): the laptop's internal panel only, with
+# every external output turned off. Restarts the compositor at the end so picom's
+# glx back-buffer rebuilds for the new, smaller screen geometry -- without that,
+# the desktop/cursor flickers after switching down from a multi-monitor layout.
+
+# The internal panel is named eDP / eDP-1 / eDP1 depending on the driver -- detect it.
+edp=$(xrandr --query | awk '/ connected/ && $1 ~ /^eDP/ {print $1; exit}')
+edp=${edp:-eDP}
+
+# Laptop panel as the sole primary output; turn off every other connected output.
+xrandr --output "$edp" --auto --primary
+xrandr --query | awk '/ connected/ {print $1}' | grep -vx "$edp" | while read -r out; do
+    xrandr --output "$out" --off
+done
+
+# Re-tile for the new geometry and reset the wallpaper.
+xmonad --restart
+feh --recursive --randomize --bg-fill "$HOME/.wallpapers/" 2>/dev/null || true
+
+# Restart the compositor so glx re-inits at the new screen size (the flicker fix).
+sleep 0.4
+killall picom 2>/dev/null
+picom -b

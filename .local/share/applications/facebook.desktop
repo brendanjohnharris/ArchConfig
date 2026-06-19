@@ -1,15 +1,9 @@
 [Desktop Entry]
-Version=1.0
-Name=Facebook
-GenericName=IM-client
-Comment=Open Facebook Messenger in the web browser
-Keywords=Chat;Facebook;Social;Messages
-Exec=chromium --app="https://www.facebook.com/"
-Icon=fbmessenger
-Terminal=false
-X-MultipleArgs=false
 Type=Application
-MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
-StartupNotify=true
-StartupWMClass=messenger-chromium
-Categories=Chat
+Name=Facebook
+Comment=https://www.facebook.com/  (isolated Chromium web app)
+Exec=/usr/bin/chromium --app="https://www.facebook.com/" --user-data-dir=/home/brendan/.local/share/webapps-chromium --class=facebook --load-extension=/home/brendan/.local/share/webapps-chromium-ext
+Icon=/home/brendan/.local/share/icons/webapp-facebook.png
+Terminal=false
+Categories=Network;
+StartupWMClass=facebook

@@ -1,9 +1,9 @@
 [Desktop Entry]
 Type=Application
-Name=outlook
-Comment=Web app (https://outlook.office.com/mail/) built with pake
-Exec=/home/brendan/.local/bin/webapps/outlook %U
-Icon=/home/brendan/.local/share/icons/outlook.png
+Name=Outlook
+Comment=https://outlook.office.com/mail/  (isolated Chromium web app)
+Exec=/usr/bin/chromium --app="https://outlook.office.com/mail/" --user-data-dir=/home/brendan/.local/share/webapps-chromium --class=outlook --load-extension=/home/brendan/.local/share/webapps-chromium-ext
+Icon=/home/brendan/.local/share/icons/webapp-outlook.png
 Terminal=false
 Categories=Network;
 StartupWMClass=outlook

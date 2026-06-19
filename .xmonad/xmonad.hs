@@ -7,7 +7,7 @@ import qualified XMonad.StackSet as W
 
     -- Actions
 import XMonad.Actions.CopyWindow (kill1)
-import XMonad.Actions.CycleWS (Direction1D(..), moveTo, shiftTo, WSType(..), nextScreen, prevScreen, nextWS, prevWS, toggleWS)
+import XMonad.Actions.CycleWS (Direction1D(..), moveTo, shiftTo, WSType(..), nextScreen, prevScreen, shiftNextScreen, shiftPrevScreen, nextWS, prevWS, toggleWS)
 import XMonad.Actions.GridSelect
 import XMonad.Actions.MouseResize
 import XMonad.Actions.Promote
@@ -635,11 +635,12 @@ singleKeys =
         , ("M-S-p t", spawn "~/.local/bin/transparenton") -- Set picom to transparent
         , ("M-S-p o", spawn "~/.local/bin/transparentoff") -- Set picom to opaque
         , ("M-S-b", spawn "feh --recursive --randomize --bg-fill $HOME/.wallpapers/") -- Changes backgroundB
+        , ("M-C-0", spawn "~/.local/bin/singlemonitor")
         , ("M-C-1", spawn "~/.local/bin/docked")
         , ("M-C-2", spawn "~/.local/bin/doubledocked")
         , ("M-C-3", spawn "~/.local/bin/doubledockedmixed")
 
-    -- KB_GROUP Get Help
+    -- KB_GROUP Get Helps
         , ("M-S-/", spawn "~/.xmonad/xmonad_keys.sh") -- Get list of keybindings
 
     -- KB_GROUP Lock & Clipboard
@@ -648,8 +649,7 @@ singleKeys =
 
     -- KB_GROUP Run Prompt
         --, ("M-S-<Return>", spawn "dmenu_run -i -fn 'Ubuntu:weight=bold:pixelsize=26:antialias=true:hinting=true' -p \"Run: \"") -- Dmenu
-        , ("M-<Return>", spawn "rofi -drun-show-actions -drun-match-fields name,keywords,generic -show drun") -- Dmenu
-        , ("C-S-<Return>", spawn "rofi -drun-show-actions -drun-match-fields name,keywords,generic -show drun") -- Dmenu
+        , ("M-<Return>", spawn "rofi -drun-show-actions -drun-match-fields name,keywords,generic -show combi -combi-modi \"drun,vscode:~/.config/rofi/vscode-workspaces.py\" -combi-display-format \"{text}\" -display-combi \"rofi\"") -- Dmenu
 
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-S-<Return>", spawn (myTerminal))
@@ -671,6 +671,8 @@ singleKeys =
         , ("M-0", toggleWS)
         , ("M-.", nextScreen)  -- Switch focus to next monitor
         , ("M-,", prevScreen)  -- Switch focus to prev monitor
+        , ("M-S-.", shiftNextScreen)  -- Shift focused window to next monitor
+        , ("M-S-,", shiftPrevScreen)  -- Shift focused window to prev monitor
         , ("M-S-<Left>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
         , ("M-S-<Right>", shiftTo Next nonNSP >> moveTo Next nonNSP) -- Shifts focused window to next ws
 
