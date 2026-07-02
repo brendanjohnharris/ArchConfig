@@ -198,7 +198,17 @@ Standalone web apps replace the old `chromium --app` launchers, wrapped with **p
 
 ---
 
-## 10. Reproducibility
+## 10. rofi launcher
+
+`M-<Return>` opens rofi in combi mode, merging the standard drun list with a live VS Code workspace picker:
+
+- **Script:** `~/.config/rofi/vscode-workspaces.py` reads `~/.config/Code/User/globalStorage/storage.json` and emits all known workspaces (local and remote ssh/tunnel) with the `vscode` icon and their URI as hidden metadata.
+- **Selection:** opens `code --folder-uri <uri>`, which works for both `file://` local and `vscode-remote://` remote workspaces.
+- The workspace list updates automatically on each rofi invocation; no daemon or generated `.desktop` files needed.
+
+---
+
+## 11. Reproducibility
 
 Everything above is tracked in ArchConfig: templates, generated outputs, the generator,
 shell configs, the installer scripts (`install-newtools.sh`, `sioyek-official-update`,

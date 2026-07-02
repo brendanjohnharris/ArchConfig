@@ -204,12 +204,28 @@ pelagicStops =
 gradientStart :: Double
 gradientStart = 0.2
 
+-- | Reverse the colour palette after 'gradientStart' is applied, reflecting the
+-- sampled position within the [gradientStart, 1] band so the depth gradient runs
+-- deep -> shallow instead of shallow -> deep.  The band itself is unchanged; only
+-- the direction across it flips (False = original shallow -> deep order).
+colorDesc :: Bool
+colorDesc = True
+
+-- | Sample row colours as though there were at least this many rows: with fewer
+-- rows than this, the gradient is not stretched to its full depth, so the few
+-- cells keep the colours they would take in a taller column rather than spanning
+-- the whole shallow -> deep range.
+minColorStops :: Integer
+minColorStops = 4
+
 
 -- | The pelagic colour for a window at the given depth (0 = shallowest).
 shadeFor :: Integer -> Integer -> String
 shadeFor maxDepth depth =
-    let r = fromIntegral depth / fromIntegral (max 1 maxDepth)
-    in gradientAt pelagicStops (gradientStart + r * (1 - gradientStart))
+    let denom = max maxDepth (minColorStops - 1)
+        r = fromIntegral depth / fromIntegral (max 1 denom)
+        p = gradientStart + r * (1 - gradientStart)
+    in gradientAt pelagicStops (if colorDesc then gradientStart + 1 - p else p)
 
 -- | Sample a [0,1] ratio across colour stops placed at explicit positions
 -- (piecewise linear; values outside the stop range clamp to the end colours).
@@ -961,6 +977,36 @@ redrawCells ps = do
   drawQuery
   blitBuffer
 
+-- | Kill the element at the cursor and remove it from the element map,
+-- collapsing the column header too if the column becomes empty.  No-op on
+-- header cells.  Calls @onDelete val@ (e.g. 'killWindow') before updating.
+deleteSelected :: (a -> X ()) -> TwoD a ()
+deleteSelected onDelete = do
+  s <- get
+  let pos     = td_curpos s
+      emap    = td_elementmap s
+      headers = td_headerPos s
+  unless (pos `elem` headers) $
+    case findInElementMap pos emap of
+      Nothing -> return ()
+      Just (_, (_, val)) -> do
+        liftX (onDelete val)
+        let newEmap = L.filter ((/= pos) . fst) emap
+            (cx, cy) = pos
+            colWins = [ p | (p@(x,_), _) <- newEmap, x == cx, p `notElem` headers ]
+            (newEmap2, newHeaders)
+              | null colWins = ( L.filter ((/= cx) . fst . fst) newEmap
+                               , L.filter ((/= cx) . fst) headers )
+              | otherwise    = (newEmap, headers)
+            act = L.filter (matchesQ (td_searchString s) . fst . snd) newEmap2
+            newPos | null act  = pos
+                   | otherwise = fst (minimumBy
+                       (comparing (\((x, y), _) -> (abs (x - cx), abs (y - cy)))) act)
+        put s { td_elementmap = newEmap2
+              , td_headerPos  = newHeaders
+              , td_curpos     = newPos }
+        redrawAll
+
 -- | Mouse click / expose handling.
 stdHandle :: Event -> TwoD a (Maybe a) -> TwoD a (Maybe a)
 stdHandle ButtonEvent{ ev_event_type = t, ev_x = x, ev_y = y } contEventloop
@@ -1125,10 +1171,10 @@ moveCol dir = do
 -- have no effect outside the grid): Ctrl/Alt = left/right, Shift/Super =
 -- up/down.  Pressed alone a modifier emits a KeyPress whose state is the
 -- pre-press state, hence mask 0.
-columnNavigation :: TwoD a (Maybe a)
-columnNavigation = makeXEventhandler $ shadowWithKeymap navKeyMap navDefault
+columnNavigation :: (a -> X ()) -> TwoD a (Maybe a)
+columnNavigation onDelete = makeXEventhandler $ shadowWithKeymap navKeyMap navDefault
   where
-    nav act = act >> columnNavigation
+    nav act = act >> columnNavigation onDelete
     navKeyMap = M.fromList $
       [ ((0, xK_Escape),     cancel)
       , ((0, xK_Return),     select)
@@ -1138,6 +1184,7 @@ columnNavigation = makeXEventhandler $ shadowWithKeymap navKeyMap navDefault
       , ((0, xK_Left),       nav (moveCol (-1)))
       , ((0, xK_Right),      nav (moveCol 1))
       , ((0, xK_BackSpace),  nav (columnSearch (\q -> if null q then q else init q)))
+      , ((0, xK_Delete),     nav (deleteSelected onDelete))
       ] ++
       -- bare modifier keys as navigation (both L/R variants where they exist)
       [ ((0, k), nav (moveCol (-1)))  | k <- [xK_Control_L, xK_Control_R] ] ++
@@ -1146,7 +1193,7 @@ columnNavigation = makeXEventhandler $ shadowWithKeymap navKeyMap navDefault
       [ ((0, k), nav (moveVert 1))    | k <- [xK_Super_L, xK_Super_R] ]
     navDefault (_, str, _) = do
       unless (null str) $ columnSearch (++ str)
-      columnNavigation
+      columnNavigation onDelete
 
 -- ---------------------------------------------------------------------------
 -- Placement and entry points.
@@ -1177,8 +1224,8 @@ centralPos = fst . minimumBy (comparing (\((x, y), _) -> abs x + abs y))
 -- (which positions are headers is given separately), a start position, a map of
 -- raw per-cell icons (scaled here, once the final cell size is known), and
 -- 'columnNavigation'.
-gridselectColumns :: GSConfig a -> [TwoDPosition] -> TwoDPosition -> M.Map TwoDPosition RawIcon -> TwoDElementMap a -> X (Maybe a)
-gridselectColumns gsconfig headerPos startPos rawIcons emap
+gridselectColumns :: (a -> X ()) -> GSConfig a -> [TwoDPosition] -> TwoDPosition -> M.Map TwoDPosition RawIcon -> TwoDElementMap a -> X (Maybe a)
+gridselectColumns onDelete gsconfig headerPos startPos rawIcons emap
   | null emap = return Nothing
   | otherwise =
  withDisplay $ \dpy -> do
@@ -1281,7 +1328,7 @@ gridselectColumns gsconfig headerPos startPos rawIcons emap
                                       , td_wrap = wrapMap
                                       , td_shadowGC = shadowGC
                                       , td_iconPm = iconPmRef }
-                    evalTwoD (redrawAll >> columnNavigation) s
+                    evalTwoD (redrawAll >> columnNavigation onDelete) s
                   else return Nothing
     liftIO $ do
       unmapWindow dpy win
@@ -1338,7 +1385,7 @@ gridselectWindowColumns conf order = do
                                         fmap (\ri -> (pos, ri)) <$> readRawIcon dpy atom (sIconMaxSrc style) w
                              return (M.fromList (catMaybes pairs))
                       else return M.empty
-        gridselectColumns conf headerPos (fromMaybe (centralPos wEmap) startPos) rawIcons emap
+        gridselectColumns killWindow conf headerPos (fromMaybe (centralPos wEmap) startPos) rawIcons emap
   where cleanTag = unwords . words   -- " chat " -> "chat" for the header
 
 -- | Switch to the selected window's workspace and focus it.

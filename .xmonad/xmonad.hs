@@ -649,7 +649,7 @@ singleKeys =
 
     -- KB_GROUP Run Prompt
         --, ("M-S-<Return>", spawn "dmenu_run -i -fn 'Ubuntu:weight=bold:pixelsize=26:antialias=true:hinting=true' -p \"Run: \"") -- Dmenu
-        , ("M-<Return>", spawn "rofi -drun-show-actions -drun-match-fields name,keywords,generic -show combi -combi-modi \"drun,vscode:~/.config/rofi/vscode-workspaces.py\" -combi-display-format \"{text}\" -display-combi \"rofi\"") -- Dmenu
+        , ("M-<Return>", spawn "rofi -drun-show-actions -drun-match-fields name,keywords,generic -show combi -combi-modi \"drun,vscode:~/.config/rofi/vscode-workspaces.py\" -combi-display-format \"{text}\" -display-combi \"rofi\" -kb-move-char-back \"Control+b\" -kb-row-up \"Up,Control+p,Left\" -matching fuzzy") -- Dmenu
 
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-S-<Return>", spawn (myTerminal))
