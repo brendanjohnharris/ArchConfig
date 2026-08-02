@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""rofi script-mode: list recent VS Code workspaces/folders and open them.
+"""rofi script-mode: list recent VS Code workspaces (and optionally folders).
 
 Discovery comes from `lastKnownMenubarData` (the File > Open Recent menu) in
 Code's storage.json -- this is the full recent list, not just the currently
@@ -10,10 +10,15 @@ Each entry is opened with the correct flag: a `.code-workspace` file must use
 `--file-uri` (this actually *activates* the multi-root workspace); a plain
 folder uses `--folder-uri`. Using --folder-uri on a workspace file only reopens
 its directory and the last editor, which is the bug this avoids.
+
+Set SHOW_FOLDERS = True to include plain folders in the list.
 """
 import json, os
 from pathlib import Path
 from urllib.parse import unquote, quote
+
+
+SHOW_FOLDERS = False
 
 
 def uri_from_component(u):
@@ -54,6 +59,10 @@ def label_for(uri, is_workspace):
     return f"{name}  [{tag}]" if tag else name
 
 
+def is_workspace_uri(uri):
+    return bool(uri) and unquote(uri).endswith('.code-workspace')
+
+
 def get_entries():
     storage = Path.home() / '.config/Code/User/globalStorage/storage.json'
     data = json.loads(storage.read_text())
@@ -64,8 +73,10 @@ def get_entries():
     def add(uri):
         if not uri or uri in seen:
             return
+        is_ws = is_workspace_uri(uri)
+        if not is_ws and not SHOW_FOLDERS:
+            return
         seen.add(uri)
-        is_ws = unquote(uri).endswith('.code-workspace')
         entries.append((label_for(uri, is_ws), uri, is_ws))
 
     # Recency-ordered head: File > Open Recent menu (~10 most-recent). These are
