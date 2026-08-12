@@ -74,6 +74,7 @@ import XMonad.Layout.Decoration
 import XMonad.Util.NamedWindows (getName)
 import XMonad.Actions.WindowBringer (bringWindow)
 import XMonad.Actions.GridSelect (GSConfig(..), TwoDPosition)
+import LimboView (limboView)
 import qualified Colors.FathomColors as C   -- auto-generated from the Fathom YAML
 
 -- ---------------------------------------------------------------------------
@@ -1388,10 +1389,23 @@ gridselectWindowColumns conf order = do
         gridselectColumns killWindow conf headerPos (fromMaybe (centralPos wEmap) startPos) rawIcons emap
   where cleanTag = unwords . words   -- " chat " -> "chat" for the header
 
--- | Switch to the selected window's workspace and focus it.
+-- | Like 'W.focusWindow', but if the selected window's workspace is currently
+-- displayed on ANOTHER screen, pull that workspace onto the current screen
+-- rather than moving focus away to that other screen (which is what the plain
+-- 'W.view' inside 'W.focusWindow' would do).  The pull uses 'limboView', so
+-- the other screen retreats to the first empty workspace rather than taking
+-- our old workspace (swapping only when no empty one exists); for a hidden
+-- workspace this is just greedyView, i.e. bring it here.
+focusWindowHere :: Window -> WindowSet -> WindowSet
+focusWindowHere w ws =
+    maybe ws (\t -> W.focusWindow w (limboView t ws)) (W.findTag w ws)
+
+-- | Switch to the selected window's workspace and focus it.  If that workspace
+-- is visible on another monitor, it is pulled onto the current monitor and the
+-- other monitor falls back to an empty workspace (limboView semantics).
 goToSelectedColumns :: GSConfig Window -> [WorkspaceId] -> X ()
 goToSelectedColumns conf order =
-    gridselectWindowColumns conf order >>= flip whenJust (windows . W.focusWindow)
+    gridselectWindowColumns conf order >>= flip whenJust (windows . focusWindowHere)
 
 -- | Bring the selected window to the current workspace and focus it.
 bringSelectedColumns :: GSConfig Window -> [WorkspaceId] -> X ()

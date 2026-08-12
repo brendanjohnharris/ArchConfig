@@ -101,6 +101,7 @@ import XMonad.Util.Cursor
 import Colors.Fathom
 import Colors.FathomColors (qinghai, bermejo, baikal, chernoe_light)  -- raw palette: green / red / blue / dark-grey
 import GridSelectColumns (goToSelectedColumns, bringSelectedColumns)  -- one column per workspace
+import LimboView (limboView)  -- greedyView without the two-monitor workspace swap
 
 myHiddenWorkspace = filterOutWs ["NSP"]
 
@@ -323,8 +324,13 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.9
                  t = 0.95 -h
                  l = 0.95 -w
-    spawnNote  = myTerminal ++ " -t notepad -e tnote -a"
-    findNote   = title =? "notepad"
+    -- ghostwriter is the GUI markdown scratchpad (M-s n).  It opens a standing
+    -- scratch note inside the Obsidian vault so jottings stay indexed there;
+    -- C-S-s saves a copy to any other location.  Qt apps report their WM_CLASS
+    -- as either the plain binary name or the KDE app id, so match both
+    -- (verify post-install: xprop WM_CLASS).
+    spawnNote  = "ghostwriter ~/Notebook/scratch.md"
+    findNote   = className =? "ghostwriter" <||> className =? "org.kde.ghostwriter"
     manageNote = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
@@ -655,8 +661,8 @@ singleKeys =
         , ("M-S-<Return>", spawn (myTerminal))
         , ("M-b", spawn (myBrowser)) -- , ("M-b", spawn (myBrowser) >> moveTo Prev (WSIs $ return (('w' `elem`) . W.tag)))
         , ("M-S-f", spawn "nemo --name=files --class=files")
-        , ("M-<Print>", spawn "flameshot gui")
-        , ("M-S-<Print>", spawn "TMPFILE=/tmp/$RANDOM.png; flameshot gui -p $TMPFILE; pix2tex $TMPFILE | xclip; notify-send 'Copied LaTeX to clipboard'")
+        , ("M-<Print>", spawn "QT_QPA_PLATFORM=xcb flameshot gui")
+        , ("M-S-<Print>", spawn "TMPFILE=/tmp/$RANDOM.png; QT_QPA_PLATFORM=xcb flameshot gui -p $TMPFILE; pix2tex $TMPFILE | xclip; notify-send 'Copied LaTeX to clipboard'")
         , ("M-d", spawn "downloadbibinfo")
         , ("M-S-d", spawn "downloadpaper")
 
@@ -821,8 +827,17 @@ singleKeys =
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
 -- END_KEYS
 
+-- Workspace switching (M-1..9), overriding the default greedyView bindings:
+-- pulling a workspace that is on the other monitor no longer swaps -- the other
+-- monitor retreats to the first empty workspace instead (see LimboView; falls
+-- back to the swap when no workspace is empty).
+workspaceKeys :: [(String, X ())]
+workspaceKeys =
+    [ ("M-" ++ show i, windows $ limboView ws)
+    | (i, ws) <- zip [1 .. 9 :: Int] myWorkspaces ]
+
 myKeys :: [(String, X ())]
-myKeys = singleKeys ++ indexKeys
+myKeys = singleKeys ++ indexKeys ++ workspaceKeys
 
 -- Mouse: Mod+Shift+drag picks up a *tiled* window and drops it into a new slot
 -- in the layout (paired with draggingVisualizer for the live preview rectangle).
