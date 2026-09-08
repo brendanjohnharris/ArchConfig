@@ -33,7 +33,7 @@ themes {
         yellow "{{seohae}}"
         blue   "{{baikal}}"
         magenta "{{ianthina}}"
-        cyan   "{{mesopelagic}}"
+        cyan   "{{glas}}"
         white  "{{playa}}"
         orange "{{epipelagic}}"
     }

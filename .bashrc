@@ -37,6 +37,9 @@ export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 # Make local binaries available
 export PATH="$HOME/.local/bin:$PATH"
 
+# * Add claude toggle to path
+export PATH="$HOME/claude-toggle:$PATH"
+
 # Add TeXLive to path
 export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
 

@@ -52,6 +52,12 @@ seohae:
   light: "#FFCE79"
   lighter: "#FFF4B6"
   dark: "#DE8800"
+glas:
+  base: "#4D9393"
+  darker: "#005959"
+  light: "#7AB0AF"
+  lighter: "#A5CDCC"
+  dark: "#2B7575"
 baikal:
   base: "#6EA0F9"
   darker: "#3262BA"

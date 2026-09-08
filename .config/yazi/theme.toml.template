@@ -85,7 +85,7 @@ hovered = { fg = "{{ianthina}}", underline = true }
 
 [which]
 mask            = { bg = "{{chernoe_dark}}" }
-cand            = { fg = "{{mesopelagic_light}}" }
+cand            = { fg = "{{glas}}" }
 rest            = { fg = "{{abyad_dark}}" }
 desc            = { fg = "{{ianthina}}" }
 separator       = "  "
@@ -93,7 +93,7 @@ separator_style = { fg = "{{chernoe_lighter}}" }
 
 [help]
 on      = { fg = "{{ianthina}}" }
-run     = { fg = "{{mesopelagic_light}}" }
+run     = { fg = "{{glas}}" }
 desc    = { fg = "{{abyad_light}}" }
 hovered = { bg = "{{chernoe_light}}", bold = true }
 footer  = { fg = "{{chernoe}}", bg = "{{abyad_light}}" }

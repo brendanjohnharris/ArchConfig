@@ -98,8 +98,8 @@ Sxiv.font: Ubuntu:style=bold:size=11
 *.color13:      {{ianthina_light}}
 
 ! cyan
-*.color6:       {{mesopelagic}}
-*.color14:      {{mesopelagic_light}}
+*.color6:       {{glas}}
+*.color14:      {{glas_light}}
 
 ! white
 *.color7:       {{abyad}}

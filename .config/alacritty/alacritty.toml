@@ -4,7 +4,7 @@ draw_bold_text_with_bright_colors = false
 [colors.bright]
 white = "#42464D"
 blue = "#98C1FF"
-cyan = "#4D9393"
+cyan = "#7AB0AF"
 green = "#AEDA97"
 magenta = "#D3A1EC"
 red = "#FF787E"
@@ -18,7 +18,7 @@ text = "CellBackground"
 [colors.normal]
 white = "#959595"
 blue = "#6EA0F9"
-cyan = "#007878"
+cyan = "#4D9393"
 green = "#88BD69"
 magenta = "#B97AD7"
 red = "#F93D53"

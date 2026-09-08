@@ -665,7 +665,7 @@
     </group>
     <group
        id="save_as"
-       default="org.inkscape.output.pdf.cairorenderer"
+       default="org.inkscape.output.svg.inkscape"
        append_extension="1"
        enable_preview="1"
        path="/home/brendan/Notebook/Admin/Applications/McKenzie/EOI"

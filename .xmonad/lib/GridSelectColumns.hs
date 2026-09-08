@@ -183,8 +183,8 @@ columnColors =
   , (C.qinghai,     C.qinghai_lighter)
   , (C.seohae,      C.seohae_lighter)
   , (C.ianthina,    C.ianthina_lighter)
+  , (C.glas,        C.glas_lighter)
   , (C.abyad,       C.abyad_lighter)
-  , (C.mesopelagic, C.mesopelagic_lighter)
   ]
 
 -- Depth gradient: the ocean's pelagic zones, shallow (top of stack) -> deep.

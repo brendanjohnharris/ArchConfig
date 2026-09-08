@@ -4,4 +4,4 @@ SETUVAR --export CRYPTOGRAPHY_OPENSSL_NO_LEGACY:1
 SETUVAR __fish_initialized:4300
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:/home/brendan/\x2econfig/fish/functions/fisher\x2efish\x1e/home/brendan/\x2econfig/fish/completions/fisher\x2efish
 SETUVAR _fisher_plugins:jorgebucaran/fisher
-SETUVAR fish_user_paths:/home/brendan/\x2elocal/share/gem/ruby/3\x2e3\x2e0/bin\x1e/usr/local/texlive/2024/bin/x86_64\x2dlinux\x1e
+SETUVAR fish_user_paths:/home/brendan/claude\x2dtoggle\x1e/home/brendan/\x2ejulia/bin\x1e/home/brendan/\x2ejuliaup/bin\x1e/home/brendan/\x2elocal/share/gem/ruby/3\x2e3\x2e0/bin\x1e/usr/local/texlive/2024/bin/x86_64\x2dlinux\x1e

@@ -98,8 +98,8 @@ Sxiv.font: Ubuntu:style=bold:size=11
 *.color13:      #D3A1EC
 
 ! cyan
-*.color6:       #007878
-*.color14:      #4D9393
+*.color6:       #4D9393
+*.color14:      #7AB0AF
 
 ! white
 *.color7:       #B4B4B4
