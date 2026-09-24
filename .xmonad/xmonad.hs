@@ -233,7 +233,7 @@ myStartupHook = do
     spawnOnce "xinput --set-prop 'TPPS/2 Elan TrackPoint' 'libinput Accel Speed' -0.5"
     spawnOnce "xrandr --output 'eDP-1' --primary"
 
-    spawnOnce "feh --recursive --randomize --bg-fill $HOME/.wallpapers/"
+    spawnOnce "feh --recursive --randomize --bg-fill $HOME/Wallpapers/"
 
     spawn "killall skippy-xd; skippy-xd --start-daemon &"
 
@@ -636,11 +636,11 @@ singleKeys :: [(String, X ())]
 singleKeys =
     -- KB_GROUP Xmonad
         [ ("M-C-r", spawn "xmonad --recompile")       -- Recompiles xmonad
-        , ("M-S-r", spawn "xmonad --restart; feh --recursive --randomize --bg-fill $HOME/.wallpapers/")         -- Restarts xmonad
+        , ("M-S-r", spawn "xmonad --restart; feh --recursive --randomize --bg-fill $HOME/Wallpapers/")         -- Restarts xmonad
         , ("M-S-q", io exitSuccess)                   -- Quits xmonad
         , ("M-S-p t", spawn "~/.local/bin/transparenton") -- Set picom to transparent
         , ("M-S-p o", spawn "~/.local/bin/transparentoff") -- Set picom to opaque
-        , ("M-S-b", spawn "feh --recursive --randomize --bg-fill $HOME/.wallpapers/") -- Changes backgroundB
+        , ("M-S-b", spawn "feh --recursive --randomize --bg-fill $HOME/Wallpapers/") -- Changes background
         , ("M-C-0", spawn "~/.local/bin/singlemonitor")
         , ("M-C-1", spawn "~/.local/bin/docked")
         , ("M-C-2", spawn "~/.local/bin/doubledocked")

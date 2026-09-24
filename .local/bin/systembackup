@@ -107,7 +107,6 @@ if [ -d "$HOME/" ]; then
 		--exclude="/**/node_modules/" \
 		--exclude="/Downloads/" \
 		--exclude="/ArchConfig/" \
-		--filter="+ /.wallpapers/**" \
 		--exclude="/.*/"
 fi
 
