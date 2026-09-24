@@ -6,7 +6,7 @@ localhost). Runs in ~/kokoro-env on legion as the systemd user service
 kokoro-tts.service.
 
 Endpoints:
-  GET  /health       -> {"status": "ok", "voices": [...]}
+  GET  /health       -> {"status": "ok", "voices": [...], "gpu_mb": {...}}
   POST /tts/stream   -> raw s16le mono 24 kHz PCM, streamed per sentence
   POST /tts          -> the same audio as a complete WAV file
 
@@ -16,8 +16,18 @@ Endpoints:
 Kokoro-82M replaced Orpheus (3B, sampled token by token): Kokoro's voice is
 a fixed style vector, so it sounds the same in every chunk, and on the RTX
 3070 it synthesises ~80x faster than real time (Orpheus managed ~1x).
+
+GPU memory: the 8 GB card is shared with Marker (the narrator skill's PDF
+conversion, ~2.6 GB), so PyTorch's allocator is capped at MAX_GPU_GB and
+its cache is emptied after every request. Inference peaks at ~1.1 GB
+allocated (long inputs are split into bounded chunks); with the CUDA context
+the process stays under ~2 GB, ~0.8 GB when idle. Without this it kept
+~3.2 GB cached.
 """
 import io
+import os
+
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")  # before torch loads
 import threading
 import wave
 
@@ -29,6 +39,7 @@ from kokoro import KPipeline
 from pydantic import BaseModel
 
 SAMPLE_RATE = 24_000
+MAX_GPU_GB = float(os.environ.get("KOKORO_MAX_GPU_GB", "1.5"))
 # American (a*) and British (b*) English voices; af_heart rates best.
 VOICES = [
     "af_heart", "af_bella", "af_nicole", "af_aoede", "af_kore", "af_sarah", "af_nova", "af_sky",
@@ -37,11 +48,14 @@ VOICES = [
     "bf_lily", "bm_george", "bm_fable", "bm_lewis", "bm_daniel",
 ]
 
+torch.cuda.set_per_process_memory_fraction(
+    min(1.0, MAX_GPU_GB * 2**30 / torch.cuda.get_device_properties(0).total_memory))
 print("Loading Kokoro...", flush=True)
 PIPELINE = KPipeline(lang_code="a", repo_id="hexgrad/Kokoro-82M", device="cuda")
 LOCK = threading.Lock()  # one model instance; keep inference serial
 for _ in PIPELINE("Warming up.", voice="af_heart"):  # first call is ~5 s (CUDA init)
     pass
+torch.cuda.empty_cache()
 print("Kokoro ready.", flush=True)
 
 app = FastAPI()
@@ -73,15 +87,21 @@ class TTSRequest(BaseModel):
 
 def _pcm_stream(req):
     with LOCK, torch.inference_mode():
-        for result in PIPELINE(req.text, voice=_resolve_voice(req.voice), speed=req.speed):
-            audio = result.audio.cpu().numpy() if result.audio is not None else None
-            if audio is not None and len(audio):
-                yield (np.clip(audio, -1, 1) * 32767).astype(np.int16).tobytes()
+        try:
+            for result in PIPELINE(req.text, voice=_resolve_voice(req.voice), speed=req.speed):
+                audio = result.audio.cpu().numpy() if result.audio is not None else None
+                if audio is not None and len(audio):
+                    yield (np.clip(audio, -1, 1) * 32767).astype(np.int16).tobytes()
+        finally:
+            torch.cuda.empty_cache()  # give the cache back (see the module docstring)
 
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "voices": VOICES}
+    mb = lambda n: round(n / 2**20)
+    return {"status": "ok", "voices": VOICES, "gpu_mb": {
+        "allocated": mb(torch.cuda.memory_allocated()), "reserved": mb(torch.cuda.memory_reserved()),
+        "peak_allocated": mb(torch.cuda.max_memory_allocated()), "cap": mb(MAX_GPU_GB * 2**30)}}
 
 
 @app.post("/tts/stream")
