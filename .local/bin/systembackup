@@ -107,7 +107,8 @@ if [ -d "$HOME/" ]; then
 		--exclude="/**/node_modules/" \
 		--exclude="/Downloads/" \
 		--exclude="/ArchConfig/" \
-        --exclude="/.*/"
+		--filter="+ /.wallpapers/**" \
+		--exclude="/.*/"
 fi
 
 # * If the onedrive backup drive is mounted, sync it
