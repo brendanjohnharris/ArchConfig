@@ -1,0 +1,11 @@
+[Unit]
+Description=Kokoro TTS server for Claude Code voice replies
+
+[Service]
+ExecStart=/home/brendan/kokoro-env/bin/python -m uvicorn kokoro_server:app --host 127.0.0.1 --port 8767
+WorkingDirectory=/home/brendan
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

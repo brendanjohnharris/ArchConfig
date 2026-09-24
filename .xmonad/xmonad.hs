@@ -770,13 +770,13 @@ singleKeys =
         , ("M-M1-t", namedScratchpadAction myScratchPads "terminal")
         , ("M-s n", namedScratchpadAction myScratchPads "notepad")
         , ("M-s m", namedScratchpadAction myScratchPads "music")
-        , ("M-s c", namedScratchpadAction myScratchPads "calculator")
+        , ("M-s l", namedScratchpadAction myScratchPads "calculator")
         , ("M-s b", namedScratchpadAction myScratchPads "browser")
         , ("M-s e", namedScratchpadAction myScratchPads "emoji")
         , ("M-s p", namedScratchpadAction myScratchPads "peek")
         , ("M-s f", namedScratchpadAction myScratchPads "files")
         , ("M-s r", namedScratchpadAction myScratchPads "reader")
-        , ("M-s l", namedScratchpadAction myScratchPads "ai")
+        , ("M-s c", namedScratchpadAction myScratchPads "ai")
         -- Arbitrary scratchpad with XMonad.Util.WindowState?
 
     -- Dunst (notification) controls

@@ -21,6 +21,33 @@ check_file_name() {
         counter=$((counter+1))
     done
 }
+# Crossref keeps an e-locator in `article-number`, but the DOI content
+# negotiation below maps only `page` to `pages`. Journals that number articles
+# instead of paginating them (APS, Nature Communications, eLife, PNAS,
+# Frontiers, Scientific Reports) therefore arrive with no pages at all. Fetch
+# the locator separately and add it.
+crossref_pages() {
+    local doi="$1"
+    local json value
+    json=`curl -s --max-time 10 "https://api.crossref.org/works/$doi"`
+    if [ -z "$json" ]; then
+        return 1
+    fi
+    value=`echo "$json" | grep -oP '"page"\s*:\s*"\K[^"]+' | head -1`
+    if [ -z "$value" ]; then
+        value=`echo "$json" | grep -oP '"article-number"\s*:\s*"\K[^"]+' | head -1`
+    fi
+    if [ -z "$value" ]; then
+        return 1
+    fi
+    # a plain hyphen in a range becomes a BibTeX en dash
+    case "$value" in
+        *-*-*) ;;
+        *-*) value=`echo "$value" | sed 's/-/--/'` ;;
+    esac
+    echo "$value"
+}
+
 CHK=`pip list | grep scidownl`
 if [ -z "$CHK" ]; then 
     pip install -U scidownl
@@ -42,6 +69,16 @@ BIB=`timeout 5 curl -LH "Accept: text/bibliography; style=bibtex" $URL`
 if [ -z "$BIB" ]; then
     exit 1
 fi
+PAGES=""
+if ! echo "$BIB" | grep -qE 'pages[[:space:]]*='; then
+    ARTNO=`crossref_pages "$DOI"`
+    if [ -n "$ARTNO" ]; then
+        PAGES=", pages={$ARTNO}"
+        notify-send "Added pages $ARTNO from Crossref"
+    else
+        notify-send "No page range or article number found for $DOI"
+    fi
+fi
 AUTHOR=`echo $BIB | grep -oP '(?<=(author={)).*?(?=,)'`
 YEAR=`echo $BIB | grep -oP '(?<=(year={)).*?(?=})'`
 TITLE=`echo $BIB | grep -oP '(?<=(title={)).*?(?=})'`
@@ -49,7 +86,7 @@ KEY="$AUTHOR$YEAR"
 KEY=`echo $KEY | sed 's/[\<\>\:\"\/\\\|\?\*]*//g'`
 FILE=$(check_file_name "$KEY")  # Update the FILE variable with a unique name.
 tmpBIB="${BIB:1:-1}"
-IMPORT="$tmpBIB, file={:$FILE:PDF},}"
+IMPORT="$tmpBIB$PAGES, file={:$FILE:PDF},}"
 notify-send "Retrieved info"
 if [ -z "$BIB" ]; then
     notify-send "Entry exists in database"
@@ -61,7 +98,7 @@ else
         scidownl download --doi "$URL" --out "$DIR$FILE"
         if [ ! -f "$DIR$FILE" ]; then
             notify-send "Could not download $DOI"
-            IMPORT="$tmpBIB}" # Fix...
+            IMPORT="$tmpBIB$PAGES}" # Fix...
         fi
     fi
     notify-send "Importing $DOI"

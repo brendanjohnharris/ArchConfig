@@ -150,6 +150,37 @@ fetch_citation() {
     fi
 }
 
+# Fetch a page range or article number from Crossref.
+#
+# Citation sources (DOI content negotiation, and onecite) map only Crossref's
+# `page` field to `pages`. Journals that number articles instead of paginating
+# them -- APS, Nature Communications, eLife, PNAS, Frontiers, Scientific
+# Reports -- keep the locator in `article-number`, so those entries arrive with
+# no pages at all.
+crossref_pages() {
+    local doi="$1"
+    local json value
+
+    json=$(curl -fsSL --max-time 15 "https://api.crossref.org/works/${doi}" 2>/dev/null) || {
+        warn "Crossref lookup failed for DOI: $doi"
+        return 1
+    }
+
+    value=$(echo "$json" | grep -oP '"page"\s*:\s*"\K[^"]+' | head -1 || true)
+    if [[ -z "$value" ]]; then
+        value=$(echo "$json" | grep -oP '"article-number"\s*:\s*"\K[^"]+' | head -1 || true)
+    fi
+    if [[ -z "$value" ]]; then
+        return 1
+    fi
+
+    # a plain hyphen in a range becomes a BibTeX en dash
+    if [[ "$value" =~ ^[^-]+-[^-]+$ ]]; then
+        value="${value/-/--}"
+    fi
+    echo "$value"
+}
+
 # Query Unpaywall for an open-access PDF URL
 unpaywall_pdf_url() {
     local doi="$1"
@@ -337,6 +368,19 @@ main() {
     # If input was a DOI directly, use that
     if [[ -z "$doi" && "$input_type" == "DOI" ]]; then
         doi="$input"
+    fi
+
+    # Add pages when the citation source omitted them (article-number journals)
+    if [[ -n "$doi" ]] && ! grep -qiE '^[[:space:]]*pages[[:space:]]*=' <<< "$bib"; then
+        local pages
+        pages=$(crossref_pages "$doi") || true
+        if [[ -n "${pages:-}" ]]; then
+            bib="${bib%\}}"
+            bib+="  pages = \"${pages}\","$'\n'"}"
+            info "Added pages from Crossref: $pages"
+        else
+            warn "No page range or article number in Crossref for DOI: $doi"
+        fi
     fi
 
     # Add file field to BibTeX if PDF was downloaded
