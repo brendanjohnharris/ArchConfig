@@ -31,8 +31,10 @@ How it fits together:
      fails, a regex conversion (MessageReader) is used instead.
   2. synthesise: each paragraph is one request to Kokoro-82M on legion's GPU
      (see kokoro_server.py next to this file), ~80x faster than real time,
-     so synthesis never holds up playback.
-  3. play: one persistent `pacat` stream.
+     so synthesis never holds up playback. On legion itself it is a local
+     request, without ssh.
+  3. play: one persistent `pacat` stream; to the narrator radio's sink
+     instead of the speakers while the radio is on.
 * If legion fails, the paragraph is spoken with local Piper and legion is
   skipped for LEGION_RETRY_SECS.
 """
@@ -42,6 +44,7 @@ import os
 import re
 import select
 import signal
+import socket
 import subprocess
 import sys
 import threading
@@ -64,6 +67,7 @@ SSH_OPTS = [
     "-o", "ControlPersist=10m",
     "-o", "ControlPath=~/.ssh/cm-voice-%r@%h:%p",
 ]
+ON_LEGION = socket.gethostname().split(".")[0] == LEGION_HOST  # then Kokoro is local: no ssh
 PIPER_BIN = Path.home() / ".local/share/piper/bin/piper"
 PIPER_VOICE = Path.home() / ".local/share/piper/voices/en_US-lessac-medium.onnx"
 PIPER_RATE = 22_050
@@ -110,6 +114,8 @@ DAEMON_PID = RUN_DIR / "daemon.pid"
 LEGION_DOWN = RUN_DIR / "legion-down-until"
 LOG = RUN_DIR / "voice.log"
 ENABLED = RUN_DIR / "enabled"  # one empty file per session with voice switched on
+RADIO_FILE = RUN_DIR / "radio.json"  # present while the narrator radio is on (narrator/radio.py)
+RADIO_SINK = "narrator_radio"
 
 
 def log(msg):
@@ -368,12 +374,18 @@ def load_settings():
     return {"voice": saved.get("voice") or DEFAULT_VOICE, "speed": float(saved.get("speed") or DEFAULT_SPEED)}
 
 
+def pacat_target():
+    """pacat arguments for Claude Code's audio: while the narrator radio is on,
+    everything goes to its sink and nothing plays on this machine."""
+    return [f"--device={RADIO_SINK}"] if RADIO_FILE.exists() else []
+
+
 def synth_kokoro(text, settings=None):
     payload = json.dumps({"text": text, **(settings or load_settings())}).encode()
+    curl = (f"curl -sfN --max-time {TOTAL_TIMEOUT} -X POST http://127.0.0.1:{LEGION_PORT}/tts/stream "
+            "-H 'Content-Type: application/json' --data-binary @-")
     proc = subprocess.Popen(
-        ["ssh", *SSH_OPTS, LEGION_HOST,
-         f"curl -sfN --max-time {TOTAL_TIMEOUT} -X POST http://127.0.0.1:{LEGION_PORT}/tts/stream "
-         "-H 'Content-Type: application/json' --data-binary @-"],
+        ["sh", "-c", curl] if ON_LEGION else ["ssh", *SSH_OPTS, LEGION_HOST, curl],
         stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
     )
     proc.stdin.write(payload)
@@ -535,7 +547,7 @@ class Speaker:
             self.play_end = max(now, self.play_end) + duration
             if self.pacat is None or self.pacat.poll() is not None:
                 self.pacat = subprocess.Popen(
-                    ["pacat", "--raw", "--format=s16le", f"--rate={RATE}", "--channels=1",
+                    ["pacat", "--raw", "--format=s16le", f"--rate={RATE}", "--channels=1", *pacat_target(),
                      "--client-name=Claude Code", "--stream-name=voice reply"],
                     stdin=subprocess.PIPE, stderr=subprocess.DEVNULL,
                 )
